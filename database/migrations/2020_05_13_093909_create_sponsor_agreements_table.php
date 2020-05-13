@@ -21,6 +21,7 @@ class CreateSponsorAgreementsTable extends Migration
 			$table->dateTime('agreement_end');
 			$table->tinyInteger('signage_area');
 			$table->enum('payment_status', ['PENDING', 'PAID', 'OVERDUE', 'DENIED']);
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('sponsor_id')->references('id')->on('sponsors')->onDelete('cascade');

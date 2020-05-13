@@ -19,6 +19,7 @@ class CreateAnimalsTable extends Migration
 			$table->char('sponsorship_band_id', 1)->nullable();
 			$table->unsignedBigInteger('habitat_id')->nullable();
 			$table->unsignedBigInteger('educational_info_id')->nullable();
+			$table->unsignedBigInteger('agreement_signage_id')->nullable();
 			$table->string('species', 45);
 			$table->enum('type', ['MAMMAL', 'REPTILE', 'FISH', 'BIRD']);
 			$table->string('name', 45);
@@ -28,12 +29,14 @@ class CreateAnimalsTable extends Migration
 			$table->tinyInteger('life_span');
 			$table->unsignedDecimal('height_joined', 4);
 			$table->unsignedDecimal('weight_joined', 6);
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
 			$table->foreign('sponsorship_band_id')->references('id')->on('sponsorship_bands')->onDelete('set null');
 			$table->foreign('habitat_id')->references('id')->on('animal_habitats')->onDelete('set null');
 			$table->foreign('educational_info_id')->references('id')->on('educational_infos')->onDelete('set null');
+			$table->foreign('agreement_signage_id')->references('id')->on('agreement_signages')->onDelete('set null');
         });
     }
 

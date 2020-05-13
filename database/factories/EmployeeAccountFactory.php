@@ -7,12 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(EmployeeAccount::class, function (Faker $faker) {
     return [
-        'employee_id' => factory(App\Employee::class)->create([
-        	'zoo_id' => 1,
-			'first_name' => $faker->firstName,
-			'last_name' => $faker->lastName,
-			'role' => $faker->jobTitle
-		])->id,
+        'employee_id' => factory(App\Employee::class)->create()->id,
 		'account_type' => 'ADMIN',
 		'username' => $faker->userName,
 		'password' => bcrypt('test'),

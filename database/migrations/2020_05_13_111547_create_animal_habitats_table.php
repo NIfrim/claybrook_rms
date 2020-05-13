@@ -17,6 +17,7 @@ class CreateAnimalHabitatsTable extends Migration
             $table->id()->autoIncrement();
             $table->string('name', 45);
 			$table->text('description');
+			$table->timestamps();
         });
     }
 

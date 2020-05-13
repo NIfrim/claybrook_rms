@@ -19,6 +19,7 @@ class CreateFishTable extends Migration
 			$table->unsignedDecimal('average_body_temperature', 4);
 			$table->string('water_type', 45);
 			$table->string('colour', 45);
+			$table->timestamps();
 	
 			// Constraints
 			$table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');

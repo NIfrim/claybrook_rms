@@ -13,7 +13,7 @@ class CreateAgreementSignageTable extends Migration
      */
     public function up()
     {
-        Schema::create('agreement_signage', function (Blueprint $table) {
+        Schema::create('agreement_signages', function (Blueprint $table) {
             $table->id()->autoIncrement();
 			$table->unsignedBigInteger('animal_id');
 			$table->unsignedBigInteger('agreement_id');
@@ -34,6 +34,6 @@ class CreateAgreementSignageTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('signages');
+        Schema::dropIfExists('agreement_signages');
     }
 }

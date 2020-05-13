@@ -21,6 +21,7 @@ class CreateEducationalInfosTable extends Migration
 			$table->unsignedDecimal('min_weight', 6);
 			$table->unsignedDecimal('max_weight', 6);
 			$table->unsignedInteger('population');
+			$table->timestamps();
         });
     }
 

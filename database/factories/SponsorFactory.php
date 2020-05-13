@@ -12,7 +12,9 @@ $factory->define(Sponsor::class, function (Faker $faker) {
 		'last_name' => $faker->lastName,
 		'title' => $faker->title,
 		'job' => $faker->jobTitle,
-		'primary_contact_number' => $faker->unique()->phoneNumber,
+		'email' => $faker->unique()->safeEmail,
+		'password' => bcrypt('test'),
+		'primary_contact_number' => $faker->unique()->e164PhoneNumber,
 		'address' => [
 			'home' => [
 				'building_number' => $faker->buildingNumber,

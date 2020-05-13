@@ -16,6 +16,7 @@ class CreateAnimalFeedsTable extends Migration
         Schema::create('animal_feeds', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('name', 45);
+            $table->timestamps();
         });
     }
 

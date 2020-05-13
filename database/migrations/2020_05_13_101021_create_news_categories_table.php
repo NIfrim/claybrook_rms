@@ -17,6 +17,7 @@ class CreateNewsCategoriesTable extends Migration
 			$table->id()->autoIncrement();
 			$table->text('short_description');
 			$table->string('image_name', 45);
+			$table->timestamps();
         });
     }
 

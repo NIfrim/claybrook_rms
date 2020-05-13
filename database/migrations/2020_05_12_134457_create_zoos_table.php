@@ -19,6 +19,7 @@ class CreateZoosTable extends Migration
             $table->json('address');
 			$table->json('contact_details');
 			$table->json('maps')->nullable();
+			$table->timestamps();
         });
     }
 

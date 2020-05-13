@@ -24,6 +24,7 @@ class CreateNewsTable extends Migration
 			$table->text('short_description');
 			$table->text('long_description');
 			$table->json('images');
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('zoo_id')->references('id')->on('zoos')->onDelete('cascade');

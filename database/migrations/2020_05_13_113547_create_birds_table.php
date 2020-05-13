@@ -21,6 +21,7 @@ class CreateBirdsTable extends Migration
 			$table->unsignedSmallInteger('wingspan');
 			$table->char('can_fly', 1);
 			$table->string('plumage', 45);
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');

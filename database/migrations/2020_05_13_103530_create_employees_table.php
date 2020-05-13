@@ -19,6 +19,7 @@ class CreateEmployeesTable extends Migration
 			$table->string('first_name', 45);
 			$table->string('last_name', 45);
 			$table->string('role', 45);
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('zoo_id')->references('id')->on('zoos')->onDelete('cascade');

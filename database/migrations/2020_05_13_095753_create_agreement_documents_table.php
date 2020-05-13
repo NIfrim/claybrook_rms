@@ -15,9 +15,10 @@ class CreateAgreementDocumentsTable extends Migration
     {
         Schema::create('agreement_documents', function (Blueprint $table) {
             $table->id()->autoIncrement();
-			$table->unsignedBigInteger('sponsor_agreement_id');
+			$table->unsignedBigInteger('agreement_id');
             $table->string('file_name', 45);
 			$table->json('meta');
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('sponsor_agreement_id')->references('id')->on('sponsor_agreements')->onDelete('cascade');

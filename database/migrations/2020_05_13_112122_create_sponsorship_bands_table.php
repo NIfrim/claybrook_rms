@@ -17,6 +17,7 @@ class CreateSponsorshipBandsTable extends Migration
             $table->char('id', 1)->unique()->primary();
             $table->unsignedSmallInteger('price');
 			$table->unsignedTinyInteger('duration')->default(12);
+			$table->timestamps();
         });
     }
 

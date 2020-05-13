@@ -18,6 +18,7 @@ class CreateAnimalDietsTable extends Migration
             $table->string('animal_id', 45);
 			$table->text('description');
 			$table->text('notes');
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');

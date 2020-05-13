@@ -19,6 +19,7 @@ class CreateMammalsTable extends Migration
 			$table->string('gestational_period', 45);
 			$table->string('category', 45);
 			$table->unsignedTinyInteger('offspring_number');
+			$table->timestamps();
 	
 			// Constraints
 			$table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');

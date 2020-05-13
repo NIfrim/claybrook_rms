@@ -19,6 +19,7 @@ class CreatePaymentDetailsTable extends Migration
 			$table->string('bank', 45);
 			$table->string('sort_code', 8);
 			$table->string('account_number', 10);
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('sponsor_id')->references('id')->on('sponsors')->onDelete('cascade');

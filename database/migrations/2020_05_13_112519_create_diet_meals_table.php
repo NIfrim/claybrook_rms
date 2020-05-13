@@ -21,6 +21,7 @@ class CreateDietMealsTable extends Migration
 			$table->text('notes');
 			$table->unsignedSmallInteger('quantity');
 			$table->json('days');
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('diet_id')->references('id')->on('animal_diets')->onDelete('cascade');

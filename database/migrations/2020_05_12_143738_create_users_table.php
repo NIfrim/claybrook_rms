@@ -18,10 +18,11 @@ class CreateUsersTable extends Migration
 			$table->unsignedBigInteger('zoo_id');
 			$table->string('first_name', 45);
 			$table->string('last_name', 45);
-			$table->string('email', 45);
+			$table->string('email', 45)->unique();
 			$table->timestamp('registered');
 			$table->date('dob');
-			$table->string('password', 45);
+			$table->string('password', 255);
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('zoo_id')->references('id')->on('zoos')->onDelete('cascade');

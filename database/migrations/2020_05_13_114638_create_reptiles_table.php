@@ -19,6 +19,7 @@ class CreateReptilesTable extends Migration
 			$table->enum('reproduction_type', ['LIVE_BEARER', 'EGG_LAYER']);
 			$table->unsignedTinyInteger('clutch_size');
 			$table->unsignedSmallInteger('offspring_number');
+			$table->timestamps();
 	
 			// Constraints
 			$table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');

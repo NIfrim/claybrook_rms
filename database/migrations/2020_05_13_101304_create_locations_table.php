@@ -21,6 +21,7 @@ class CreateLocationsTable extends Migration
 			$table->tinyInteger('vacant');
 			$table->unsignedSmallInteger('surface_area');
 			$table->text('description');
+			$table->timestamps();
 			
 			// Constraints
 			$table->foreign('zoo_id')->references('id')->on('zoos')->onDelete('cascade');

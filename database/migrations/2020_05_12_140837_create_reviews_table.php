@@ -22,7 +22,8 @@ class CreateReviewsTable extends Migration
             $table->text('title');
 			$table->text('review');
 			$table->unsignedTinyInteger('reaction');
-            $table->timestamp('posted');
+            $table->dateTime('posted');
+            $table->timestamps();
             
             // Constraints
             $table->foreign('zoo_id')->references('id')->on('zoos')->onDelete('cascade');
