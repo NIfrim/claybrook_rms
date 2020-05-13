@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Event;
+use App\Location;
 use Faker\Generator as Faker;
 
-$factory->define(Event::class, function (Faker $faker) {
+$factory->define(Location::class, function (Faker $faker) {
     return [
         //
     ];
