@@ -28,4 +28,8 @@ class Animal extends Model
 	public function sponsorshipBand() {
 		return $this->belongsTo('App\SponsorshipBand');
 	}
+	
+	public function sponsorSignage() {
+		return $this->belongsTo('App\AgreementSignage');
+	}
 }

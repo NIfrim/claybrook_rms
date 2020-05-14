@@ -4,16 +4,17 @@
 
 use App\Sponsor;
 use Faker\Generator as Faker;
-
-$factory->define(Sponsor::class, function (Faker $faker) {
+	use Illuminate\Support\Facades\Hash;
+	
+	$factory->define(Sponsor::class, function (Faker $faker) {
     return [
     	'zoo_id' => 1,
     	'first_name' => $faker->firstName,
 		'last_name' => $faker->lastName,
 		'title' => $faker->title,
-		'job' => $faker->jobTitle,
+		'job_title' => $faker->jobTitle,
 		'email' => $faker->unique()->safeEmail,
-		'password' => bcrypt('test'),
+		'password' => Hash::make('password'),
 		'primary_contact_number' => $faker->unique()->e164PhoneNumber,
 		'address' => [
 			'home' => [

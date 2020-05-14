@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class AgreementSignage extends Model
 {
-	public function animal() {
-		return $this->hasMany('App\AgreementSignage');
+    public function animals() {
+    	return $this->hasMany('App\Animal');
 	}
 	
-	public function agreement() {
-		return $this->belongsTo('App\SponsorAgreement', 'agreement_id');
+	public function sponsorAgreement() {
+    	return $this->belongsTo('App\SponsorAgreement', 'agreement_id');
 	}
 }

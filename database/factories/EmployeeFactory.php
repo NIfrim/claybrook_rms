@@ -4,12 +4,17 @@
 
 use App\Employee;
 use Faker\Generator as Faker;
-
-$factory->define(Employee::class, function (Faker $faker) {
+	use Illuminate\Support\Facades\Hash;
+	
+	$factory->define(Employee::class, function (Faker $faker) {
 	return [
 		'zoo_id' => 1,
+		'account_type_id' => 'Admin',
+		'email' => $faker->unique()->safeEmail,
+		'password' => Hash::make('password'),
+		'title' => $faker->title,
 		'first_name' => $faker->firstName,
 		'last_name' => $faker->lastName,
-		'role' => $faker->jobTitle
+		'job_title' => $faker->jobTitle
 	];
 });

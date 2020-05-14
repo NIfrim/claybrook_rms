@@ -46,6 +46,21 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+		'admin' => [
+			'driver' => 'session',
+			'provider' => 'admins',
+		],
+
+		'sponsor' => [
+			'driver' => 'session',
+			'provider' => 'sponsors',
+		],
+
+		'user' => [
+			'driver' => 'session',
+			'provider' => 'users',
+		],
     ],
 
     /*
@@ -70,6 +85,16 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+
+		'admins' => [
+			'driver' => 'eloquent',
+			'model' => App\Employee::class,
+		],
+
+		'sponsors' => [
+			'driver' => 'eloquent',
+			'model' => App\Sponsor::class,
+		],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -99,6 +124,13 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+		'sponsors' => [
+			'provider' => 'sponsors',
+			'table' => 'password_resets',
+			'expire' => 60,
+			'throttle' => 60,
+		],
     ],
 
     /*

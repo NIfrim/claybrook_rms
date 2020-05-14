@@ -2,10 +2,33 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
+	use Notifiable;
+	
+	protected $guard = 'user';
+	
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'first_name', 'last_name', 'email', 'password'
+	];
+	
+	/**
+	 * The attributes that should be hidden for arrays.
+	 *
+	 * @var array
+	 */
+	protected $hidden = [
+		'password', 'remember_token'
+	];
+	
 	public function zoo() {
 		return $this->belongsTo('App\Zoo');
 	}

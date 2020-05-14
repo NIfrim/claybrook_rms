@@ -2,12 +2,35 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Sponsor extends Model
+class Sponsor extends Authenticatable
 {
+	use Notifiable;
+	
+	protected $guard = 'sponsor';
+	
     protected $casts = [
     	'address' => 'array'
+	];
+	
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'title', 'first_name', 'last_name', 'job', 'email', 'password', 'primary_contact_number', 'secondary_contact_number', 'address'
+	];
+ 
+	/**
+	 * The attributes that should be hidden for arrays.
+	 *
+	 * @var array
+	 */
+	protected $hidden = [
+		'password', 'remember_token'
 	];
     
     public function reviews() {
