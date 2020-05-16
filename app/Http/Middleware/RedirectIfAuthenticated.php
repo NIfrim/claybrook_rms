@@ -17,33 +17,23 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {
-    	switch ($guard) {
-			case 'user':
-				if (Auth::guard('user')->check()) {
-					return redirect('user.index');
-				}
-				break;
-				
-			case 'sponsor':
-				if (Auth::guard('sponsor')->check()) {
-					return redirect('sponsor.index');
-				}
-				break;
-				
-			case 'admin':
-				if (Auth::guard('admin')->check()) {
-					return redirect('admin.index');
-				}
-				break;
-				
-			default: break;
-		}
-		
-        if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
-        }
+		{
+				if (Auth::guard($guard) -> check()) {
+						switch ($guard) {
+								case 'user':
+										return redirect(RouteServiceProvider::USER_HOME);
 
-        return $next($request);
-    }
+								case 'sponsor':
+										return redirect(RouteServiceProvider::SPONSOR_HOME);
+
+								case 'admin':
+										return redirect(RouteServiceProvider::ADMIN_HOME);
+
+								default:
+										return redirect(route('welcome')) -> with(['guard' => 'Guard: ' . $guard . '. Should not be null']);
+						}
+				}
+		
+				return $next($request);
+		}
 }

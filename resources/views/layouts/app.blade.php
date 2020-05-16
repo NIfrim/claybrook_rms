@@ -21,6 +21,7 @@
 </head>
 <body>
     <div id="app">
+        {{var_dump(Auth::guard('user') -> check())}}
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -45,8 +46,13 @@
                                     Account
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="nav-link" href="{{ url('user') }}">{{ __('User') }}</a>
-                                    <a class="nav-link" href="{{ url('sponsor') }}">{{ __('Sponsor') }}</a>
+                                    @if(Route::has('user.home'))
+                                        <a class="nav-link" href="{{ url('user') }}">{{ __('User') }}</a>
+                                    @endif
+
+                                    @if(Route::has('sponsor.home'))
+                                        <a class="nav-link" href="{{ url('sponsor') }}">{{ __('Sponsor') }}</a>
+                                    @endif
                                 </div>
                             </li>
                         @else
@@ -56,13 +62,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('user.logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
