@@ -9,6 +9,7 @@ use Faker\Generator as Faker;
 	$factory->define(User::class, function (Faker $faker) {
     return [
     	'zoo_id' => 1,
+		'title' => $faker->title,
         'first_name' => $faker->firstName,
 		'last_name' => $faker->lastName,
 		'email' => $faker->unique()->safeEmail,
