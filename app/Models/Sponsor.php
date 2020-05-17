@@ -21,7 +21,7 @@ class Sponsor extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'title', 'first_name', 'last_name', 'job', 'email', 'password', 'primary_contact_number', 'secondary_contact_number', 'address'
+		'zoo_id', 'title', 'first_name', 'last_name', 'job_title', 'email', 'password', 'primary_contact_number', 'secondary_contact_number', 'address', 'created_at', 'updated_at', 'active', 'registered'
 	];
  
 	/**
