@@ -31,13 +31,19 @@ Route::prefix('user')->name('user.')->namespace('User')->group(function () {
 				 * 	@method GET
 				 *	@desc Route to access the login form
 				 */
-				Route::get('/login', 'LoginController@showLoginForm')->name('login.show');
+				Route::get('/auth', 'LoginController@showLoginForm')->name('auth.show');
 				
 				/** @route user/login
 				 * 	@method POST
 				 *	@desc Route to submit credentials for validation and get access to account management
 				 */
 				Route::post('/login', 'LoginController@login')->name('login');
+				
+				/** @route user/register
+				 * 	@method POST
+				 *	@desc Route to register a new account
+				 */
+				Route::post('/register', 'RegisterController@register')->name('register');
 				
 				/** @route logout
 				 * 	@method POST
@@ -56,6 +62,50 @@ Route::prefix('user')->name('user.')->namespace('User')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
+	
+	/*Auth Routes*/
+	Route::namespace('Auth')->group(function () {
+		
+		/** @route admin/login
+		 * 	@method GET
+		 *	@desc Route to access the login form
+		 */
+		Route::get('/login', 'LoginController@showLoginForm')->name('login');
+		
+		/** @route user/login
+		 * 	@method POST
+		 *	@desc Route to submit credentials for validation and get access to account management
+		 */
+		Route::post('/login', 'LoginController@login')->name('login');
+		
+		/** @route user/register
+		 * 	@method POST
+		 *	@desc Route to register a new account
+		 */
+		Route::post('/register', 'RegisterController@register')->name('register');
+		
+		/** @route logout
+		 * 	@method POST
+		 *	@desc Route to request logout from account management
+		 */
+		Route::post('/logout', 'LoginController@logout')->name('logout');
+		
+	});
+	
+	/*Other Admin Routes*/
+	Route::get('/', 'HomeController@index')->name('home');
+});
+
+/*-------------------------- Admin Routes END --------------------------*/
+
+
+/*
+|--------------------------------------------------------------------------
 | Sponsor Routes
 |--------------------------------------------------------------------------
 */
@@ -65,19 +115,25 @@ Route::prefix('sponsor')->name('sponsor.')->namespace('Sponsor')->group(function
 		/*Auth Routes*/
 		Route::namespace('Auth')->group(function () {
 				
-				/** @route user/login
+				/** @route sponsor/auth
 				 * 	@method GET
-				 *	@desc Route to access the login form
+				 *	@desc Route to access the authentication forms (login/register)
 				 */
-				Route::get('/login', 'LoginController@showLoginForm')->name('login.show');
+				Route::get('/auth', 'LoginController@showLoginForm')->name('auth.show');
 				
-				/** @route user/login
+				/** @route sponsor/login
 				 * 	@method POST
 				 *	@desc Route to submit credentials for validation and get access to account management
 				 */
 				Route::post('/login', 'LoginController@login')->name('login');
 				
-				/** @route logout
+				/** @route sponsor/register
+				 * 	@method POST
+				 *	@desc Route to register a new account
+				 */
+				Route::post('/register', 'RegisterController@register')->name('register');
+				
+				/** @route sponsor/logout
 				 * 	@method POST
 				 *	@desc Route to request logout from account management
 				 */
@@ -89,7 +145,7 @@ Route::prefix('sponsor')->name('sponsor.')->namespace('Sponsor')->group(function
 		Route::get('/', 'HomeController@index')->name('home');
 });
 
-/*-------------------------- User Routes END --------------------------*/
+/*-------------------------- Sponsor Routes END --------------------------*/
 
 
 Route::get('/', function () {
