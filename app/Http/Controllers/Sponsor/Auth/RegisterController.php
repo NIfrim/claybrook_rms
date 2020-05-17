@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Sponsor\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sponsor;
+use App\Models\Zoo;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::SPONSOR_HOME;
 
     /**
      * Create a new controller instance.
@@ -38,7 +41,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:sponsor');
     }
 
     /**
@@ -49,25 +52,56 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+				return Validator::make($data, [
+					'title' => ['required', 'string', 'title', 'max:5'],
+					'first_name' => ['required', 'string', 'name', 'max:255'],
+					'last_name' => ['required', 'string', 'name', 'max:255'],
+					'email' => ['required', 'string', 'email', 'max:255', 'unique:sponsors'],
+					'job_title' => ['required', 'string', 'max:45'],
+					'primary_contact_number' => ['required', 'string', 'phone', 'max:15', 'unique:sponsors'],
+					'password' => ['required', 'string', 'min:8', 'confirmed'],
+				]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\Sponsor
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+    		$zooId = $this->getZoo(env('APP_NAME'))->id;
+				return Sponsor::create([
+					'zoo_id' => $zooId,
+					'title' => $data['title'],
+					'first_name' => $data['first_name'],
+					'last_name' => $data['last_name'],
+					'email' => $data['email'],
+					'job_title' => $data['job_title'],
+					'primary_contact_number' => $data['primary_contact_number'],
+					'password' => Hash::make($data['password']),
+				]);
     }
+		
+		/**
+		 * Get the guard to be used during registration.
+		 *
+		 * @return \Illuminate\Contracts\Auth\StatefulGuard
+		 */
+		protected function guard()
+		{
+				return Auth::guard('sponsor');
+		}
+		
+		/**
+		 * Get the zoo attributes
+		 *
+		 * @param String $name
+		 *
+		 * @return \Illuminate\Database\Eloquent\Collection
+		 */
+		protected function getZoo(String $name) {
+				return Zoo::all()->where('name', '=', $name)->first();
+		}
 }

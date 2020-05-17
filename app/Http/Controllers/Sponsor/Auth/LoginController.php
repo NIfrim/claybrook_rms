@@ -42,7 +42,10 @@ class LoginController extends Controller
     
     public function showLoginForm()
 		{
-				return view('sponsor.auth.login', ['title'=> 'Sponsor Login', 'loginRoute'=>'sponsor.login']);
+				return view('sponsor.auth.forms', [
+					"loginRoute"=> 'sponsor.login',
+					'registerRoute' => 'sponsor.register',
+				]);
 		}
 		
 		/**

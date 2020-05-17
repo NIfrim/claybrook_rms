@@ -42,7 +42,10 @@ class LoginController extends Controller
     
     public function showLoginForm()
 		{
-				return view('user.auth.login', ['title'=> 'User Account Management', 'loginRoute'=>'user.login']);
+				return view('user.auth.forms', [
+					"loginRoute"=> 'user.login',
+					'registerRoute' => 'user.register',
+				]);
 		}
 		
 		/**

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Zoo;
 use App\Providers\RouteServiceProvider;
-use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::USER_HOME;
 
     /**
      * Create a new controller instance.
@@ -38,7 +41,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:user');
     }
 
     /**
@@ -50,7 +53,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+					  'title' => ['required', 'string', 'max:5'],
+            'first_name' => ['required', 'string', 'max:255'],
+						'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -60,14 +65,31 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        		'zoo_id' => $this->getZoo()->get('id'),
+						'title' => $data['title'],
+						'first_name' => $data['first_name'],
+						'last_name' => $data['last_name'],
+						'email' => $data['email'],
+						'password' => Hash::make($data['password']),
         ]);
     }
+    
+    protected function guard()
+		{
+				return Auth::guard('user');
+		}
+		
+		/**
+		 * Get the zoo attributes
+		 *
+		 * @return \Illuminate\Database\Eloquent\Collection
+		 */
+		protected function getZoo() {
+				return Zoo::all()->where('name', '=', env('APP_NAME'));
+		}
 }
