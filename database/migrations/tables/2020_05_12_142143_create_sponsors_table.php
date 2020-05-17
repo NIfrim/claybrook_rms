@@ -15,17 +15,16 @@ class CreateSponsorsTable extends Migration
     {
         Schema::create('sponsors', function (Blueprint $table) {
 			$table->id()->autoIncrement();
-            $table->unsignedBigInteger('zoo_id');
-			$table->dateTime('registered')->default(now());
-            $table->string('title', 5);
-            $table->string('first_name', 45);
-            $table->string('last_name', 45);
+			$table->unsignedBigInteger('zoo_id');
+			$table->string('title', 5);
+			$table->string('first_name', 45);
+			$table->string('last_name', 45);
 			$table->string('job_title', 45);
 			$table->string('email')->unique();
 			$table->string('password');
 			$table->string('primary_contact_number', 15)->unique();
 			$table->string('secondary_contact_number', 15)->unique()->nullable();
-			$table->json('address');
+			$table->json('address')->nullable();
 			$table->boolean('active')->default(false);
 			$table->rememberToken();
 			$table->timestamps();
