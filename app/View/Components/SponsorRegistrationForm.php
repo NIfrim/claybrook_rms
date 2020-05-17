@@ -4,18 +4,18 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class WebLoginForm extends Component
+class SponsorRegistrationForm extends Component
 {
-		public $loginRoute;
+		public $registerRoute;
 		
 		/**
 		 * Create a new component instance.
 		 *
-		 * @param String $loginRoute
+		 * @param String $registerRoute
 		 */
-		public function __construct(String $loginRoute)
+		public function __construct(String $registerRoute)
 		{
-				$this->loginRoute = $loginRoute;
+				$this->registerRoute = $registerRoute;
 		}
 		
 		/**
@@ -25,6 +25,6 @@ class WebLoginForm extends Component
 		 */
 		public function render()
 		{
-				return view('components.web-login-form');
+				return view('components.sponsor-registration-form');
 		}
 }
