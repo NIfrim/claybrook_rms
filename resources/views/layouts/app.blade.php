@@ -47,11 +47,11 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     @if(Route::has('user.home'))
-                                        <a class="nav-link" href="{{ url('user') }}">{{ __('User') }}</a>
+                                        <a class="nav-link" href="{{ route('user.home') }}">{{ __('User') }}</a>
                                     @endif
 
                                     @if(Route::has('sponsor.home'))
-                                        <a class="nav-link" href="{{ url('sponsor') }}">{{ __('Sponsor') }}</a>
+                                        <a class="nav-link" href="{{ route('sponsor.home') }}">{{ __('Sponsor') }}</a>
                                     @endif
                                 </div>
                             </li>
