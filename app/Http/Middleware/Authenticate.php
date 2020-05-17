@@ -18,12 +18,16 @@ class Authenticate extends Middleware
     {
     		switch ($request->path()) {
 						case 'user':
-								$routeName = 'user.login.show';
+								$routeName = 'user.auth.show';
 								break;
 				
 						case 'sponsor':
-								$routeName = 'sponsor.login.show';
+								$routeName = 'sponsor.auth.show';
 								break;
+			
+						case 'admin':
+							$routeName = 'admin.login';
+							break;
 								
 						default: $routeName = 'welcome';
 				}
