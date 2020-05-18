@@ -24,6 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home', ['title' => 'Sponsor Account Management']);
+        return view('admin.home', ['title' => 'Sponsor Account Management', 'category' => 'dashboard', 'subcategory' => '']);
     }
 }
