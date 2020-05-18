@@ -97,8 +97,146 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		
 	});
 	
+	/* Animals routes */
+	Route::prefix('animals')->name('animals.')->namespace('Animals')->group(function () {
+		
+		/* Birds routes */
+		Route::prefix('birds')->group(function () {
+		
+			/** @route admin/animals/birds
+			 * 	@method GET
+			 *	@desc Route to manage records regarding birds
+			 */
+			Route::get('/', 'BirdsController@index')->name('birds');
+		});
+		
+		/* Fishes routes */
+		Route::prefix('fishes')->group(function () {
+			
+			/** @route admin/animals/fishes
+			 * 	@method GET
+			 *	@desc Route to manage records regarding fishes
+			 */
+			Route::get('/', 'FishesController@index')->name('fishes');
+		});
+		
+		/* Mammals routes */
+		Route::prefix('mammals')->group(function () {
+			
+			/** @route admin/animals/mammals
+			 * 	@method GET
+			 *	@desc Route to manage records regarding mammals
+			 */
+			Route::get('/', 'MammalsController@index')->name('mammals');
+		});
+		
+		/* Reptiles routes */
+		Route::prefix('reptiles')->group(function () {
+			
+			/** @route admin/animals/reptiles
+			 * 	@method GET
+			 *	@desc Route to manage records regarding reptiles
+			 */
+			Route::get('/', 'ReptilesController@index')->name('reptiles');
+		});
+	});
+	
+	/* Accounts section Routes */
+	Route::prefix('accounts')->name('accounts.')->namespace('Accounts')->group(function () {
+		
+		/* Sponsors sub-section routes */
+		Route::prefix('sponsors')->group(function () {
+			
+			/** @route admin/accounts/sponsors
+			 * 	@method GET
+			 *	@desc Route to manage sponsors accounts
+			 */
+			Route::get('/', 'SponsorsController@index')->name('sponsors');
+		});
+		
+		/* Users sub-section routes */
+		Route::prefix('users')->group(function () {
+			
+			/** @route admin/accounts/users
+			 * 	@method GET
+			 *	@desc Route to manage users accounts
+			 */
+			Route::get('/', 'UsersController@index')->name('users');
+		});
+	});
+	
+	/* Events And News section routes */
+	Route::prefix('eventsAndNews')->namespace('EventsAndNews')->group(function () {
+		
+		/** @route admin/eventsAndNews
+		 * 	@method GET
+		 *	@desc Route to manage events and news records
+		 */
+		Route::get('/', 'EventsAndNewsController@index')->name('eventsAndNews');
+	});
+	
+	/* Locations section routes */
+	Route::prefix('locations')->name('locations.')->namespace('Locations')->group(function () {
+		
+		/** @route admin/locations/aviary
+		 * 	@method GET
+		 *	@desc Route to manage aviary type locations
+		 */
+		Route::get('/aviary', 'AviaryController@index')->name('aviary');
+		
+		/** @route admin/locations/aquarium
+		 * 	@method GET
+		 *	@desc Route to manage aquarium type locations
+		 */
+		Route::get('/aquarium', 'AquariumController@index')->name('aquarium');
+		
+		/** @route admin/locations/compounds
+		 * 	@method GET
+		 *	@desc Route to manage compound type locations
+		 */
+		Route::get('/compounds', 'CompoundsController@index')->name('compounds');
+		
+		/** @route admin/locations/compounds
+		 * 	@method GET
+		 *	@desc Route to manage hothouse type locations
+		 */
+		Route::get('/hothouse', 'HothouseController@index')->name('hothouse');
+	});
+	
+	/* Reviews section routes */
+	Route::prefix('reviews')->namespace('Reviews')->group(function () {
+		
+		/** @route admin/reviews
+		 * 	@method GET
+		 *	@desc Route to manage review records
+		 */
+		Route::get('/', 'ReviewsController@index')->name('reviews');
+	});
+	
+	/* Sponsor section routes */
+	Route::prefix('sponsors')->name('sponsors.')->namespace('Sponsors')->group(function () {
+		
+		/** @route admin/sponsors/agreements
+		 * 	@method GET
+		 *	@desc Route to view and manage all the sponsors agreements
+		 */
+		Route::get('/agreements', 'AgreementsController@index')->name('agreements');
+		
+		/** @route admin/sponsors/signage
+		 * 	@method GET
+		 *	@desc Route to view and manage all the sponsors signage
+		 */
+		Route::get('/signage', 'SignageController@index')->name('signage');
+	});
+	
 	/*Other Admin Routes*/
+	
+	/** @route admin
+	 * 	@method GET
+	 *	@desc Route to records management system landing page
+	 */
 	Route::get('/', 'HomeController@index')->name('home');
+	
 });
 
 /*-------------------------- Admin Routes END --------------------------*/
