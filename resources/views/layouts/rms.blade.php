@@ -24,12 +24,12 @@
 <body>
     <div id="app" class="d-flex flex-nowrap">
         {{--SIDE NAV--}}
-        @include('components.side-nav', ['category' => $category, 'subcategory' => $subcategory])
-
+        <x-navigation.side-nav :category="$category" :subcategory="$subcategory" />
+        
         <div class="flex-grow-1 d-flex flex-column">
             {{--TOP NAV--}}
-            @include('components.top-nav', ['title' => $title])
-            <main class="py-4">
+            <x-navigation.top-nav :title="$title" />
+            <main id="main" class="container-responsive overflow-auto">
                 @yield('content')
             </main>
         </div>
