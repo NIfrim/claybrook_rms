@@ -15,6 +15,42 @@ a:hover {
   height: 100% !important;
 }
 
+#main {
+  margin: 1em 0;
+}
+
+/*****************BUTTONS******************/
+
+.btn-primary {
+  color: $lightLogoGreen;
+  font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:active:hover {
+  color: $lightLogoGreen;
+}
+
+/* END Buttons */
+
+/*****************MODALS AND FORMS******************/
+
+.animal-form-modal {
+  min-width: 700px;
+}
+
+.animal-form-inputs-wrapper {
+  max-height: 500px;
+}
+
+.form-group {
+  flex-basis: auto;
+}
+
+/* END Modals */
+
+
 /*****************TOP NAV BAR******************/
 
 .top-bar {
@@ -41,7 +77,6 @@ a:hover {
 }
 
 /*END TOP NAV BAR*/
-
 
 /*****************SIDE NAV******************/
 
@@ -142,4 +177,18 @@ a:hover {
 }
 
 /*END SIDENAV*/
+
+/*****************RMS TABLE******************/
+
+.table-container {
+  overflow-x: scroll;
+}
+
+.table-cell {
+  text-anchor: middle;
+  text-align-all: center;
+  text-align: center;
+}
+
+/* RMS Table END */
 
