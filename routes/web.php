@@ -108,6 +108,12 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 			 *	@desc Route to manage records regarding birds
 			 */
 			Route::get('/', 'BirdsController@index')->name('birds');
+			
+			/** @route admin/animals/birds/{formType}:[new,edit]
+			 * 	@method GET
+			 *	@desc Route to access the form for creating/editing a bird
+			 */
+			Route::get('/{formType}', 'BirdsController@showAnimalForm')->name('birds.new');
 		});
 		
 		/* Fishes routes */
