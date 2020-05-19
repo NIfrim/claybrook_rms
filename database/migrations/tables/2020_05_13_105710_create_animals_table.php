@@ -21,6 +21,7 @@ class CreateAnimalsTable extends Migration
 			$table->unsignedBigInteger('educational_info_id')->nullable();
 			$table->unsignedBigInteger('agreement_signage_id')->nullable();
 			$table->string('species', 45);
+			$table->string('classification', 45)->nullable();
 			$table->enum('type', ['MAMMAL', 'REPTILE', 'FISH', 'BIRD']);
 			$table->string('name', 45);
 			$table->date('date_joined');
