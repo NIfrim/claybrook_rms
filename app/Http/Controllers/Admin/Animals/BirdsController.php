@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Animals;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 
-class BirdsController extends Controller
+class BirdsController extends AnimalsController
 {
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->middleware('auth:admin');
-	}
+	public $title = 'Animals - Birds';
+	public $subcategory = 'birds';
+	public $idTemplate = 'BIR';
 	
 	/**
 	 * Show all the birds records.
@@ -29,32 +23,56 @@ class BirdsController extends Controller
 		$birdColumns = Schema::getColumnListing('birds');
 		$columns = array_unique(array_merge($animalColumns, $birdColumns));
 		
-		$rows = DB::table('birds')->join('animals', 'birds.animal_id', '=', 'animals.id')->get()->all();
+		$birds = DB::table('birds')->join('animals', 'birds.animal_id', '=', 'animals.id')->get()->all();
 		
 		return view('admin.animals.birds.home', [
-			'title' => 'Animals - Birds',
-			'category' => 'animals',
-			'subcategory' => 'birds',
+			'title' => $this->title,
+			'category' => $this->category,
+			'subcategory' => $this->subcategory,
 			'columns' => $columns,
-			'rows' => $rows
+			'birds' => $birds
 		]);
 	}
 	
 	/**
 	 * Show all the birds records.
 	 *
-	 * @param String $formType
+	 * @param String $formType new|edit
 	 *
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
 	public function showAnimalForm(String $formType)
 	{
+		$birds = DB::table('birds')->join('animals', 'birds.animal_id', '=', 'animals.id')->get()->all();
+		
+		$ids = array_map(function ($elem) {
+			return $this->getNumberFromString($elem);
+		}, $this->getArrayFromRows($birds, 'animal_id'));
+		
+		$species = $this->getArrayFromRows($birds, 'species');
+		
+		$classifications = $this->getArrayFromRows($birds, 'classification');
+		
 		return view('admin.animals.birds.forms', [
+			'idTemplate' => $this->idTemplate,
 			'title' => 'Animals - Birds',
 			'category' => 'animals',
 			'subcategory' => 'birds',
 			'formType' => $formType,
-			'animalType' => 'bird'
+			'ids' => empty($ids) ? [1] : $ids,
+			'species' => $species,
+			'classifications' => $classifications
 		]);
+	}
+	
+	/**
+	 * Get a validator for an incoming form request.
+	 *
+	 * @param  array  $data
+	 * @return \Illuminate\Contracts\Validation\Validator
+	 */
+	protected function validator(array $data)
+	{
+		return Validator::make($data, []);
 	}
 }
