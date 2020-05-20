@@ -18,7 +18,7 @@ class CreateLocationsTable extends Migration
             $table->unsignedBigInteger('zoo_id');
 			$table->string('name', 45);
 			$table->enum('type', ['COMPOUND', 'AVIARY', 'AQUARIUM', 'HOTHOUSE']);
-			$table->tinyInteger('vacant');
+			$table->char('vacant', 1);
 			$table->unsignedSmallInteger('surface_area');
 			$table->text('description');
 			$table->timestamps();
