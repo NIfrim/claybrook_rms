@@ -53,9 +53,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-					  'title' => ['required', 'string', 'max:5'],
+		  	'title' => ['required', 'string', 'max:5'],
             'first_name' => ['required', 'string', 'max:255'],
-						'last_name' => ['required', 'string', 'max:255'],
+			'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -70,26 +70,26 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-        		'zoo_id' => $this->getZoo()->get('id'),
-						'title' => $data['title'],
-						'first_name' => $data['first_name'],
-						'last_name' => $data['last_name'],
-						'email' => $data['email'],
-						'password' => Hash::make($data['password']),
+			'zoo_id' => $this->getZoo()->get('id'),
+			'title' => $data['title'],
+			'first_name' => $data['first_name'],
+			'last_name' => $data['last_name'],
+			'email' => $data['email'],
+			'password' => Hash::make($data['password']),
         ]);
     }
     
     protected function guard()
-		{
-				return Auth::guard('user');
-		}
+	{
+		return Auth::guard('user');
+	}
 		
-		/**
-		 * Get the zoo attributes
-		 *
-		 * @return \Illuminate\Database\Eloquent\Collection
-		 */
-		protected function getZoo() {
-				return Zoo::all()->where('name', '=', env('APP_NAME'));
-		}
+	/**
+	 * Get the zoo attributes
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection
+	 */
+	protected function getZoo() {
+			return Zoo::all()->where('name', '=', env('APP_NAME'));
+	}
 }
