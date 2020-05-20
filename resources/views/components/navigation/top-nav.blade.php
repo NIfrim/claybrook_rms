@@ -7,12 +7,14 @@
 			<h3 class="top-bar-title">{{$title ?? 'Missing Title'}}</h3>
 			
 			{{-- Action buttons --}}
-			<div class="d-flex flex-nowrap justify-content-equal align-items-center mx-2">
-				<a href = "{{route('admin.animals.birds.new', ['formType' => 'new'])}}">
-					<button type="button" class="btn btn-primary mx-2">Add New</button>
-				</a>
-				<button type="button" class="btn btn-primary mx-2">Remove Selected</button>
-			</div>
+			@if($category !== 'dashboard')
+				<div class="d-flex flex-nowrap justify-content-equal align-items-center mx-2">
+					<a href = "{{route('admin.'.$category.'.'.($subcategory ? $subcategory.'.' : '').'manage', ['formType' => 'new'])}}">
+						<button type="button" class="btn btn-primary mx-2">Add New</button>
+					</a>
+					<button type="button" class="btn btn-primary mx-2">Remove Selected</button>
+				</div>
+			@endif
 		</div>
 		
 		<!-- Right side -->

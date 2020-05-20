@@ -5,9 +5,11 @@
 			@if($selectable)
 				<th scope="col" class="table-cell d-flex align-items-center"><i class="material-icons">check_box_outline_blank</i></th>
 			@endif
+			
 			@foreach($columns as $column)
 				<th scope="col" class="table-cell d-flex align-items-center"><span>{{str_replace('_', ' ', str_replace('_id', '', $column))}}</span></th>
 			@endforeach
+			
 			<th scope="col">Actions</th>
 		</tr>
 		</thead>
@@ -16,8 +18,8 @@
 			@foreach($rows as $row)
 				<tr>
 					<td><i class="material-icons">check_box</i></td>
-					@foreach($row as $item)
-						<td>$item</td>
+					@foreach($columns as $column)
+						<td>{{$row->$column}}</td>
 					@endforeach
 				</tr>
 			@endforeach

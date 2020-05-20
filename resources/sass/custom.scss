@@ -17,6 +17,7 @@ a:hover {
 
 #main {
   margin: 1em 0;
+  height: 100%;
 }
 
 /*****************BUTTONS******************/
@@ -35,6 +36,18 @@ a:hover {
 /* END Buttons */
 
 /*****************MODALS AND FORMS******************/
+
+.forms-container {
+  height: 100%;
+}
+
+.forms-container .card {
+  max-height: 100%;
+}
+
+.forms-container .card .card-body {
+  overflow-y: scroll;
+}
 
 .animal-form-modal {
   min-width: 700px;
