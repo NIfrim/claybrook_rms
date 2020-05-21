@@ -21,6 +21,13 @@ a:hover {
 }
 
 /*****************BUTTONS******************/
+.table th,
+.table td {
+  vertical-align: middle !important;
+}
+/* TABLES */
+
+/*****************BUTTONS******************/
 
 .btn-primary {
   color: $lightLogoGreen;
