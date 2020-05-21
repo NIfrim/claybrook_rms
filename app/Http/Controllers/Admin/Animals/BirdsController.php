@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Animals;
 
+use App\Models\Bird;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
@@ -19,18 +20,12 @@ class BirdsController extends AnimalsController
 	 */
 	public function index()
 	{
-		$animalColumns = Schema::getColumnListing('animals');
-		$birdColumns = Schema::getColumnListing('birds');
-		$columns = array_unique(array_merge($animalColumns, $birdColumns));
-		
-		$birds = DB::table('birds')->join('animals', 'birds.animal_id', '=', 'animals.id')->get()->all();
-		
 		return view('admin.animals.birds.home', [
 			'title' => $this->title,
 			'category' => $this->category,
 			'subcategory' => $this->subcategory,
-			'columns' => $columns,
-			'birds' => $birds
+			'model' => 'App\Models\Bird',
+			'relations' => ['animal'],
 		]);
 	}
 	
