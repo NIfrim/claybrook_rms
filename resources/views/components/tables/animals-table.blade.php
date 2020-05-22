@@ -1,60 +1,38 @@
 <div class="container">
-    
-    <table class="table table-striped table-bordered">
+    <div class="d-flex flex-nowrap justify-content-start">
+    </div>
+    <table id="table" class="table display responsive nowrap table-striped table-bordered">
         <thead>
         <tr>
-            @if($selectable)
-                <th rowspan="2" scope="col"><i class="material-icons">check_box_outline_blank</i></th>
-            @endif
-            
-            <th scope="col">id</th>
-            <th scope="col">location</th>
-            <th scope="col">classification</th>
-            <th scope="col">specie</th>
-            <th scope="col">name</th>
-            <th scope="col">date of birth</th>
-            <th scope="col">sponsorship band</th>
+            @foreach($columns as $column)
+                <th scope="col">{{$column['title']}}</th>
+            @endforeach
+
             <th scope="col">Actions</th>
-        
         </tr>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">location</th>
-            <th scope="col">classification</th>
-            <th scope="col">specie</th>
-            <th scope="col">name</th>
-            <th scope="col">date of birth</th>
-            <th scope="col">sponsorship band</th>
-            <th scope="col">Actions</th>
         
-        </tr>
         </thead>
         <tbody>
         @if(sizeof($rows) > 0)
             @foreach($rows as $bird)
                 <tr>
-                    @if($selectable)
-                        <td colspan="1"><i class="material-icons">check_box</i></td>
-                    @endif
-                    <td>{{$bird->id}}</td>
-                    <td>{{$bird->location_id}}</td>
-                    <td>{{$bird->classification}}</td>
-                    <td>{{$bird->species}}</td>
-                    <td>{{$bird->name}}</td>
-                    <td>{{$bird->dob}}</td>
-                    <td>{{$bird->sponsorship_band_id}}</td>
-                    <td>Actions</td>
-                
+                    @foreach($columns as $column)
+                      <td>{{$bird[$column['name']]}}</td>
+                    @endforeach
+
+                    <td class="d-flex justify-content-between flex-nowrap" id="table-actions-wrapper">
+                        <i class="icon-btn create material-icons p-2">create</i>
+                        <i class="icon-btn remove material-icons p-2">delete</i>
+                        <i class="icon-btn healing material-icons p-2">healing</i>
+                        <i class="icon-btn material-icons p-2">visibility</i>
+                    </td>
                 </tr>
             @endforeach
         @else
             <tr>
-                <td colspan="0">No Records</td>
+                <td colspan="100">No Records</td>
             </tr>
         @endif
         </tbody>
     </table>
-    
-    {{$rows->links()}}
-
 </div>
