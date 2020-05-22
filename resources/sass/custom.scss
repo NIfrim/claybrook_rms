@@ -40,6 +40,31 @@ a:hover {
   color: $lightLogoGreen;
 }
 
+#table-actions-wrapper .icon-btn {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  color: $grey;
+  cursor: pointer;
+}
+
+#table-actions-wrapper .remove {
+  color: $orange;
+}
+
+#table-actions-wrapper .healing {
+  color: $teal;
+}
+
+.icon-btn:hover {
+  background-color: rgb($lightGrey, 0.3);
+  -webkit-transition: background-color 500ms;
+  -moz-transition: background-color 500ms;
+  -ms-transition: background-color 500ms;
+  -o-transition: background-color 500ms;
+  transition: background-color 500ms;
+}
+
 /* END Buttons */
 
 /*****************MODALS AND FORMS******************/
@@ -69,6 +94,19 @@ a:hover {
 }
 
 /* END Modals */
+
+
+/*****************TOP NAV BAR******************/
+#table th {
+  background-color: $logoYellow;
+  position: sticky;
+  top: 0;
+}
+
+#table tbody .selected {
+  background-color: $lightYellow !important;
+}
+/* END TABLES */
 
 
 /*****************TOP NAV BAR******************/
