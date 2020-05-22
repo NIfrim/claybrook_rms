@@ -9,7 +9,7 @@
 			{{-- Action buttons --}}
 			@if($category !== 'dashboard')
 				<div class="d-flex flex-nowrap justify-content-equal align-items-center mx-2">
-					<a href = "{{route('admin.'.$category.'.'.($subcategory ? $subcategory.'.' : '').'manage', ['formType' => 'new'])}}">
+					<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'formType' => 'new'])}}">
 						<button type="button" class="btn btn-primary mx-2">Add New</button>
 					</a>
 					<button type="button" class="btn btn-primary mx-2">Remove Selected</button>

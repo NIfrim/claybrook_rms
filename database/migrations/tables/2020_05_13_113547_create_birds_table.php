@@ -14,13 +14,27 @@ class CreateBirdsTable extends Migration
     public function up()
     {
         Schema::create('birds', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-        	$table->string('animal_id', 45);
+			$table->string('id', 45)->unique()->primary();
+			$table->string('location_id', 45);
+			$table->char('sponsorship_band_id', 1)->nullable();
+			$table->unsignedBigInteger('habitat_id')->nullable();
+			$table->unsignedBigInteger('educational_info_id')->nullable();
+			$table->unsignedBigInteger('agreement_signage_id')->nullable();
             $table->string('nest_construction', 45);
 			$table->unsignedTinyInteger('clutch_size');
 			$table->unsignedSmallInteger('wingspan');
 			$table->char('can_fly', 1);
 			$table->string('plumage', 45);
+			$table->string('species', 45);
+			$table->string('classification', 45)->nullable();
+			$table->enum('type', ['MAMMAL', 'REPTILE', 'FISH', 'BIRD']);
+			$table->string('name', 45);
+			$table->date('date_joined');
+			$table->date('dob');
+			$table->enum('gender', ['MALE', 'FEMALE']);
+			$table->tinyInteger('life_span');
+			$table->unsignedDecimal('height_joined', 4);
+			$table->unsignedDecimal('weight_joined', 6);
 			$table->timestamps();
         });
     }

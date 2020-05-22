@@ -100,69 +100,82 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	/* Animals routes */
 	Route::prefix('animals')->name('animals.')->namespace('Animals')->group(function () {
 		
-		/* Birds routes */
-		Route::prefix('birds')->group(function () {
+		/** @route admin/animals/{type}{array_params}
+		 * 	@method GET
+		 *	@desc Route to retrieve animals by specific type and other parameters
+		 */
+		Route::get('/{type}', 'AnimalsController@byType')->name('byType');
 		
-			/** @route admin/animals/birds
-			 * 	@method GET
-			 *	@desc Route to manage records regarding birds
-			 */
-			Route::get('/', 'BirdsController@index')->name('birds');
-			
-			/** @route admin/animals/birds/{formType} [new|edit]
-			 * 	@method GET
-			 *	@desc Route to access the form for creating/updating a bird
-			 */
-			Route::get('/{formType}', 'BirdsController@showAnimalForm')->name('birds.manage');
-		});
+		/** @route admin/animals/{type}/{formType} [new|edit]
+		 * 	@method GET
+		 *	@desc Route to access the form for creating/updating an animal
+		 */
+		Route::get('/{type}/{formType}', 'AnimalsController@showAnimalForm')->name('manage');
 		
-		/* Fishes routes */
-		Route::prefix('fishes')->group(function () {
-			
-			/** @route admin/animals/fishes
-			 * 	@method GET
-			 *	@desc Route to manage records regarding fishes
-			 */
-			Route::get('/', 'FishesController@index')->name('fishes');
-			
-			/** @route admin/animals/fishes/{formType} [new|edit]
-			 * 	@method GET
-			 *	@desc Route to access the form for creating/updating a fish
-			 */
-			Route::get('/{formType}', 'FishesController@showAnimalForm')->name('fishes.manage');
-		});
 		
-		/* Mammals routes */
-		Route::prefix('mammals')->group(function () {
-			
-			/** @route admin/animals/mammals
-			 * 	@method GET
-			 *	@desc Route to manage records regarding mammals
-			 */
-			Route::get('/', 'MammalsController@index')->name('mammals');
-			
-			/** @route admin/animals/mammals/{formType} [new|edit]
-			 * 	@method GET
-			 *	@desc Route to access the form for creating/updating a mammal
-			 */
-			Route::get('/{formType}', 'MammalsController@showAnimalForm')->name('mammals.manage');
-		});
-		
-		/* Reptiles routes */
-		Route::prefix('reptiles')->group(function () {
-			
-			/** @route admin/animals/reptiles
-			 * 	@method GET
-			 *	@desc Route to manage records regarding reptiles
-			 */
-			Route::get('/', 'ReptilesController@index')->name('reptiles');
-			
-			/** @route admin/animals/reptiles/{formType} [new|edit]
-			 * 	@method GET
-			 *	@desc Route to access the form for creating/updating a reptile
-			 */
-			Route::get('/{formType}', 'ReptilesController@showAnimalForm')->name('reptiles.manage');
-		});
+//		/* Birds routes */
+//		Route::prefix('birds')->group(function () {
+//
+//			/** @route admin/animals/birds
+//			 * 	@method GET
+//			 *	@desc Route to manage records regarding birds
+//			 */
+//			Route::get('/', 'BirdsController@index')->name('birds');
+//
+//			/** @route admin/animals/birds/{formType} [new|edit]
+//			 * 	@method GET
+//			 *	@desc Route to access the form for creating/updating a bird
+//			 */
+//			Route::get('/{formType}', 'BirdsController@showAnimalForm')->name('birds.manage');
+//		});
+//
+//		/* Fishes routes */
+//		Route::prefix('fishes')->group(function () {
+//
+//			/** @route admin/animals/fishes
+//			 * 	@method GET
+//			 *	@desc Route to manage records regarding fishes
+//			 */
+//			Route::get('/', 'FishesController@index')->name('fishes');
+//
+//			/** @route admin/animals/fishes/{formType} [new|edit]
+//			 * 	@method GET
+//			 *	@desc Route to access the form for creating/updating a fish
+//			 */
+//			Route::get('/{formType}', 'FishesController@showAnimalForm')->name('fishes.manage');
+//		});
+//
+//		/* Mammals routes */
+//		Route::prefix('mammals')->group(function () {
+//
+//			/** @route admin/animals/mammals
+//			 * 	@method GET
+//			 *	@desc Route to manage records regarding mammals
+//			 */
+//			Route::get('/', 'MammalsController@index')->name('mammals');
+//
+//			/** @route admin/animals/mammals/{formType} [new|edit]
+//			 * 	@method GET
+//			 *	@desc Route to access the form for creating/updating a mammal
+//			 */
+//			Route::get('/{formType}', 'MammalsController@showAnimalForm')->name('mammals.manage');
+//		});
+//
+//		/* Reptiles routes */
+//		Route::prefix('reptiles')->group(function () {
+//
+//			/** @route admin/animals/reptiles
+//			 * 	@method GET
+//			 *	@desc Route to manage records regarding reptiles
+//			 */
+//			Route::get('/', 'ReptilesController@index')->name('reptiles');
+//
+//			/** @route admin/animals/reptiles/{formType} [new|edit]
+//			 * 	@method GET
+//			 *	@desc Route to access the form for creating/updating a reptile
+//			 */
+//			Route::get('/{formType}', 'ReptilesController@showAnimalForm')->name('reptiles.manage');
+//		});
 	});
 	
 	/* Accounts section Routes */

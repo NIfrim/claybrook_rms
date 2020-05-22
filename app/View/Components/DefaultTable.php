@@ -51,6 +51,7 @@ class DefaultTable extends Component
 		} else {
 			$rows = call_user_func($this->getFunction(), $amountPerPage);
 		}
+    	dd($rows);
     	
     	return $rows;
 	}

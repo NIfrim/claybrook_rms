@@ -26,7 +26,7 @@
             <th scope="col">date of birth</th>
             <th scope="col">sponsorship band</th>
             <th scope="col">Actions</th>
-
+        
         </tr>
         </thead>
         <tbody>
@@ -36,13 +36,13 @@
                     @if($selectable)
                         <td colspan="1"><i class="material-icons">check_box</i></td>
                     @endif
-                    <td>{{$bird->animal->id}}</td>
-                    <td>{{$bird->animal->location_id}}</td>
-                    <td>{{$bird->animal->classification}}</td>
-                    <td>{{$bird->animal->species}}</td>
-                    <td>{{$bird->animal->name}}</td>
-                    <td>{{$bird->animal->dob}}</td>
-                    <td>{{$bird->animal->sponsorship_band_id}}</td>
+                    <td>{{$bird->id}}</td>
+                    <td>{{$bird->location_id}}</td>
+                    <td>{{$bird->classification}}</td>
+                    <td>{{$bird->species}}</td>
+                    <td>{{$bird->name}}</td>
+                    <td>{{$bird->dob}}</td>
+                    <td>{{$bird->sponsorship_band_id}}</td>
                     <td>Actions</td>
                 
                 </tr>

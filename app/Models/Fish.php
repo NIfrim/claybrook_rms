@@ -2,11 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Fish extends Model
+class Fish extends Animal
 {
-	public function animal() {
-		return $this->belongsTo('App\Models\Animal');
-	}
+	// Code
 }
