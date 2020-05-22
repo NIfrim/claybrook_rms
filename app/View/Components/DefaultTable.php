@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\Bird;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\Component;
 
@@ -45,14 +46,25 @@ class DefaultTable extends Component
 //	@todo Make the function return rows based on dynamic filters
     protected function getRows(int $amountPerPage) {
     	
-    	/* Get the paginated rows for specific model */
-    	if ($this->relations) {
-			$rows = call_user_func($this->getFunction(), $this->relations)->paginate($amountPerPage);
-		} else {
-			$rows = call_user_func($this->getFunction(), $amountPerPage);
-		}
-    	dd($rows);
+    	$filters = $this->getPossibleFilters();
     	
+    	/* Get the paginated rows for specific model */
+		if ($this->relations) {
+			
+			if (sizeof($filters) > 0) {
+				$rows = call_user_func($this->getFunction(), $this->relations)->where($filters)->get();
+			} else {
+				$rows = call_user_func($this->getFunction(), $this->relations)->get();
+			}
+			
+		} else {
+			if (sizeof($filters) > 0 ) {
+				$rows = call_user_func($this->getFunction())->where($filters)->get();
+			} else {
+				$rows = call_user_func($this->getFunction())->get();
+			}
+		}
+
     	return $rows;
 	}
 	
@@ -63,7 +75,7 @@ class DefaultTable extends Component
 	 * @return String
 	 */
 	private function getFunction() {
-    	return $this->model.'::'.($this->relations ? 'with' : 'paginate');
+    	return $this->model.'::'.($this->relations ? 'with' : 'all');
 	}
 	
 	
@@ -73,22 +85,14 @@ class DefaultTable extends Component
 	 *
 	 * @return array
 	 */
-	private function getPossibleFilters(Model $model) {
-    	$possibleFilters = [];
+	private function getPossibleFilters() {
+		$params = request()->except('page');
+		$filters = array();
 		
-		/* Get the relations of the model and merge */
-    	$relations = $model->getAttributes();
-		array_merge($possibleFilters, $relations);
-    	
-    	/* Retrieve all of the attributes and merge */
-    	if (sizeof($relations) > 0) {
-			foreach ($relations as $relation) {
-				$relationAttributes = call_user_func('App\Models\\'.ucfirst($relation).'::getAttributes');
-				array_merge($possibleFilters, $relationAttributes);
-			}
+		foreach (array_keys($params) as $filter) {
+			array_push($filters, [$filter, 'like', $params[$filter]]);
 		}
-  
-  		dd($possibleFilters);
-    	return $possibleFilters;
+		
+    	return $filters;
 	}
 }
