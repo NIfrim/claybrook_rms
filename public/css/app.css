@@ -10977,6 +10977,25 @@ a:hover {
   color: #017243;
 }
 
+#table-actions-wrapper .icon-btn {
+  border-radius: 50%;
+  color: #777777;
+  cursor: pointer;
+}
+
+#table-actions-wrapper .remove {
+  color: #fd7e14;
+}
+
+#table-actions-wrapper .healing {
+  color: #5FC5B2;
+}
+
+.icon-btn:hover {
+  background-color: rgba(214, 214, 214, 0.3);
+  transition: background-color 500ms;
+}
+
 /* END Buttons */
 
 /*****************MODALS AND FORMS******************/
@@ -11006,6 +11025,21 @@ a:hover {
 }
 
 /* END Modals */
+
+/*****************TOP NAV BAR******************/
+
+#table th {
+  background-color: #C1D32F;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+#table tbody .selected {
+  background-color: #FFFEF8 !important;
+}
+
+/* END TABLES */
 
 /*****************TOP NAV BAR******************/
 
