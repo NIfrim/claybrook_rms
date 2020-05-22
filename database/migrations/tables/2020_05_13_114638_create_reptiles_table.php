@@ -33,6 +33,7 @@ class CreateReptilesTable extends Migration
 			$table->enum('reproduction_type', ['LIVE_BEARER', 'EGG_LAYER']);
 			$table->unsignedTinyInteger('clutch_size');
 			$table->unsignedSmallInteger('offspring_number');
+			$table->text('diet')->nullable();
 			$table->timestamps();
         });
     }

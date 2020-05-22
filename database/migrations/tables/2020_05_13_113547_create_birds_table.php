@@ -35,6 +35,7 @@ class CreateBirdsTable extends Migration
 			$table->tinyInteger('life_span');
 			$table->unsignedDecimal('height_joined', 4);
 			$table->unsignedDecimal('weight_joined', 6);
+			$table->text('diet')->nullable();
 			$table->timestamps();
         });
     }

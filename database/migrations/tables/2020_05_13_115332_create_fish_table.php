@@ -34,6 +34,7 @@ class CreateFishTable extends Migration
 			$table->unsignedDecimal('average_body_temperature', 4);
 			$table->string('water_type', 45);
 			$table->string('colour', 45);
+			$table->text('diet')->nullable();
 			$table->timestamps();
         });
     }

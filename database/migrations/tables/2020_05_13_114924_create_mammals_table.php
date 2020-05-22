@@ -34,6 +34,7 @@ class CreateMammalsTable extends Migration
 			$table->string('gestational_period', 45);
 			$table->string('category', 45);
 			$table->unsignedTinyInteger('offspring_number');
+			$table->text('diet')->nullable();
 			$table->timestamps();
         });
     }
