@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Animals;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AnimalsController extends Controller
@@ -33,7 +32,7 @@ class AnimalsController extends Controller
 			'category' => 'animals',
 			'subcategory' => $type,
 			'model' => $this->getModel($type),
-			'relations' => ['location', 'animalDiets', 'educationalInfo', 'animalHabitat', 'sponsorshipBand', 'sponsorSignage'],
+			'relations' => ['location', 'educationalInfo', 'animalHabitat', 'sponsorshipBand', 'sponsorSignage'],
 		]);
 	}
 	
