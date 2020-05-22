@@ -112,6 +112,11 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		 */
 		Route::get('/{type}/{formType}', 'AnimalsController@showAnimalForm')->name('manage');
 		
+		/** @route admin/animals/{type}/{formType} [new|edit]
+		 * 	@method GET
+		 *	@desc Route to access the form for creating/updating an animal
+		 */
+		Route::post('/{type}/{action}', 'AnimalsController@action')->name('action');
 		
 //		/* Birds routes */
 //		Route::prefix('birds')->group(function () {

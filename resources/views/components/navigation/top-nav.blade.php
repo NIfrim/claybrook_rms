@@ -12,7 +12,8 @@
 					<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'formType' => 'new'])}}">
 						<button type="button" class="btn btn-primary mx-2">Add New</button>
 					</a>
-					<button type="button" class="btn btn-primary mx-2">Remove Selected</button>
+					<button id="clearSelection" type="button" class="btn btn-primary mx-2">Clear Selection</button>
+					<button id="removeSelected" type="button" class="btn btn-primary mx-2">Remove Selected</button>
 				</div>
 			@endif
 		</div>

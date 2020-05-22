@@ -20,6 +20,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/>
+    <link rel = "stylesheet" href = "https://cdn.datatables.net/responsive/2.2.4/css/responsive.dataTables.min.css">
+    
 </head>
 <body>
     <div id="app" class="d-flex flex-nowrap">
