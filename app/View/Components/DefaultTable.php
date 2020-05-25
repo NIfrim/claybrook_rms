@@ -10,20 +10,24 @@ use Illuminate\View\Component;
 
 class DefaultTable extends Component
 {
-	public $selectable, $model, $relations, $data;
+	public $selectable, $model, $relations, $data, $category, $subcategory;
 	
 	/**
 	 * Create a new component instance.
 	 *
 	 * @param bool $selectable
 	 * @param String $model
+	 * @param string $category
+	 * @param string|null $subcategory
 	 * @param array|null $relations
 	 */
-    public function __construct(bool $selectable, String $model, ?array $relations)
+    public function __construct(bool $selectable, String $model, string $category, ?string $subcategory, ?array $relations)
     {
         $this->selectable = $selectable;
         $this->model = $model;
         $this->relations = $relations;
+        $this->category = $category;
+        $this->subcategory = $subcategory;
     }
 
     /**
