@@ -21,13 +21,6 @@ a:hover {
 }
 
 /*****************BUTTONS******************/
-.table th,
-.table td {
-  vertical-align: middle !important;
-}
-/* TABLES */
-
-/*****************BUTTONS******************/
 
 .btn-primary {
   color: $lightLogoGreen;
@@ -67,22 +60,18 @@ a:hover {
 
 /* END Buttons */
 
-/*****************MODALS AND FORMS******************/
+/***************** FORMS ******************/
 
 .forms-container {
   height: 100%;
 }
 
-.forms-container .card {
-  max-height: 100%;
+.forms-container form, .forms-container form .card {
+  height: 100%;
 }
 
-.forms-container .card .card-body {
+.forms-container form .card .card-body {
   overflow-y: scroll;
-}
-
-.animal-form-modal {
-  min-width: 700px;
 }
 
 .animal-form-inputs-wrapper {
@@ -93,10 +82,10 @@ a:hover {
   flex-basis: auto;
 }
 
-/* END Modals */
+/* END Forms */
 
 
-/*****************TOP NAV BAR******************/
+/*****************TABLES******************/
 #table th {
   background-color: $logoYellow;
   position: sticky;
@@ -104,8 +93,14 @@ a:hover {
 }
 
 #table tbody .selected {
-  background-color: $lightYellow !important;
+  background-color: rgb($orange, 0.3) !important;
 }
+
+.table th,
+.table td {
+  vertical-align: middle !important;
+}
+
 /* END TABLES */
 
 
@@ -235,18 +230,4 @@ a:hover {
 }
 
 /*END SIDENAV*/
-
-/*****************RMS TABLE******************/
-
-.table-container {
-  overflow-x: scroll;
-}
-
-.table-cell {
-  text-anchor: middle;
-  text-align-all: center;
-  text-align: center;
-}
-
-/* RMS Table END */
 
