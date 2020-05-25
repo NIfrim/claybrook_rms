@@ -2,6 +2,6 @@
 
 @section('content')
 	<div class="container forms-container">
-		<x-forms.animal-details-form :idTemplate="$idTemplate" :type="$formType" :subcategory="$subcategory" :ids="$ids" :species="$species" :classifications="$classifications" />
+		<x-forms.animal-form :data="$data" :formType="$formType" :category="$category" :subcategory="$subcategory" title="Animals - Birds - Manage" />
 	</div>
 @endsection
