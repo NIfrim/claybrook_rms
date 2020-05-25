@@ -11,13 +11,10 @@ class Animal extends Model
 {
 	protected $keyType = 'string';
 	public $incrementing = false;
+	protected $fillable = []; // Add fillable attributes in extended class
 	
 	public function location() {
 		return $this->belongsTo('App\Models\Location');
-	}
-	
-	public function animalDiets() {
-		return $this->hasMany('App\Models\AnimalDiet');
 	}
 	
 	public function educationalInfo() {
