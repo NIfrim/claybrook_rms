@@ -4,12 +4,12 @@
 		{{-- Left side --}}
 		<div class="d-flex flex-nowrap justify-content-between align-items-center">
 			{{-- Title --}}
-			<h3 class="top-bar-title">{{$title ?? 'Missing Title'}}</h3>
+			<h3 class="top-bar-title">{{ucfirst($category) . ($subcategory ? ' - ' . ucfirst($subcategory) : '')}}</h3>
 			
 			{{-- Action buttons --}}
 			@if($category !== 'dashboard')
 				<div class="d-flex flex-nowrap justify-content-equal align-items-center mx-2">
-					<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'formType' => 'new'])}}">
+					<a href = "{{route('admin.'.$category.'.'.'new', ['type' => $subcategory ?? $category])}}">
 						<button type="button" class="btn btn-primary mx-2">Add New</button>
 					</a>
 					<button id="clearSelection" type="button" class="btn btn-primary mx-2">Clear Selection</button>
