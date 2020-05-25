@@ -1,7 +1,7 @@
 <div class="container">
     <div class="d-flex flex-nowrap justify-content-start">
     </div>
-    <table id="table" class="table display responsive nowrap table-striped table-bordered">
+    <table id="table" class="table display nowrap table-striped table-bordered">
         <thead>
         <tr>
             @foreach($columns as $column)
@@ -14,14 +14,14 @@
         </thead>
         <tbody>
         @if(sizeof($rows) > 0)
-            @foreach($rows as $bird)
+            @foreach($rows as $animal)
                 <tr>
                     @foreach($columns as $column)
-                      <td>{{$bird[$column['name']]}}</td>
+                      <td>{{$animal[$column['name']]}}</td>
                     @endforeach
 
                     <td class="d-flex justify-content-between flex-nowrap" id="table-actions-wrapper">
-                        <i class="icon-btn create material-icons p-2">create</i>
+                        <a href = "{{route('admin.'.$category.'.'.'edit', ['id' => $animal->id, 'type' => $subcategory ?? $category])}}"><i class="icon-btn create material-icons p-2">create</i></a>
                         <i class="icon-btn remove material-icons p-2">delete</i>
                         <i class="icon-btn healing material-icons p-2">healing</i>
                         <i class="icon-btn material-icons p-2">visibility</i>
