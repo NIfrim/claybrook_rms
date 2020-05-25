@@ -16,6 +16,8 @@ class AnimalsTable extends DefaultTable
 		$rows = $this->getRows(10);
 		
 		return view('components.tables.animals-table', [
+			'category' => $this->category,
+			'subcategory' => $this->subcategory,
 			'columns' => [
 				['name' => 'id', 'title' => 'id', 'type' => 'text'],
 				['name' => 'location_id', 'title' => 'location', 'type' => 'text'],
@@ -26,7 +28,7 @@ class AnimalsTable extends DefaultTable
 				['name' => 'sponsorship_band_id', 'title' => 'sponsorship band', 'type' => 'text'],
 			],
 			'rows' => $rows,
-			'params' => request()->except('page'),
+//			'params' => request()->except('page'),
 		]);
 	}
 }
