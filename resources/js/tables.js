@@ -1,7 +1,6 @@
 $(document).ready(function () {
 	let table = $('#table').DataTable({
 		select: true,
-		responsive: true,
 	});
 
     /*Make rows selectable by clicking on them*/
