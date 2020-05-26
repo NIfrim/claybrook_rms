@@ -43,33 +43,32 @@ class DefaultTable extends Component
 	/**
 	 * Get the view / contents that represent the component.
 	 *
-	 * @param int $amountPerPage
-	 *
 	 * @return array
 	 */
-//	@todo Make the function return rows based on dynamic filters
-    protected function getRows(int $amountPerPage) {
+    protected function getRows() {
     	
-    	$filters = $this->getPossibleFilters();
-    	
-    	/* Get the paginated rows for specific model */
+    	/* Get the rows for specific model */
 		if ($this->relations) {
 			
-			if (sizeof($filters) > 0) {
-				$rows = call_user_func($this->getFunction(), $this->relations)->where($filters)->get();
-			} else {
-				$rows = call_user_func($this->getFunction(), $this->relations)->get();
-			}
+			$rows = call_user_func($this->getFunction(), $this->relations)->get();
 			
 		} else {
-			if (sizeof($filters) > 0 ) {
-				$rows = call_user_func($this->getFunction())->where($filters)->get();
-			} else {
-				$rows = call_user_func($this->getFunction())->get();
-			}
+			
+			$rows = call_user_func($this->getFunction())->get();
 		}
 
     	return $rows;
+	}
+	
+	/**
+	 * Get the view / contents that represent the component.
+	 *
+	 * @return array
+	 */
+	protected function getColumns() {
+    	$columns = [];
+    	
+    	return $columns;
 	}
 	
 	
@@ -83,20 +82,20 @@ class DefaultTable extends Component
 	}
 	
 	
-	/**
-	 * Get the view / contents that represent the component.
-	 *
-	 *
-	 * @return array
-	 */
-	private function getPossibleFilters() {
-		$params = request()->except('page');
-		$filters = array();
-		
-		foreach (array_keys($params) as $filter) {
-			array_push($filters, [$filter, 'like', $params[$filter]]);
-		}
-		
-    	return $filters;
-	}
+//	/**
+//	 * Get the view / contents that represent the component.
+//	 *
+//	 *
+//	 * @return array
+//	 */
+//	private function getPossibleFilters() {
+//		$params = request()->except('page');
+//		$filters = array();
+//
+//		foreach (array_keys($params) as $filter) {
+//			array_push($filters, [$filter, 'like', $params[$filter]]);
+//		}
+//
+//    	return $filters;
+//	}
 }
