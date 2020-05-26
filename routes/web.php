@@ -102,25 +102,25 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		
 		/** @route admin/animals/{type}{array_params}
 		 * 	@method GET
-		 *	@desc Route to retrieve animals by specific type and other parameters
+		 *	@desc Route to retrieve a list of animals by specific type
 		 */
-		Route::get('/{type}', 'AnimalsController@byType')->name('byType');
-		
-		/** @route admin/animals/{type}/new
-		 * 	@method GET
-		 *	@desc Route to access the form for creating an animal
-		 */
-		Route::get('/{type}/new', 'AnimalsController@showAnimalForm')->name('new');
+		Route::get('/{type}', 'AnimalsController@list')->name('list');
 		
 		/** @route admin/animals/{type}/{id}
 		 * 	@method GET
-		 *	@desc Route to access the form for editing an animal
+		 *	@desc Route to access the form for creating/editing an animal
 		 */
-		Route::get('/{type}/{id}', 'AnimalsController@showAnimalForm')->name('edit');
+		Route::get('/{type}/{id}', 'AnimalsController@showAnimalForm')->name('manage');
+		
+		/** @route admin/animals/{type}/delete {birds|fish|mammals|reptiles}
+		 * 	@method POST
+		 *	@desc Route to remove animal records
+		 */
+		Route::post('/{type}/delete', 'AnimalsController@delete')->name('delete');
 		
 		/** @route admin/animals/{type}/{formType} [birds|fish|mammals|reptiles]/[new|edit]
-		 * 	@method GET
-		 *	@desc Route to access the form for creating/updating an animal
+		 * 	@method POST
+		 *	@desc Route to submit changes when creating or editing an animal
 		 */
 		Route::post('/{type}/{formType}', 'AnimalsController@submit')->name('submit');
 		
