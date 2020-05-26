@@ -17,16 +17,16 @@
                     <i class="material-icons menu-item-icon">keyboard_arrow_down</i></a>
                 <ul class="collapse list-unstyled {{$category === 'animals' ? 'show' : ''}}" id="animalsSubmenu">
                     <li class="menu-sub-item {{$subcategory === 'birds' ? 'active' : ''}}">
-                        <a href="{{route('admin.animals.byType', ['type' => 'birds'])}}"><span class="menu-sub-item-text">Birds</span></a>
+                        <a href="{{route('admin.animals.list', ['type' => 'birds'])}}"><span class="menu-sub-item-text">Birds</span></a>
                     </li>
                     <li class="menu-sub-item {{$subcategory === 'fishes' ? 'active' : ''}}">
-                        <a href="{{route('admin.animals.byType', ['type' => 'fishes'])}}"><span class="menu-sub-item-text">Fishes</span></a>
+                        <a href="{{route('admin.animals.list', ['type' => 'fishes'])}}"><span class="menu-sub-item-text">Fishes</span></a>
                     </li>
                     <li class="menu-sub-item {{$subcategory === 'mammals' ? 'active' : ''}}">
-                        <a href="{{route('admin.animals.byType', ['type' => 'mammals'])}}"><span class="menu-sub-item-text">Mammals</span></a>
+                        <a href="{{route('admin.animals.list', ['type' => 'mammals'])}}"><span class="menu-sub-item-text">Mammals</span></a>
                     </li>
                     <li class="menu-sub-item {{$subcategory === 'reptiles' ? 'active' : ''}}">
-                        <a href="{{route('admin.animals.byType', ['type' => 'reptiles'])}}"><span class="menu-sub-item-text">Reptiles</span></a>
+                        <a href="{{route('admin.animals.list', ['type' => 'reptiles'])}}"><span class="menu-sub-item-text">Reptiles</span></a>
                     </li>
                 </ul>
             </li>
