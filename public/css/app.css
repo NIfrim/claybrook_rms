@@ -10957,15 +10957,6 @@ a:hover {
 
 /*****************BUTTONS******************/
 
-.table th,
-.table td {
-  vertical-align: middle !important;
-}
-
-/* TABLES */
-
-/*****************BUTTONS******************/
-
 .btn-primary {
   color: #017243;
   font-weight: 600;
@@ -10979,8 +10970,10 @@ a:hover {
 
 #table-actions-wrapper .icon-btn {
   border-radius: 50%;
+  border: none;
   color: #777777;
   cursor: pointer;
+  background: transparent;
 }
 
 #table-actions-wrapper .remove {
@@ -10992,28 +10985,25 @@ a:hover {
 }
 
 .icon-btn:hover {
-  background-color: rgba(214, 214, 214, 0.3);
+  background-color: rgba(214, 214, 214, 0.3) !important;
   transition: background-color 500ms;
 }
 
 /* END Buttons */
 
-/*****************MODALS AND FORMS******************/
+/***************** FORMS ******************/
 
 .forms-container {
   height: 100%;
 }
 
-.forms-container .card {
-  max-height: 100%;
+.forms-container form,
+.forms-container form .card {
+  height: 100%;
 }
 
-.forms-container .card .card-body {
+.forms-container form .card .card-body {
   overflow-y: scroll;
-}
-
-.animal-form-modal {
-  min-width: 700px;
 }
 
 .animal-form-inputs-wrapper {
@@ -11024,19 +11014,40 @@ a:hover {
   flex-basis: auto;
 }
 
-/* END Modals */
+/* END Forms */
 
-/*****************TOP NAV BAR******************/
+/*****************TABLES******************/
 
 #table th {
-  background-color: #C1D32F;
+  background-color: #D1FFAD;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
 
 #table tbody .selected {
-  background-color: #FFFEF8 !important;
+  background-color: rgba(253, 126, 20, 0.3) !important;
+}
+
+.table th,
+.table td {
+  vertical-align: middle !important;
+}
+
+#table_wrapper {
+  width: 100%;
+}
+
+#table_wrapper .row:nth-of-type(2) {
+  overflow-x: scroll;
+}
+
+.actionsColumn {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  background-color: #D1FFAD !important;
+  border-left: 1px solid #D6D6D6 !important;
+  right: 0;
 }
 
 /* END TABLES */
@@ -11168,18 +11179,4 @@ a:hover {
 }
 
 /*END SIDENAV*/
-
-/*****************RMS TABLE******************/
-
-.table-container {
-  overflow-x: scroll;
-}
-
-.table-cell {
-  text-anchor: middle;
-  text-align-all: center;
-  text-align: center;
-}
-
-/* RMS Table END */
 
