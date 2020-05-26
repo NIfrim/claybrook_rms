@@ -19,7 +19,7 @@
                             type="text"
                             class="form-control @error('generatedId') is-invalid @enderror"
                             name="id"
-                            value="{{old('id') ?? $data['currentRow']['id'] ?? ''}}"
+                            value="{{old('id') ?? $data['generatedId'] ?? $data['currentRow']['id'] ?? ''}}"
                             required
                             readonly
                         />
@@ -114,10 +114,10 @@
                         <label for="canFly" class="col-xl-2 col-form-label">{{ __('Can Fly') }}</label>
                         
                         <div class="col-xl-10">
-                            <select name = "can_fly" id = "canFly" class="form-control @error('canFly') is-invalid @enderror" autofocus>
+                            <select name = "can_fly" id = "canFly" class="form-control @error('canFly') is-invalid @enderror" required autofocus>
                                 <option value = "" {{old('can_fly') === 'Y' | old('can_fly') === 'N' | isset($data['currentRow']['can_fly']) ? '' : 'selected'}}>Select</option>
-                                <option value = "Y" {{old('can_fly') === 'Y' | $data['currentRow']['can_fly'] === 'Y' ? 'selected' : ''}}>Yes</option>
-                                <option value = "N" {{old('can_fly') === 'N' | $data['currentRow']['can_fly'] === 'N' ? 'selected' : ''}}>No</option>
+                                <option value = "Y" {{old('can_fly') === 'Y' | isset($data['currentRow']['can_fly']) && $data['currentRow']['can_fly'] === 'Y' ? 'selected' : ''}}>Yes</option>
+                                <option value = "N" {{old('can_fly') === 'N' | isset($data['currentRow']['can_fly']) && $data['currentRow']['can_fly'] === 'N' ? 'selected' : ''}}>No</option>
                             </select>
                             @error('canFly')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -187,7 +187,7 @@
                             <input
                                 id="wingspan"
                                 type="number"
-                                step="0.01"
+                                step="1"
                                 max="999.99"
                                 class="form-control @error('wingspan') is-invalid @enderror"
                                 name="wingspan"
@@ -275,8 +275,8 @@
                     <div class="col-xl-10">
                         <select name = "gender" id = "gender" class="form-control @error('gender') is-invalid @enderror">
                             <option value = "" {{old('gender') === 'MALE' | old('gender') === 'FEMALE' | isset($data['currentRow']['gender'])  ? '' : 'selected'}}>Select Gender</option>
-                            <option value = "MALE" {{old('gender') === 'MALE' | $data['currentRow']['gender'] === 'MALE' ? 'selected' : ''}}>Male</option>
-                            <option value = "FEMALE" {{old('gender') === 'FEMALE' | $data['currentRow']['gender'] === 'FEMALE' ? 'selected' : ''}}>Female</option>
+                            <option value = "MALE" {{old('gender') === 'MALE' | isset($data['currentRow']['gender']) && $data['currentRow']['gender'] === 'MALE' ? 'selected' : ''}}>Male</option>
+                            <option value = "FEMALE" {{old('gender') === 'FEMALE' | isset($data['currentRow']['gender']) && $data['currentRow']['gender'] === 'FEMALE' ? 'selected' : ''}}>Female</option>
                         </select>
                         
                         @error('dob')
@@ -400,7 +400,7 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
-            <a href = "{{route('admin.animals.byType', ['type' => $subcategory ?? $category])}}">
+            <a href = "{{route('admin.animals.list', ['type' => $subcategory ?? $category])}}">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </a>
             <button type="submit" name="submit-animal-details" class="btn btn-primary">Submit</button>
