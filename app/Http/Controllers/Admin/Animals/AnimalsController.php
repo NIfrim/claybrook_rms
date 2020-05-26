@@ -24,7 +24,7 @@ class AnimalsController extends Controller
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function byType(String $type)
+	public function list(String $type)
 	{
 		return view('admin.animals.home', [
 			'title' => $this->getTitle($type),
@@ -38,10 +38,8 @@ class AnimalsController extends Controller
 	/**
 	 * Show all the birds records.
 	 *
-	 * @param string|null $id
-	 * @param object|null $rowData
 	 * @param String $type [The type of animal, e.g. mammals, birds...]
-	 * @param String $formType new|edit
+	 * @param string|null $id
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
@@ -53,7 +51,6 @@ class AnimalsController extends Controller
 		$locations = \App\Models\Location::all();
 		
 		$data = [
-			'id' => $this->generateId($type, $animalRecords),
 			'type' => $type === 'fish' ? strtoupper('fish') : strtoupper(substr($type, 0, -1)),
 			'species' =>  $this->getArrayFromRows($animalRecords, 'species'),
 			'classifications' => $this->getArrayFromRows($animalRecords, 'classification'),
@@ -62,8 +59,10 @@ class AnimalsController extends Controller
 			'locations' => $locations
 		];
 		
-		if ($id) {
+		if ($id !== 'new') {
 			$data['currentRow'] = call_user_func($model.'::'.'with', ['location', 'educationalInfo', 'animalHabitat', 'sponsorshipBand', 'sponsorSignage'])->find($id);
+		} else {
+			$data['generatedId'] = $this->generateId($type, $animalRecords);
 		}
 		
 		// Add animal related data (assists with filling the form)
@@ -103,6 +102,26 @@ class AnimalsController extends Controller
 		]);
 	}
 	
+	/**
+	 * Show all the birds records.
+	 *
+	 * @param Request $request
+	 * @param string $type
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
+	public function delete(Request $request, string $type)
+	{
+		// Convert to array to me able to use method to remove one or more rows
+		$ids = explode(',', $request->ids);
+		$successAlert = sizeof($ids) > 1 ? 'Multiple records deleted successfully' : 'One record deleted successfully';
+		
+		// Remove the records from the database using destroy()
+		call_user_func($this->getModel($type).'::'.'destroy', $ids);
+		
+		// Return the user to the table list
+		return redirect(route('admin.animals.list', ['type' => $type]))->with('success', $successAlert);
+	}
 	
 	/**
 	 * Method to submit data to the database
@@ -132,7 +151,7 @@ class AnimalsController extends Controller
 		}
 		
 		// Redirect user to section table
-		return redirect(route('admin.animals.byType', ['type'=> $type]));
+		return redirect(route('admin.animals.list', ['type'=> $type]));
 	}
 	
 	/**
@@ -204,6 +223,7 @@ class AnimalsController extends Controller
 		
 		switch ($data['type']) {
 			case 'BIRD':
+				$validationRules['can_fly'] = ['string', 'in:Y,N'];
 				$validationRules['nest_construction'] = ['string', 'max:45'];
 				$validationRules['clutch_size'] = ['numeric'];
 				$validationRules['wingspan'] = ['numeric'];
