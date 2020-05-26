@@ -23,6 +23,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "@popperjs/core": "^2.4.0",
         "datatables.net-bs4": "^1.10.21",
         "datatables.net-fixedcolumns-bs4": "^3.3.1",
         "datatables.net-fixedheader-bs4": "^3.1.7",
