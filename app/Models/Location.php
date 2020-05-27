@@ -14,18 +14,30 @@ class Location extends Model
 	protected $fillable = [
 		'id',
 		'zoo_id',
-		'name',
-		'type',
+		'location_name',
+		'location_type',
 		'vacant',
 		'surface_area',
-		'description',
+		'location_description',
 	];
 
 	public function zoo() {
 		return $this->belongsTo('App\Models\Zoo');
 	}
 	
-	public function animals() {
-		return $this->hasMany('App\Models\Animal');
+	public function birds() {
+		return $this->hasMany('App\Models\Bird');
+	}
+	
+	public function fish() {
+		return $this->hasMany('App\Models\Fish');
+	}
+	
+	public function mammals() {
+		return $this->hasMany('App\Models\Mammal');
+	}
+	
+	public function reptiles() {
+		return $this->hasMany('App\Models\Reptile');
 	}
 }
