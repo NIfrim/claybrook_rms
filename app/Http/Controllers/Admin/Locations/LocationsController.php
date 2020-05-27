@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin\Locations;
 
 use App\Http\Controllers\Controller;
-use App\Models\Location;
-use App\Models\Zoo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LocationsController extends Controller
 {
@@ -22,82 +21,238 @@ class LocationsController extends Controller
 	}
 	
 	/**
-	 * Show all the bird locations records.
+	 * Show all the birds records.
 	 *
+	 * @param String $type [The type of location, e.g. aviary, aquarium...]
+	 * @param string|null $id
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function index()
+	public function showForm(string $type, ?string $id)
 	{
-		// Override the function with own implementation
+		$model = 'App\Models\Location';
+		$relations = $this->getRelations($type);
+		
+		$locationRecords = call_user_func($model.'::'.'with', $relations)->get();
+		
+		$data = [
+			'type' => strtoupper($type),
+		];
+		
+		if ($id !== 'new') {
+			
+			$data['currentRow'] = call_user_func($model.'::'.'with', $relations)->find($id);
+			
+		} else {
+			
+			$data['generatedId'] = $this->generateId($type, $locationRecords);
+			$data['zooId'] = 1;
+			
+		}
+		
+		return view('admin.locations.forms', [
+			'category' => 'locations',
+			'subcategory' => $type,
+			'formType' => $id === 'new' ? 'new' : 'edit',
+			'data' => $data,
+		]);
 	}
 	
 	/**
-	 * Show the form for creating/updating a location
+	 * Show all the birds records.
 	 *
-	 * @param String $formType new|edit
+	 * @param String $type
 	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function showLocationForm(String $formType)
+	public function list(String $type)
 	{
-		// Override this function with own implementation
+		return view('admin.locations.home', [
+			'title' => $this->getTitle($type),
+			'category' => 'locations',
+			'subcategory' => $type,
+			'model' => 'App\Models\Location',
+			'relations' => ['zoo', 'birds', 'fish', 'mammals', 'reptiles'],
+		]);
 	}
 	
 	/**
-	 * Create a new user instance after a valid registration.
+	 * Delete one of more locations from the database
 	 *
 	 * @param Request $request
-	 * @param String $formType
+	 * @param string $type
 	 *
-	 * @return \App\Models\Location
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 */
-	protected function save(Request $request, String $formType)
+	public function delete(Request $request, string $type)
 	{
-		/* Validate the request */
-		$request->validate([
-			'id' => ['required', 'string', 'max:45'],
-			'zoo_id' => ['required', 'numeric'],
-			'name' => ['required', 'string', 'max:45'],
-			'type' => ['required', 'string', 'in:AVIARY,AQUARIUM,COMPOUND,HOTHOUSE'],
-			'vacant' => ['required', 'string', 'in:Y,N'],
-			'surface_area' => ['required', 'numeric', 'max:99999'],
-			'description' => ['string'],
-		]);
+		// Convert to array to me able to use method to remove one or more rows
+		$ids = explode(',', $request->ids);
 		
-		/* Insert the data */
-		Location::create([
-			'id' => $request->id,
-			'zoo_id' => $request->zoo_id,
-			'name' => $request->name,
-			'type' => $request->type,
-			'vacant' => $request->vacant,
-			'surface_area' => $request->surface_area,
-			'description' => $request->description ?? '',
-		]);
+		$successAlert = sizeof($ids) > 1 ? 'Multiple records deleted successfully' : 'One record deleted successfully';
 		
-		/* Redirect back or to intended route */
-		return redirect()
-			->intended(route('admin.locations.'.strtolower($request->type)))
-			->with('status','Successfully saved to database');
+		// Remove the records from the database using destroy()
+		call_user_func('App\Models\Location::destroy', $ids);
+		
+		// Return the user to the table list
+		return redirect(route('admin.locations.list', ['type' => $type]))->with('success', $successAlert);
+	}
+	
+	
+	/**
+	 * Method to submit data to the database
+	 *
+	 * @param Request $request
+	 * @param String $type [The type of location, e.g. aviary, aquarium...]
+	 * @param String $formType new|edit
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
+	public function submit(Request $request, string $type, string $formType) {
+		// Validate the form data
+		$this->validator($request->all())->validate();
+		
+		// Create new or update record
+		switch ($formType) {
+			case 'new':
+				call_user_func('App\Models\Location::create', $request->all());
+				break;
+			
+			case 'edit':
+				call_user_func('App\Models\Location::find', $request->id)->update($request->all());
+				break;
+			
+			default: break;
+		}
+		
+		// Redirect user to section table
+		return redirect(route('admin.locations.list', ['type'=> $type]));
+	}
+	
+	/** Get the title to be displayed at the top of the section
+	 *
+	 * @param String $type
+	 *
+	 * @return String|null
+	 */
+	private function getTitle(String $type) {
+		switch ($type) {
+			case 'aquarium':
+				return 'Locations - Aquarium';
+			
+			case 'aviary':
+				return 'Locations - Aviary';
+			
+			case 'compound':
+				return 'Locations - Compound';
+			
+			case 'hothouse':
+				return 'Locations - Hothouse';
+			
+			default:
+				return 'Missing title';
+		}
 	}
 	
 	/**
-	 * Return only specific columns from rows.
+	 * Get the id template to be used when generating the id.
 	 *
-	 * @param array $rows
+	 * @param string $type
+	 *
+	 * @param object $locationRecords
+	 *
+	 * @return string|null
+	 */
+	public function generateId(string $type, object $locationRecords) {
+		/* Get all the ids currently in the relevant database table */
+		$ids = array_map(function ($elem) {
+			return $this->getNumberFromString($elem);
+		}, $this->getArrayFromRows($locationRecords, 'id'));
+		
+		// Get the value of the last id
+		$lastIdAsInt = intval(end($ids));
+		
+		// Generate id using template and last id value
+		$generatedId = $this->getIdTemplate($type).sprintf('%02d', $lastIdAsInt + 1);
+		
+		return $generatedId;
+	}
+	
+	/**
+	 * Get the id template to be used when generating the id.
+	 *
+	 * @param string $type
+	 *
+	 * @return string|null
+	 */
+	private function getIdTemplate(string $type) {
+		switch ($type){
+			case 'aviary':
+				return 'BA';
+			case 'aquarium':
+				return 'FA';
+			case 'compound':
+				return 'MA';
+			case 'hothouse':
+				return 'RA';
+			default: return null;
+		}
+	}
+	
+	/**
+	 * Get the relations based on the type of the location
+	 *
+	 * @param string $type
+	 *
+	 * @return array
+	 */
+	private function getRelations(string $type) {
+		$relations = ['zoo'];
+		
+		switch ($type){
+			case 'aviary':
+				array_push($relations, 'birds');
+				break;
+				
+			case 'aquarium':
+				array_push($relations, 'fish');
+				break;
+				
+			case 'compound':
+				array_push($relations, 'mammals');
+				break;
+				
+			case 'hothouse':
+				array_push($relations, 'reptiles');
+				break;
+				
+			default: break;
+		}
+		
+		return $relations;
+	}
+	
+	
+	/**
+	 * Return array with specific data based on column.
+	 *
+	 * @param object $rows
 	 * @param String $column
 	 *
 	 * @return array
 	 */
-	protected function getArrayFromRows(array $rows, String $column) {
+	protected function getArrayFromRows(object $rows, String $column) {
 		$arr = [];
 		
 		foreach ($rows as $row) {
-			if ($row->$column) {
+			if ($row->$column && !in_array($row->$column, $arr)) {
 				array_push($arr, $row->$column);
 			}
 		}
 		
 		return $arr;
 	}
+	
 	
 	/**
 	 * Return only specific columns from rows.
@@ -107,18 +262,31 @@ class LocationsController extends Controller
 	 * @return integer
 	 */
 	protected function getNumberFromString(String $str) {
+		// d+ matches series of digits
 		preg_match('!\d+!', $str, $matches);
 		return $matches[0];
 	}
 	
+	
 	/**
-	 * Get the zoo attributes
+	 * Get a validator for an incoming form request.
 	 *
-	 * @param String $name
+	 * @param  array $data 		The data to be validated
 	 *
-	 * @return \Illuminate\Database\Eloquent\Collection
+	 * @return \Illuminate\Contracts\Validation\Validator
 	 */
-	protected function getZoo(String $name) {
-		return Zoo::all()->where('name', '=', $name)->first();
+	protected function validator(array $data)
+	{
+		$validationRules = [
+			'id' => ['required', 'string', 'max:45'],
+			'zoo_id' => ['required', 'numeric'],
+			'location_name' => ['required', 'string', 'max:45'],
+			'location_type' => ['required', 'string', 'in:AVIARY,AQUARIUM,COMPOUND,HOTHOUSE'],
+			'vacant' => ['required', 'string', 'max:1'],
+			'surface_area' => [$data['surface_area'] !== '' ? 'numeric' : ''],
+			'location_description' => [isset($data['location_description']) ? 'string' : ''],
+		];
+		
+		return Validator::make($data, $validationRules);
 	}
 }
