@@ -63426,6 +63426,8 @@ __webpack_require__(/*! ./tables */ "./resources/js/tables.js");
 
 __webpack_require__(/*! ./alerts */ "./resources/js/alerts.js");
 
+__webpack_require__(/*! ./forms */ "./resources/js/forms.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -63473,6 +63475,52 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/forms.js":
+/*!*******************************!*\
+  !*** ./resources/js/forms.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var toggler = $('#reproductionType');
+
+  if (toggler) {
+    // Set initial hidden inputs
+    toggleHiddenInputs(toggler.val()); // Function used to hide specific inputs
+
+    toggler.change(function () {
+      // Get the value of the selector used to toggle other inputs visibility
+      var togglerVal = $(this).val();
+      toggleHiddenInputs(togglerVal);
+    });
+  }
+});
+
+function toggleHiddenInputs(togglerVal) {
+  var clutchSizeInputRow = $('#clutchSize').closest('.row');
+  var offspringNumberInputRow = $('#offspringNumber').closest('.row');
+
+  switch (togglerVal) {
+    case 'LIVE BEARER':
+      clutchSizeInputRow.hide();
+      offspringNumberInputRow.show();
+      break;
+
+    case 'EGG LAYER':
+      clutchSizeInputRow.show();
+      offspringNumberInputRow.hide();
+      break;
+
+    default:
+      clutchSizeInputRow.hide();
+      offspringNumberInputRow.hide();
+      break;
+  }
+}
+
+/***/ }),
+
 /***/ "./resources/js/tables.js":
 /*!********************************!*\
   !*** ./resources/js/tables.js ***!
@@ -63482,7 +63530,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 $(document).ready(function () {
   var table = $('#table').DataTable({
-    select: true
+    select: true,
+    language: {
+      emptyTable: "No data available in table"
+    }
   });
   /*Make rows selectable by clicking on them*/
 

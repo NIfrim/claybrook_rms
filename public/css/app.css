@@ -11038,10 +11038,6 @@ a:hover {
   width: 100%;
 }
 
-#table_wrapper .row:nth-of-type(2) {
-  overflow-x: scroll;
-}
-
 .actionsColumn {
   position: -webkit-sticky !important;
   position: sticky !important;
