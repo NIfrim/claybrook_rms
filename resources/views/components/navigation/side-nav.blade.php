@@ -60,16 +60,16 @@
                     <i class="material-icons menu-item-icon">keyboard_arrow_down</i></a>
                 <ul class="collapse list-unstyled {{$category === 'locations' ? 'show' : ''}}" id="locationsSubmenu">
                     <li class="menu-sub-item {{$subcategory === 'aquarium' ? 'active' : ''}}">
-                        <a href="{{route('admin.locations.aquarium')}}"><span class="menu-sub-item-text">Aquarium</span></a>
+                        <a href="{{route('admin.locations.list', ['type' => 'aquarium'])}}"><span class="menu-sub-item-text">Aquarium</span></a>
                     </li>
                     <li class="menu-sub-item {{$subcategory === 'aviary' ? 'active' : ''}}">
-                        <a href="{{route('admin.locations.aviary')}}"><span class="menu-sub-item-text">Aviary</span></a>
+                        <a href="{{route('admin.locations.list', ['type' => 'aviary'])}}"><span class="menu-sub-item-text">Aviary</span></a>
                     </li>
                     <li class="menu-sub-item {{$subcategory === 'compounds' ? 'active' : ''}}">
-                        <a href="{{route('admin.locations.compounds')}}"><span class="menu-sub-item-text">Compounds</span></a>
+                        <a href="{{route('admin.locations.list', ['type' => 'compound'])}}"><span class="menu-sub-item-text">Compounds</span></a>
                     </li>
                     <li class="menu-sub-item {{$subcategory === 'hothouse' ? 'active' : ''}}">
-                        <a href="{{route('admin.locations.hothouse')}}"><span class="menu-sub-item-text">Hothouse</span></a>
+                        <a href="{{route('admin.locations.list', ['type' => 'hothouse'])}}"><span class="menu-sub-item-text">Hothouse</span></a>
                     </li>
                 </ul>
             </li>
