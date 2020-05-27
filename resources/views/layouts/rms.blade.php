@@ -33,6 +33,8 @@
             {{--TOP NAV--}}
             <x-navigation.top-nav :category="$category" :subcategory="$subcategory" />
             <main id="main" class="container-fluid overflow-auto">
+                @yield('content')
+    
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>{{session('success')}}</strong>
@@ -41,7 +43,6 @@
                         </button>
                     </div>
                 @endif
-                @yield('content')
             </main>
         </div>
     </div>
