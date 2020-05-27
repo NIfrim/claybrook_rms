@@ -13,7 +13,7 @@ class AnimalsTable extends DefaultTable
 	 */
 	public function render()
 	{
-		$rows = $this->getRows();
+		$rows = $this->getRows(null);
 		$columns = $this->getColumns();
 		
 		return view('components.tables.animals-table', [
@@ -37,8 +37,8 @@ class AnimalsTable extends DefaultTable
 			['name' => 'date_joined', 'title' => 'date joined', 'type' => 'date'],
 			['name' => 'dob', 'title' => 'date of birth', 'type' => 'date'],
 			['name' => 'gender', 'title' => 'gender', 'type' => 'text'],
-			['name' => 'height_joined', 'title' => 'height_joined', 'type' => 'number'],
-			['name' => 'weight_joined', 'title' => 'weight_joined', 'type' => 'number'],
+			['name' => 'height_joined', 'title' => 'height joined', 'type' => 'number'],
+			['name' => 'weight_joined', 'title' => 'weight joined', 'type' => 'number'],
 			['name' => 'diet', 'title' => 'diet', 'type' => 'text'],
 			['name' => 'sponsorship_band_id', 'title' => 'sponsorship band', 'type' => 'text'],
 		];
@@ -52,7 +52,7 @@ class AnimalsTable extends DefaultTable
 				array_push($columns, ['name' => 'plumage', 'title' => 'plumage', 'type' => 'text']);
 				break;
 			
-			case 'fish':
+			case 'fishes':
 				array_push($columns, ['name' => 'average_body_temperature', 'title' => 'average body temp', 'type' => 'number']);
 				array_push($columns, ['name' => 'water_type', 'title' => 'water type', 'type' => 'text']);
 				array_push($columns, ['name' => 'colour', 'title' => 'colour', 'type' => 'text']);
