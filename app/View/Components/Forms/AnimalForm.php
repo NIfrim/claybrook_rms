@@ -16,7 +16,7 @@ class AnimalForm extends DefaultForm
 		return view('components.forms.animal-form', [
 				'data' => $this->data,
 				'formType' => $this->formType,
-				'route' => route('admin.animals.submit', ['type' => 'birds', 'formType' => $this->formType])
+				'route' => route('admin.animals.submit', ['type' => $this->data['type'], 'formType' => $this->formType])
 			]
 		);
 	}
