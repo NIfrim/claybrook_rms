@@ -43,7 +43,7 @@ class AnimalsController extends Controller
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function showAnimalForm(string $type, ?string $id)
+	public function showForm(string $type, ?string $id)
 	{
 		$model = $this->getModel($type);
 		$animalRecords = call_user_func($model.'::'.'with', ['location', 'educationalInfo', 'animalHabitat', 'sponsorshipBand', 'sponsorSignage'])->get();
@@ -51,7 +51,7 @@ class AnimalsController extends Controller
 		$locations = \App\Models\Location::all();
 		
 		$data = [
-			'type' => $type === 'fish' ? strtoupper('fish') : strtoupper(substr($type, 0, -1)),
+			'type' => $type === 'fishes' ? strtoupper('fish') : strtoupper(substr($type, 0, -1)),
 			'species' =>  $this->getArrayFromRows($animalRecords, 'species'),
 			'classifications' => $this->getArrayFromRows($animalRecords, 'classification'),
 			'diet' => $this->getArrayFromRows($animalRecords, 'diet'),
@@ -73,37 +73,37 @@ class AnimalsController extends Controller
 				$data['plumage'] = $this->getArrayFromRows($animalRecords, 'plumage');
 				break;
 			
-			case 'fish':
-					$data['water_type'] = $this->getArrayFromRows($animalRecords, 'water_type');
-					$data['average_body_temperature'] = $this->getArrayFromRows($animalRecords, 'average_body_temperature');
+			case 'fishes':
+					$data['waterType'] = $this->getArrayFromRows($animalRecords, 'water_type');
+					$data['avgBodyTemp'] = $this->getArrayFromRows($animalRecords, 'average_body_temperature');
 					$data['colour'] = $this->getArrayFromRows($animalRecords, 'colour');
 
 				break;
 				
 			case 'mammals':
-					$data['gestational_period'] = $this->getArrayFromRows($animalRecords, 'gestational_period');
-					$data['offspring_number'] = $this->getArrayFromRows($animalRecords, 'offspring_number');
+					$data['gestationalPeriod'] = $this->getArrayFromRows($animalRecords, 'gestational_period');
+					$data['offspringNum'] = $this->getArrayFromRows($animalRecords, 'offspring_number');
 				break;
 			
 			case 'reptiles':
-					$data['clutch_size'] = $this->getArrayFromRows($animalRecords, 'clutch_size');
-					$data['offspring_number'] = $this->getArrayFromRows($animalRecords, 'clutch_size');
+					$data['clutchSize'] = $this->getArrayFromRows($animalRecords, 'clutch_size');
+					$data['offspringNum'] = $this->getArrayFromRows($animalRecords, 'clutch_size');
 				break;
 				
 			default:
 				break;
 		}
 		
-		return view('admin.animals.birds.forms', [
+		return view('admin.animals.forms', [
 			'category' => 'animals',
 			'subcategory' => $type,
-			'formType' => $id ? 'edit' : 'new',
+			'formType' => $id === 'new' ? 'new' : 'edit',
 			'data' => $data,
 		]);
 	}
 	
 	/**
-	 * Show all the birds records.
+	 * Delete one of more animals from the database
 	 *
 	 * @param Request $request
 	 * @param string $type
@@ -133,7 +133,6 @@ class AnimalsController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 */
 	public function submit(Request $request, string $type, string $formType) {
-		
 		// Validate the form data
 		$this->validator($request->all())->validate();
 		
@@ -191,7 +190,7 @@ class AnimalsController extends Controller
 				return 'MAM';
 			case 'reptiles':
 				return 'REP';
-			case 'fish':
+			case 'fishes':
 				return 'FIS';
 			default: return null;
 		}
@@ -201,7 +200,6 @@ class AnimalsController extends Controller
 	 * Get a validator for an incoming form request.
 	 *
 	 * @param  array $data 		The data to be validated
-	 * @param string $type 		The type of animal
 	 *
 	 * @return \Illuminate\Contracts\Validation\Validator
 	 */
@@ -241,9 +239,9 @@ class AnimalsController extends Controller
 				break;
 			
 			case 'REPTILE':
-				$validationRules['reproduction_type'] = ['string', 'in:LIVEBEARER,EGGLAYER'];
-				$validationRules['clutch_size'] = ['numeric'];
-				$validationRules['offspring_number'] = ['numeric'];
+				$validationRules['reproduction_type'] = ['required', 'string', 'in:LIVE BEARER,EGG LAYER'];
+				$validationRules['clutch_size'] = [$data['reproduction_type'] === 'LIVE BEARER' && 'required', $data['reproduction_type'] === 'LIVE BEARER' && 'numeric'];
+				$validationRules['offspring_number'] = [$data['reproduction_type'] === 'LIVE BEARER' && 'required', $data['reproduction_type'] === 'LIVE BEARER' && 'numeric'];
 				break;
 			
 			default: break;
