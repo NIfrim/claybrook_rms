@@ -110,7 +110,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		 * 	@method GET
 		 *	@desc Route to access the form for creating/editing an animal
 		 */
-		Route::get('/{type}/{id}', 'AnimalsController@showAnimalForm')->name('manage');
+		Route::get('/{type}/{id}', 'AnimalsController@showForm')->name('manage');
 		
 		/** @route admin/animals/{type}/delete {birds|fish|mammals|reptiles}
 		 * 	@method POST
@@ -123,70 +123,6 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		 *	@desc Route to submit changes when creating or editing an animal
 		 */
 		Route::post('/{type}/{formType}', 'AnimalsController@submit')->name('submit');
-		
-//		/* Birds routes */
-//		Route::prefix('birds')->group(function () {
-//
-//			/** @route admin/animals/birds
-//			 * 	@method GET
-//			 *	@desc Route to manage records regarding birds
-//			 */
-//			Route::get('/', 'BirdsController@index')->name('birds');
-//
-//			/** @route admin/animals/birds/{formType} [new|edit]
-//			 * 	@method GET
-//			 *	@desc Route to access the form for creating/updating a bird
-//			 */
-//			Route::get('/{formType}', 'BirdsController@showAnimalForm')->name('birds.manage');
-//		});
-//
-//		/* Fishes routes */
-//		Route::prefix('fishes')->group(function () {
-//
-//			/** @route admin/animals/fishes
-//			 * 	@method GET
-//			 *	@desc Route to manage records regarding fishes
-//			 */
-//			Route::get('/', 'FishesController@index')->name('fishes');
-//
-//			/** @route admin/animals/fishes/{formType} [new|edit]
-//			 * 	@method GET
-//			 *	@desc Route to access the form for creating/updating a fish
-//			 */
-//			Route::get('/{formType}', 'FishesController@showAnimalForm')->name('fishes.manage');
-//		});
-//
-//		/* Mammals routes */
-//		Route::prefix('mammals')->group(function () {
-//
-//			/** @route admin/animals/mammals
-//			 * 	@method GET
-//			 *	@desc Route to manage records regarding mammals
-//			 */
-//			Route::get('/', 'MammalsController@index')->name('mammals');
-//
-//			/** @route admin/animals/mammals/{formType} [new|edit]
-//			 * 	@method GET
-//			 *	@desc Route to access the form for creating/updating a mammal
-//			 */
-//			Route::get('/{formType}', 'MammalsController@showAnimalForm')->name('mammals.manage');
-//		});
-//
-//		/* Reptiles routes */
-//		Route::prefix('reptiles')->group(function () {
-//
-//			/** @route admin/animals/reptiles
-//			 * 	@method GET
-//			 *	@desc Route to manage records regarding reptiles
-//			 */
-//			Route::get('/', 'ReptilesController@index')->name('reptiles');
-//
-//			/** @route admin/animals/reptiles/{formType} [new|edit]
-//			 * 	@method GET
-//			 *	@desc Route to access the form for creating/updating a reptile
-//			 */
-//			Route::get('/{formType}', 'ReptilesController@showAnimalForm')->name('reptiles.manage');
-//		});
 	});
 	
 	/* Accounts section Routes */
@@ -225,46 +161,70 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	
 	/* Locations section routes */
 	Route::prefix('locations')->name('locations.')->namespace('Locations')->group(function () {
-
-		/* Aviary routes */
-		Route::prefix('aviary')->group(function () {
-			
-			/** @route admin/locations/aviary
-			 * 	@method GET
-			 *	@desc Route to manage records regarding aviary locations
-			 */
-			Route::get('/', 'AviaryController@index')->name('aviary');
-			
-			/** @route admin/locations/aviary/{formType} [new|edit]
-			 * 	@method GET
-			 *	@desc Route to access the form for creating/updating an aviary location
-			 */
-			Route::get('/{formType}', 'AviaryController@showLocationForm')->name('aviary.manage');
-			
-			/** @route admin/locations/aviary/{formType} [new|edit]
-			 * 	@method POST
-			 *	@desc Route to create or update a location
-			 */
-			Route::post('/{formType}', 'AviaryController@save')->name('aviary.manage');
-		});
 		
-		/** @route admin/locations/aquarium
+		/** @route admin/locations/{type}
 		 * 	@method GET
-		 *	@desc Route to manage aquarium type locations
+		 *	@desc Route to retrieve a list of all locations by type
 		 */
-		Route::get('/aquarium', 'AquariumController@index')->name('aquarium');
+		Route::get('/{type}', 'LocationsController@list')->name('list');
 		
-		/** @route admin/locations/compounds
+		/** @route admin/locations/{type}/{id}
 		 * 	@method GET
-		 *	@desc Route to manage compound type locations
+		 *	@desc Route to access the form for creating/editing a location
 		 */
-		Route::get('/compounds', 'CompoundsController@index')->name('compounds');
+		Route::get('/{type}/{id}', 'LocationsController@showForm')->name('manage');
 		
-		/** @route admin/locations/compounds
-		 * 	@method GET
-		 *	@desc Route to manage hothouse type locations
+		/** @route admin/locations/{type}/delete {aviary|aquarium|compound|hothouse}
+		 * 	@method POST
+		 *	@desc Route to remove location records
 		 */
-		Route::get('/hothouse', 'HothouseController@index')->name('hothouse');
+		Route::post('/{type}/delete', 'LocationsController@delete')->name('delete');
+		
+		/** @route admin/locations/{type}/{formType} {aviary|aquarium|compound|hothouse}/[new|edit]
+		 * 	@method POST
+		 *	@desc Route to submit changes when creating or editing a location
+		 */
+		Route::post('/{type}/{formType}', 'LocationsController@submit')->name('submit');
+		
+//		/* Aviary routes */
+//		Route::prefix('aviary')->group(function () {
+//
+//			/** @route admin/locations/aviary
+//			 * 	@method GET
+//			 *	@desc Route to manage records regarding aviary locations
+//			 */
+//			Route::get('/', 'AviaryController@index')->name('aviary');
+//
+//			/** @route admin/locations/aviary/{formType} [new|edit]
+//			 * 	@method GET
+//			 *	@desc Route to access the form for creating/updating an aviary location
+//			 */
+//			Route::get('/{formType}', 'AviaryController@showLocationForm')->name('aviary.manage');
+//
+//			/** @route admin/locations/aviary/{formType} [new|edit]
+//			 * 	@method POST
+//			 *	@desc Route to create or update a location
+//			 */
+//			Route::post('/{formType}', 'AviaryController@save')->name('aviary.manage');
+//		});
+//
+//		/** @route admin/locations/aquarium
+//		 * 	@method GET
+//		 *	@desc Route to manage aquarium type locations
+//		 */
+//		Route::get('/aquarium', 'AquariumController@index')->name('aquarium');
+//
+//		/** @route admin/locations/compounds
+//		 * 	@method GET
+//		 *	@desc Route to manage compound type locations
+//		 */
+//		Route::get('/compounds', 'CompoundsController@index')->name('compounds');
+//
+//		/** @route admin/locations/compounds
+//		 * 	@method GET
+//		 *	@desc Route to manage hothouse type locations
+//		 */
+//		Route::get('/hothouse', 'HothouseController@index')->name('hothouse');
 	});
 	
 	/* Reviews section routes */
