@@ -11,7 +11,23 @@ class Animal extends Model
 {
 	protected $keyType = 'string';
 	public $incrementing = false;
-	protected $fillable = []; // Add fillable attributes in extended class
+	protected $fillable = [
+		'id',
+		'location_id',
+		'sponsorship_band_id',
+		'species',
+		'classification',
+		'type',
+		'name',
+		'date_joined',
+		'dob',
+		'gender',
+		'height_joined',
+		'weight_joined',
+		'diet',
+		'created_at',
+		'updated_at'
+	]; // Add fillable attributes in extended class
 	
 	public function location() {
 		return $this->belongsTo('App\Models\Location');
