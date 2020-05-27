@@ -1,4 +1,4 @@
-<form action = "{{$route}}" method="post">
+<form action = "{{route('admin.animals.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post">
     <div class="card" id="animalFormCard">
         <div class="card-header">
             <h4>{{$title}}</h4>
@@ -8,10 +8,11 @@
             @csrf
             {{--Add the type of animal based on the subcategory--}}
             <input type = "text" name="type" value="{{$data['currentRow']['type'] ?? $data['type']}}" hidden>
+            
             <div class="container-responsive">
-                {{--Generated id--}}
+                {{--The id or generated id--}}
                 <div class="form-group row">
-                    <label for="generatedId" class="col-xl-2 col-form-label">{{ __('Generated id') }}</label>
+                    <label for="generatedId" class="col-xl-2 col-form-label">{{ __($formType === 'new' ? 'Generated id' : 'ID') }}</label>
                     
                     <div class="col-xl-10">
                         <input
@@ -25,6 +26,25 @@
                         />
                         
                         @error('generatedId')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+    
+                {{--Birth date--}}
+                <div class="form-group row">
+                    <label for="dob" class="col-xl-2 col-form-label">{{ __('Date of birth') }}</label>
+        
+                    <div class="col-xl-10">
+                        <input id="dob"
+                               type="date"
+                               class="form-control @error('dob') is-invalid @enderror"
+                               name="dob"
+                               value="{{ old('dob') ?? $data['currentRow']['dob'] ?? '' }}"
+                               required
+                               autofocus />
+            
+                        @error('dob')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
@@ -115,9 +135,9 @@
                         
                         <div class="col-xl-10">
                             <select name = "can_fly" id = "canFly" class="form-control @error('canFly') is-invalid @enderror" required autofocus>
-                                <option value = "" {{old('can_fly') === 'Y' | old('can_fly') === 'N' | isset($data['currentRow']['can_fly']) ? '' : 'selected'}}>Select</option>
-                                <option value = "Y" {{old('can_fly') === 'Y' | isset($data['currentRow']['can_fly']) && $data['currentRow']['can_fly'] === 'Y' ? 'selected' : ''}}>Yes</option>
-                                <option value = "N" {{old('can_fly') === 'N' | isset($data['currentRow']['can_fly']) && $data['currentRow']['can_fly'] === 'N' ? 'selected' : ''}}>No</option>
+                                <option value = "" {{old('can_fly') === 'Y' | old('can_fly') === 'N' | isset($data['currentRow']) && isset($data['currentRow']['can_fly']) ? '' : 'selected'}}>Select</option>
+                                <option value = "Y" {{old('can_fly') === 'Y' | isset($data['currentRow']) && isset($data['currentRow']['can_fly']) && $data['currentRow']['can_fly'] === 'Y' ? 'selected' : ''}}>Yes</option>
+                                <option value = "N" {{old('can_fly') === 'N' | isset($data['currentRow']) && isset($data['currentRow']['can_fly']) && $data['currentRow']['can_fly'] === 'N' ? 'selected' : ''}}>No</option>
                             </select>
                             @error('canFly')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -229,6 +249,199 @@
                             @enderror
                         </div>
                     </div>
+                @elseif($subcategory === 'fishes')
+                    {{--Average body temperature--}}
+                    <div class="form-group row">
+                        <label for="avgBodyTemp" class="col-xl-2 col-form-label">{{ __('Avg. body temperature') }}</label>
+            
+                        <div class="col-xl-10 input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">ºC</span>
+                            </div>
+                            <input
+                                id="avgBodyTemp"
+                                type="number"
+                                step="0.5"
+                                max="99.99"
+                                class="form-control @error('avgBodyTemp') is-invalid @enderror"
+                                name="average_body_temperature"
+                                value="{{ old('average_body_temperature') ?? $data['currentRow']['average_body_temperature'] ?? '' }}"
+                                autofocus
+                            />
+                
+                            @error('avgBodyTemp')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+        
+                    {{--Water type--}}
+                    <div class="form-group row">
+                        <label for="waterType" class="col-xl-2 col-form-label">{{ __('Water type') }}</label>
+            
+                        <div class="col-xl-10">
+                            <input
+                                id="waterType"
+                                list="waterTypeList"
+                                type="text"
+                                max="45"
+                                class="form-control @error('waterType') is-invalid @enderror"
+                                name="water_type"
+                                value="{{ old('water_type') ?? $data['currentRow']['water_type'] ?? '' }}"
+                                autofocus
+                            />
+                
+                            <datalist id="waterTypeList">
+                                @foreach($data['waterType'] as $waterType)
+                                    <option value = "{{$waterType}}">{{ucfirst(strtolower($waterType))}}</option>
+                                @endforeach
+                            </datalist>
+                
+                            @error('waterType')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+        
+                    {{--Fish colour--}}
+                    <div class="form-group row">
+                        <label for="colour" class="col-xl-2 col-form-label">{{ __('Colour') }}</label>
+            
+                        <div class="col-xl-10">
+                            <input
+                                id="colour"
+                                list="colourList"
+                                type="text"
+                                max="45"
+                                class="form-control @error('colour') is-invalid @enderror"
+                                name="colour"
+                                value="{{ old('colour') ?? $data['currentRow']['colour'] ?? '' }}"
+                                autofocus
+                            />
+                
+                            <datalist id="colourList">
+                                @foreach($data['colour'] as $colour)
+                                    <option value = "{{$colour}}">{{ucfirst(strtolower($colour))}}</option>
+                                @endforeach
+                            </datalist>
+                
+                            @error('colour')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                @elseif($subcategory === 'mammals')
+                    {{--Gestational Period--}}
+                    <div class="form-group row">
+                        <label for="gestationalPeriod" class="col-xl-2 col-form-label">{{ __('Gestational period') }}</label>
+            
+                        <div class="col-xl-10 input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">days</span>
+                            </div>
+                            <input
+                                id="gestationalPeriod"
+                                type="number"
+                                step="1"
+                                max="999"
+                                class="form-control @error('gestationalPeriod') is-invalid @enderror"
+                                name="gestational_period"
+                                value="{{ old('gestational_period') ?? $data['currentRow']['gestational_period'] ?? '' }}"
+                                required
+                                autofocus
+                            />
+                
+                            @error('gestationalPeriod')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+        
+                    {{--Offspring Number--}}
+                    <div class="form-group row">
+                        <label for="offspringNumber" class="col-xl-2 col-form-label">{{ __('Offspring number') }}</label>
+            
+                        <div class="col-xl-10">
+                            <input
+                                id="offspringNumber"
+                                type="number"
+                                step="1"
+                                max="999"
+                                class="form-control @error('offspringNumber') is-invalid @enderror"
+                                name="offspring_number"
+                                value="{{ old('offspring_number') ?? $data['currentRow']['offspring_number'] ?? '' }}"
+                                required
+                                autofocus
+                            />
+                
+                            @error('offspringNumber')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                @elseif($subcategory === 'reptiles')
+                    {{--Reproduction Type--}}
+                    <div class="form-group row">
+                        <label for="reproductionType" class="col-xl-2 col-form-label">{{ __('Reproduction type') }}</label>
+            
+                        <div class="col-xl-10">
+                            <select name = "reproduction_type" id = "reproductionType" class="form-control @error('reproductionType') is-invalid @enderror">
+                                <option value = "" {{old('reproduction_type') === 'EGG LAYER' | old('reproduction_type') === 'LIVE BEARER' | isset($data['currentRow']) && isset($data['currentRow']['reproduction_type'])  ? '' : 'selected'}}>Select reproduction type</option>
+                                <option value = "EGG LAYER" {{old('reproduction_type') === 'EGG LAYER' | isset($data['currentRow']) && isset($data['currentRow']['reproduction_type']) && $data['currentRow']['reproduction_type'] === 'EGG LAYER' ? 'selected' : ''}}>Egg layer</option>
+                                <option value = "LIVE BEARER" {{old('reproduction_type') === 'LIVE BEARER' | isset($data['currentRow']) && isset($data['currentRow']['reproduction_type']) && $data['currentRow']['reproduction_type'] === 'LIVE BEARER' ? 'selected' : ''}}>Live bearer</option>
+                            </select>
+                
+                            @error('reproductionType')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+        
+                    {{--Clutch Size--}}
+                    <div class="form-group row">
+                        <label for="clutchSize" class="col-xl-2 col-form-label">{{ __('Clutch Size') }}</label>
+            
+                        <div class="col-xl-10">
+                            <input
+                                id="clutchSize"
+                                type="number"
+                                step="1"
+                                max="999"
+                                class="form-control @error('clutchSize') is-invalid @enderror"
+                                name="clutch_size"
+                                value="{{ old('clutch_size') ?? $data['currentRow']['clutch_size'] ?? '' }}"
+                                autofocus
+                            />
+                
+                            @error('clutchSize')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+        
+                    {{--Offspring Number--}}
+                    <div class="form-group row">
+                        <label for="offspringNumber" class="col-xl-2 col-form-label">{{ __('Offspring number') }}</label>
+            
+                        <div class="col-xl-10">
+                            <input
+                                id="offspringNumber"
+                                type="number"
+                                step="1"
+                                max="999"
+                                class="form-control @error('offspringNumber') is-invalid @enderror"
+                                name="offspring_number"
+                                value="{{ old('offspring_number') ?? $data['currentRow']['offspring_number'] ?? '' }}"
+                                autofocus
+                            />
+                
+                            @error('offspringNumber')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
                 @endif
                 
                 {{--Given name--}}
@@ -249,34 +462,15 @@
                     </div>
                 </div>
                 
-                {{--Birth date--}}
-                <div class="form-group row">
-                    <label for="dob" class="col-xl-2 col-form-label">{{ __('Date of birth') }}</label>
-                    
-                    <div class="col-xl-10">
-                        <input id="dob"
-                               type="date"
-                               class="form-control @error('dob') is-invalid @enderror"
-                               name="dob"
-                               value="{{ old('dob') ?? $data['currentRow']['dob'] ?? '' }}"
-                               required
-                               autofocus />
-                        
-                        @error('dob')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
-                    </div>
-                </div>
-                
                 {{--Gender--}}
                 <div class="form-group row">
                     <label for="gender" class="col-xl-2 col-form-label">{{ __('Gender') }}</label>
                     
                     <div class="col-xl-10">
                         <select name = "gender" id = "gender" class="form-control @error('gender') is-invalid @enderror">
-                            <option value = "" {{old('gender') === 'MALE' | old('gender') === 'FEMALE' | isset($data['currentRow']['gender'])  ? '' : 'selected'}}>Select Gender</option>
-                            <option value = "MALE" {{old('gender') === 'MALE' | isset($data['currentRow']['gender']) && $data['currentRow']['gender'] === 'MALE' ? 'selected' : ''}}>Male</option>
-                            <option value = "FEMALE" {{old('gender') === 'FEMALE' | isset($data['currentRow']['gender']) && $data['currentRow']['gender'] === 'FEMALE' ? 'selected' : ''}}>Female</option>
+                            <option value = "" {{old('gender') === 'MALE' | old('gender') === 'FEMALE' | isset($data['currentRow']) && isset($data['currentRow']['gender'])  ? '' : 'selected'}}>Select Gender</option>
+                            <option value = "MALE" {{old('gender') === 'MALE' | isset($data['currentRow']) && isset($data['currentRow']['gender']) && $data['currentRow']['gender'] === 'MALE' ? 'selected' : ''}}>Male</option>
+                            <option value = "FEMALE" {{old('gender') === 'FEMALE' | isset($data['currentRow']) && isset($data['currentRow']['gender']) && $data['currentRow']['gender'] === 'FEMALE' ? 'selected' : ''}}>Female</option>
                         </select>
                         
                         @error('dob')
