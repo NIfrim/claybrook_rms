@@ -1,7 +1,9 @@
 $(document).ready(function () {
 	const table = $('#table').DataTable({
-		select: 		true,
-
+		select: true,
+		language: {
+			emptyTable: "No data available in table"
+		}
 	});
 
     /*Make rows selectable by clicking on them*/
