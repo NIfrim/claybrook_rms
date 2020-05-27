@@ -43,12 +43,18 @@ class DefaultTable extends Component
 	/**
 	 * Get the view / contents that represent the component.
 	 *
+	 * @param array|null $filters
+	 *
 	 * @return array
 	 */
-    protected function getRows() {
-    	
+    protected function getRows(?array $filters) {
+
     	/* Get the rows for specific model */
-		if ($this->relations) {
+		if ($filters) {
+			
+			$rows = call_user_func($this->getFunction(), $this->relations)->where($filters)->get();
+			
+		} else if ($this->relations) {
 			
 			$rows = call_user_func($this->getFunction(), $this->relations)->get();
 			
