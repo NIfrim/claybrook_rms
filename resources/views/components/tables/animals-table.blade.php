@@ -1,4 +1,4 @@
-<table id="table" class="table display nowrap table-striped table-bordered">
+<table id="table" class="table table-responsive display nowrap table-striped table-bordered">
     <thead>
     <tr>
         @foreach($columns as $column)
@@ -37,10 +37,6 @@
                 </td>
             </tr>
         @endforeach
-    @else
-        <tr>
-            <td colspan="100">No Records</td>
-        </tr>
     @endif
     </tbody>
 </table>
