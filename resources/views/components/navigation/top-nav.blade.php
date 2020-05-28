@@ -9,18 +9,27 @@
 			{{-- Action buttons --}}
 			@if($category !== 'dashboard')
 				<div class="d-flex flex-nowrap justify-content-equal align-items-center mx-2">
-					<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'id' => 'new'])}}">
-						<button type="button" class="btn btn-primary mx-2">Add New</button>
-					</a>
-					
-					<button id="clearSelection" type="button" class="btn btn-primary mx-2">Clear Selection</button>
-					
-					<form action = "{{route('admin.'.$category.'.delete', ['type' => $subcategory ?? $category])}}" method="post">
-						@csrf
-						<input type = "text" name="ids" id="removeInput" required hidden>
+					@if($formType)
+						@if($category === 'eventsAndNews')
+							<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'id' => 'newCategory'])}}">
+								<button id="createCategory" type="button" class="btn btn-primary mx-2">Create Category</button>
+							</a>
+						@endif
+					@else
 						
-						<button id="removeSelected" type="submit" class="btn btn-primary mx-2">Remove Selected</button>
-					</form>
+						<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'id' => 'new'])}}">
+							<button type="button" class="btn btn-primary mx-2">Add New</button>
+						</a>
+					
+						<button id="clearSelection" type="button" class="btn btn-primary mx-2">Clear Selection</button>
+					
+						<form action = "{{route('admin.'.$category.'.delete', ['type' => $subcategory ?? $category])}}" method="post">
+							@csrf
+							<input type = "text" name="ids" id="removeInput" required hidden>
+							
+							<button id="removeSelected" type="submit" class="btn btn-primary mx-2">Remove Selected</button>
+						</form>
+					@endif
 				</div>
 			@endif
 		</div>
