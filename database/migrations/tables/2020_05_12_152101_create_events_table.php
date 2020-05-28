@@ -23,7 +23,7 @@ class CreateEventsTable extends Migration
 			$table->enum('repeat', ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY', 'NEVER']);
 			$table->text('short_description');
 			$table->text('long_description');
-			$table->json('images');
+			$table->text('image');
 			$table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class CreateEventsTable extends Migration
         Schema::table('events', function (Blueprint $table) {
 			// Constraints
 			$table->foreign('zoo_id', 'fk_events_zoos')->references('id')->on('zoos')->onDelete('cascade');
-			$table->foreign('category_id', 'fk_events_eventCategories')->references('id')->on('event_categories')->onDelete('cascade');
+			$table->foreign('category_id', 'fk_events_eventsCategories')->references('id')->on('events_categories')->onDelete('cascade');
         });
     }
 
