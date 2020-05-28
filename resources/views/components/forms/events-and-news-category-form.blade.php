@@ -7,26 +7,9 @@
         <div class="card-body">
             @csrf
             <div class="container-responsive">
-                {{--Name--}}
-                <div class="form-group row">
-                    <label for="name" class="col-xl-2 col-form-label">{{ __(substr(ucfirst($subcategory), 0, -1).' name') }}</label>
-        
-                    <div class="col-xl-10">
-                        <input  name = "name"
-                                id = "name"
-                                class="form-control @error('name') is-invalid @enderror"
-                                value="{{old('name') ?? $data['currentRow']['name'] ?? ''}}"
-                                required autofocus />
-            
-                        @error('name')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
-                    </div>
-                </div>
-    
                 {{--Title--}}
                 <div class="form-group row">
-                    <label for="title" class="col-xl-2 col-form-label">{{ __(substr(ucfirst($subcategory), 0, -1).' title') }}</label>
+                    <label for="title" class="col-xl-2 col-form-label">{{ __('Title') }}</label>
         
                     <div class="col-xl-10">
                         <input  name = "title"
