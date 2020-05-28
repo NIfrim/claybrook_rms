@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class EventsCategory extends Model
 {
 	protected $fillable = [
-		'name',
 		'title',
 		'short_description',
 		'long_description',
