@@ -21,7 +21,6 @@ class AnimalsTable extends DefaultTable
 			'subcategory' => $this->subcategory,
 			'rows' => $rows,
 			'columns' => $columns,
-//			'params' => request()->except('page'),
 		]);
 	}
 	
