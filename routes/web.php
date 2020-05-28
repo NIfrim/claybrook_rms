@@ -158,6 +158,12 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		 */
 		Route::get('/{type}', 'EventsAndNewsController@list')->name('list');
 		
+		/** @route admin/events
+		 * 	@method GET
+		 *	@desc Route to list records by {type} {events|news}
+		 */
+		Route::get('/{type}/categories', 'EventsAndNewsController@listCategories')->name('list.categories');
+		
 		/** @route admin/eventsAndNews/{type}/{id} {events|news}/{id|new}
 		 * 	@method GET
 		 *	@desc Route to access the form for creating/editing an event or a news article
