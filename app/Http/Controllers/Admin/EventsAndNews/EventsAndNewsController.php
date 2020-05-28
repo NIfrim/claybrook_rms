@@ -32,9 +32,10 @@ class EventsAndNewsController extends Controller
 	{
 		$model = $this->getModel($type);
 		$relations = $this->getRelations($type);
-		$categories = call_user_func($type === 'events' ? 'App\Models\EventsCategory::all' : 'App\Models\NewsCategory::get');
+		$categories = call_user_func($type === 'events' ? 'App\Models\EventsCategory::get' : 'App\Models\NewsCategory::get');
 		
 		$data['type'] = substr(strtoupper($type), 0, -1);
+		$data['categories'] = $categories;
 		
 		if ($id !== 'new') {
 			
@@ -43,32 +44,49 @@ class EventsAndNewsController extends Controller
 		} else {
 
 			$data['zooId'] = 1;
-			$data['categories'] = $categories;
 			
 		}
 		
 		return view('admin.eventsAndNews.forms', [
 			'category' => 'eventsAndNews',
 			'subcategory' => $type,
-			'formType' => gettype($id) === 'string' ? $id : 'edit',
+			'formType' => $id === 'newCategory' | $id === 'new' ? $id : 'edit',
 			'data' => $data,
 		]);
 	}
 	
 	/**
-	 * Show all the events records.
+	 * Show all the events or news records.
 	 *
 	 * @param String $type
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function list(String $type)
+	public function list(string $type)
 	{
 		return view('admin.eventsAndNews.home', [
 			'category' => 'eventsAndNews',
 			'subcategory' => $type,
-			'model' => $this->getModel($type),
+			'model' => $this->getModel($subType ?? $type),
 			'relations' => $this->getRelations($type),
+		]);
+	}
+	
+	/**
+	 * Show all the events or news records categories.
+	 *
+	 * @param String $type
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function listCategories(string $type)
+	{
+		return view('admin.eventsAndNews.home', [
+			'category' => 'eventsAndNews',
+			'subcategory' => $type,
+			'subcategory2' => 'categories',
+			'model' => $this->getModel($type.'Category'),
+			'relations' => $this->getRelations($type.'Category'),
 		]);
 	}
 	
@@ -126,7 +144,7 @@ class EventsAndNewsController extends Controller
 		}
 		
 		// Redirect user to section table
-		return redirect(route('admin.locations.list', ['type'=> $type]));
+		return redirect(route('admin.eventsAndNews.list', ['type'=> $type]));
 	}
 	
 	/** Get the relations specific to the model
@@ -138,10 +156,14 @@ class EventsAndNewsController extends Controller
 	private function getRelations(String $type) {
 		switch ($type) {
 			case 'events':
-				return ['EventsCategory', 'zoo'];
+				return ['eventCategory', 'zoo'];
 			
 			case 'news':
-				return ['NewsCategory', 'zoo'];
+				return ['newsCategory', 'zoo'];
+			
+			case 'eventsCategory':
+			case 'newsCategory':
+				return ['events'];
 			
 			default:
 				return [];
@@ -195,7 +217,6 @@ class EventsAndNewsController extends Controller
 	private function validator(array $request, $type)
 	{
 		$validationRules = [
-			'name' => ['required', 'string', 'max:45'],
 			'title' => ['required', 'string', 'max:255'],
 			'short_description' => ['required', 'string'],
 			'long_description' => ['required', 'string'],
@@ -238,6 +259,14 @@ class EventsAndNewsController extends Controller
 	private function getModel(string $type)
 	{
 		switch ($type) {
+			case 'eventsCategory':
+				return 'App\Models\EventsCategory';
+				break;
+			
+			case 'newsCategory':
+				return 'App\Models\NewsCategory';
+				break;
+			
 			case 'events':
 				return 'App\Models\Event';
 				break;
@@ -246,7 +275,7 @@ class EventsAndNewsController extends Controller
 				return 'App\Models\News';
 				break;
 				
-			default: return '{$type} parameter is missing or not known';
+			default: return null;
 		}
 	}
 }
