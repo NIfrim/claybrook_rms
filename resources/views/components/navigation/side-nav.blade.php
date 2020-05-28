@@ -47,10 +47,19 @@
             </li>
 
             {{--Events and News--}}
-            <li class="menu-item {{$category === 'eventsAndNews' ? 'active' : ''}}">
-                <a href="{{route('admin.eventsAndNews')}}" class="d-flex flex-nowrap justify-content-between">
+            <li class="menu-item">
+                <a href="#eventsAndNewsSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'eventsAndNews' ? 'true' : 'false'}}" class="d-flex flex-nowrap justify-content-between">
                     <span class="menu-item-text">Events & News</span>
+                    <i class="material-icons menu-item-icon">keyboard_arrow_down</i></a>
                 </a>
+                <ul class="collapse list-unstyled {{$category === 'eventsAndNews' ? 'show' : ''}}" id="eventsAndNewsSubmenu">
+                    <li class="menu-sub-item {{$subcategory === 'events' ? 'active' : ''}}">
+                        <a href="{{route('admin.eventsAndNews.list', ['type' => 'events'])}}"><span class="menu-sub-item-text">Events</span></a>
+                    </li>
+                    <li class="menu-sub-item {{$subcategory === 'news' ? 'active' : ''}}">
+                        <a href="{{route('admin.eventsAndNews.list', ['type' => 'news'])}}"><span class="menu-sub-item-text">News</span></a>
+                    </li>
+                </ul>
             </li>
 
             {{--Locations--}}
