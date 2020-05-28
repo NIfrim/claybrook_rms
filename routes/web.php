@@ -150,13 +150,31 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	});
 	
 	/* Events And News section routes */
-	Route::prefix('eventsAndNews')->namespace('EventsAndNews')->group(function () {
+	Route::prefix('eventsAndNews')->name('eventsAndNews.')->namespace('EventsAndNews')->group(function () {
 		
-		/** @route admin/eventsAndNews
+		/** @route admin/events
 		 * 	@method GET
-		 *	@desc Route to manage events and news records
+		 *	@desc Route to list records by {type} {events|news}
 		 */
-		Route::get('/', 'EventsAndNewsController@index')->name('eventsAndNews');
+		Route::get('/{type}', 'EventsAndNewsController@list')->name('list');
+		
+		/** @route admin/eventsAndNews/{type}/{id} {events|news}/{id|new}
+		 * 	@method GET
+		 *	@desc Route to access the form for creating/editing an event or a news article
+		 */
+		Route::get('/{type}/{id}', 'EventsAndNewsController@showForm')->name('manage');
+		
+		/** @route admin/events/delete
+		 * 	@method POST
+		 *	@desc Route to remove events records
+		 */
+		Route::post('/{type}/delete', 'EventsAndNewsController@delete')->name('delete');
+		
+		/** @route admin/eventsAndNews/{type}/{formType} {events|news}/[new|edit]
+		 * 	@method POST
+		 *	@desc Route to submit changes when creating or editing an event of news record
+		 */
+		Route::post('/{type}/{formType}', 'EventsAndNewsController@submit')->name('submit');
 	});
 	
 	/* Locations section routes */
