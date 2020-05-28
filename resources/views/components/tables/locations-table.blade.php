@@ -18,7 +18,7 @@
                 @endforeach
                 
                 <td class="d-flex justify-content-between flex-nowrap actionsColumn" id="table-actions-wrapper">
-                    <a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'id' => $location->id])}}">
+                    <a href = "{{route('admin.locations.'.'manage', ['type' => $subcategory ?? $category, 'id' => $location->id])}}">
                         <i class="icon-btn create material-icons p-2" title="Edit">create</i>
                     </a>
                     
