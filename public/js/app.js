@@ -63529,7 +63529,7 @@ function toggleHiddenInputs(togglerVal) {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  var table = $('#table').DataTable({
+  var table = $('#table, #table2').DataTable({
     select: true,
     language: {
       emptyTable: "No data available in table"
