@@ -6,10 +6,30 @@
         
         <div class="card-body">
             @csrf
-            {{--Add the default zoo id--}}
-            <input type = "number" id="zooId" name="zoo_id" value="{{$data['currentRow']['zoo_id'] ?? $data['zooId']}}" required hidden readonly>
+            {{--Add the zoo and own id--}}
+            <input type = "number" id="id" name="id" value="{{$data['currentRow']['id'] ?? $data['id']}}" required hidden readonly />
+            <input type = "number" id="zooId" name="zoo_id" value="{{$data['currentRow']['zoo_id'] ?? $data['zooId']}}" required hidden readonly />
             
             <div class="container-responsive">
+                {{--Title--}}
+                <div class="form-group row">
+                    <label for="title" class="col-xl-2 col-form-label">{{ __('Title') }}</label>
+        
+                    <div class="col-xl-10">
+                        <input type = "text"
+                               id="title"
+                               name="title"
+                               value="{{old('title') ?? $data['currentRow']['title'] ?? ''}}"
+                               class="form-control @error('startDate') is-invalid @enderror"
+                               required
+                               autofocus>
+            
+                        @error('title')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+                
                 {{--Category--}}
                 <div class="form-group row">
                     <label for="categoryId" class="col-xl-2 col-form-label">{{ __('Category') }}</label>
@@ -25,7 +45,7 @@
                             <option value = "" {{old('category_id') !== '' | isset($data['currentRow']) && isset($data['currentRow']['category_id'])  ? '' : 'selected'}}>Select</option>
                             
                             @foreach($data['categories'] as $category)
-                                <option value = "{{$category->id}}" {{old('category_id') !== '' | isset($data['currentRow']) && isset($data['currentRow']['category_id']) && $data['currentRow']['category_id'] === $category->id ? 'selected' : ''}}>{{$category->name}}</option>
+                                <option value = "{{$category->id}}" {{old('category_id') !== '' | isset($data['currentRow']) && isset($data['currentRow']['category_id']) && $data['currentRow']['category_id'] === $category->id ? 'selected' : ''}}>{{$category->title}}</option>
                             @endforeach
                             
                         </select>
@@ -39,7 +59,7 @@
                 {{--Start Date--}}
                 <div class="form-group row">
                     <label for="startDate" class="col-xl-2 col-form-label">{{ __('Start date') }}</label>
-        
+                    
                     <div class="col-xl-10">
                         <input type = "date"
                                id="startDate"
@@ -158,7 +178,7 @@
             <a href = "{{route('admin.eventsAndNews.list', ['type' => $subcategory ?? $category])}}">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </a>
-            <button type="submit" name="submit-animal-details" class="btn btn-primary">Submit</button>
+            <button type="submit" name="submitType" value="{{$subcategory}}" class="btn btn-primary">Submit</button>
         </div>
     </div>
 </form>
