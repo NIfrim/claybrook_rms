@@ -2,9 +2,9 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Sponsor;
+use App\Models\Sponsor;
 use Faker\Generator as Faker;
-	use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 	
 	$factory->define(Sponsor::class, function (Faker $faker) {
     return [
@@ -16,14 +16,9 @@ use Faker\Generator as Faker;
 		'email' => $faker->unique()->safeEmail,
 		'password' => Hash::make('password'),
 		'primary_contact_number' => $faker->unique()->e164PhoneNumber,
-		'address' => [
-			'home' => [
-				'building_number' => $faker->buildingNumber,
-				'road_name' => $faker->streetName,
-				'city' => $faker->city,
-				'county' => $faker->state,
-				'postcode' => $faker->postcode
-			]
-		]
+		'building' => $faker->buildingNumber,
+		'road' => $faker->streetName,
+		'city' => $faker->city,
+		'postcode' => $faker->postcode,
     ];
 });

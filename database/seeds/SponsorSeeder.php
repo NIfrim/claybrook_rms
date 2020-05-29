@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Sponsor;
 use Illuminate\Database\Seeder;
-use App\Sponsor;
 
 class SponsorSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class SponsorSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sponsor::class, 10)->create();
+        factory(Sponsor::class, 20)->create();
     }
 }
