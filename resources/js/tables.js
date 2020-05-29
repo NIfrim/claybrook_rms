@@ -13,6 +13,7 @@ $(document).ready(function () {
 	$('#clearSelection').click( function () {
 		table.rows('.selected').deselect();
 		clearFormInput();
+		$('.select-info').remove();
 	} );
 
 	/* Add selected rows ids to the remove selected form input */
