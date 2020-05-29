@@ -13,7 +13,7 @@ class AnimalsTable extends DefaultTable
 	 */
 	public function render()
 	{
-		$rows = $this->getRows(null);
+		$rows = $this->getRows([['type', '=', substr($this->subcategory, 0, -1)]]);
 		$columns = $this->getColumns();
 		
 		return view('components.tables.animals-table', [
