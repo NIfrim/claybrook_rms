@@ -4,7 +4,7 @@
 		{{-- Left side --}}
 		<div class="d-flex flex-nowrap justify-content-between align-items-center">
 			{{-- Title --}}
-			<h3 class="top-bar-title">{{ucfirst($category) . ($subcategory ? ' - ' . ucfirst($subcategory) : '')}}</h3>
+			<h3 class="top-bar-title">{{ucfirst($category) . ($subcategory ? ' - ' . ucfirst($subcategory) : '') . ($subcategory2 ? ' - ' . ucfirst($subcategory2) : '')}}</h3>
 			
 			{{-- Action buttons --}}
 			@if($category !== 'dashboard')
@@ -16,14 +16,15 @@
 							</a>
 						@endif
 					@else
-						
-						<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'id' => 'new'])}}">
+						@if($category !== 'sponsors')
+						<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'id' => isset($subcategory2) ? 'newCategory' : 'new'])}}">
 							<button type="button" class="btn btn-primary mx-2">Add New</button>
 						</a>
+						@endif
 					
 						<button id="clearSelection" type="button" class="btn btn-primary mx-2">Clear Selection</button>
 					
-						<form action = "{{route('admin.'.$category.'.delete', ['type' => $subcategory ?? $category])}}" method="post">
+						<form action = "{{route('admin.'.$category.'.delete', ['type' => $subcategory2 ? $subcategory.'Category' : $subcategory ?? $category])}}" method="post">
 							@csrf
 							<input type = "text" name="ids" id="removeInput" required hidden>
 							
