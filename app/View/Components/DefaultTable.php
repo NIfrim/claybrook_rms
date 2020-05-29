@@ -48,7 +48,7 @@ class DefaultTable extends Component
 	 * @return array
 	 */
     protected function getRows(?array $filters) {
-
+    	
     	/* Get the rows for specific model */
 		if ($filters) {
 			
@@ -86,22 +86,4 @@ class DefaultTable extends Component
 	private function getFunction() {
     	return $this->model.'::'.($this->relations ? 'with' : 'all');
 	}
-	
-	
-//	/**
-//	 * Get the view / contents that represent the component.
-//	 *
-//	 *
-//	 * @return array
-//	 */
-//	private function getPossibleFilters() {
-//		$params = request()->except('page');
-//		$filters = array();
-//
-//		foreach (array_keys($params) as $filter) {
-//			array_push($filters, [$filter, 'like', $params[$filter]]);
-//		}
-//
-//    	return $filters;
-//	}
 }
