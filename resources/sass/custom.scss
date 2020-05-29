@@ -33,7 +33,7 @@ a:hover {
   color: $lightLogoGreen;
 }
 
-#table-actions-wrapper .icon-btn {
+.actionsColumn .icon-btn {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -43,11 +43,11 @@ a:hover {
   background: transparent;
 }
 
-#table-actions-wrapper .remove {
+.actionsColumn .remove {
   color: $orange;
 }
 
-#table-actions-wrapper .healing {
+.actionsColumn .healing {
   color: $teal;
 }
 
@@ -94,7 +94,8 @@ a:hover {
   top: 0;
 }
 
-#table tbody .selected {
+#table tbody .selected,
+#table2 tbody .selected{
   background-color: rgb($orange, 0.3) !important;
 }
 
