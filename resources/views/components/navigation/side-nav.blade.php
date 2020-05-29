@@ -32,19 +32,19 @@
             </li>
 
             {{--Accounts--}}
-            <li class="menu-item">
-                <a href="#accountsSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'accounts' ? 'true' : 'false'}}" class="d-flex flex-nowrap justify-content-between">
-                    <span class="menu-item-text">Accounts</span>
-                    <i class="material-icons menu-item-icon">keyboard_arrow_down</i></a>
-                <ul class="collapse list-unstyled {{$category === 'accounts' ? 'show' : ''}}" id="accountsSubmenu">
-                    <li class="menu-sub-item {{$subcategory === 'sponsors' ? 'active' : ''}}">
-                        <a href="{{route('admin.accounts.sponsors')}}"><span class="menu-sub-item-text">Sponsors</span></a>
-                    </li>
-                    <li class="menu-sub-item {{$subcategory === 'users' ? 'active' : ''}}">
-                        <a href="{{route('admin.accounts.users')}}"><span class="menu-sub-item-text">Users</span></a>
-                    </li>
-                </ul>
-            </li>
+            {{--<li class="menu-item">--}}
+                {{--<a href="#accountsSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'accounts' ? 'true' : 'false'}}" class="d-flex flex-nowrap justify-content-between">--}}
+                    {{--<span class="menu-item-text">Accounts</span>--}}
+                    {{--<i class="material-icons menu-item-icon">keyboard_arrow_down</i></a>--}}
+                {{--<ul class="collapse list-unstyled {{$category === 'accounts' ? 'show' : ''}}" id="accountsSubmenu">--}}
+                    {{--<li class="menu-sub-item {{$subcategory === 'sponsors' ? 'active' : ''}}">--}}
+                        {{--<a href="{{route('admin.accounts.sponsors')}}"><span class="menu-sub-item-text">Sponsors</span></a>--}}
+                    {{--</li>--}}
+                    {{--<li class="menu-sub-item {{$subcategory === 'users' ? 'active' : ''}}">--}}
+                        {{--<a href="{{route('admin.accounts.users')}}"><span class="menu-sub-item-text">Users</span></a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
 
             {{--Events and News--}}
             <li class="menu-item">
@@ -96,11 +96,14 @@
                     <span class="menu-item-text">Sponsors</span>
                     <i class="material-icons menu-item-icon">keyboard_arrow_down</i></a>
                 <ul class="collapse list-unstyled {{$category === 'sponsors' ? 'show' : ''}}" id="sponsorsSubmenu">
+                    <li class="menu-sub-item {{$subcategory === 'accounts' ? 'active' : ''}}">
+                        <a href="{{route('admin.sponsors.list', ['type' => 'accounts'])}}"><span class="menu-sub-item-text">Accounts</span></a>
+                    </li>
                     <li class="menu-sub-item {{$subcategory === 'agreements' ? 'active' : ''}}">
-                        <a href="{{route('admin.sponsors.agreements')}}"><span class="menu-sub-item-text">Agreements</span></a>
+                        <a href="{{route('admin.sponsors.list', ['type' => 'agreements'])}}"><span class="menu-sub-item-text">Agreements</span></a>
                     </li>
                     <li class="menu-sub-item {{$subcategory === 'signage' ? 'active' : ''}}">
-                        <a href="{{route('admin.sponsors.signage')}}"><span class="menu-sub-item-text">Signage</span></a>
+                        <a href="{{route('admin.sponsors.list', ['type' => 'signage'])}}"><span class="menu-sub-item-text">Signage</span></a>
                     </li>
                 </ul>
             </li>
