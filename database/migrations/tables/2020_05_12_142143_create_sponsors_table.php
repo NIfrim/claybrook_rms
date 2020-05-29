@@ -24,7 +24,10 @@ class CreateSponsorsTable extends Migration
 			$table->string('password');
 			$table->string('primary_contact_number', 15)->unique();
 			$table->string('secondary_contact_number', 15)->unique()->nullable();
-			$table->json('address')->nullable();
+			$table->string('building', 45)->nullable();
+			$table->string('road', 45)->nullable();
+			$table->string('town', 45)->nullable();
+			$table->string('postcode', 10)->nullable();
 			$table->boolean('active')->default(false);
 			$table->rememberToken();
 			$table->timestamps();

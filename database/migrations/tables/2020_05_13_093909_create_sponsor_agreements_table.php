@@ -20,7 +20,7 @@ class CreateSponsorAgreementsTable extends Migration
 			$table->dateTime('agreement_start');
 			$table->dateTime('agreement_end');
 			$table->tinyInteger('signage_area');
-			$table->enum('payment_status', ['PENDING', 'PAID', 'OVERDUE', 'DENIED']);
+			$table->enum('payment_status', ['PENDING', 'PAID', 'OVERDUE', 'DECLINED']);
 			$table->timestamps();
         });
     }
