@@ -24,10 +24,21 @@ class Animal extends Model
 		'gender',
 		'height_joined',
 		'weight_joined',
+		'nest_construction',
+		'clutch_size',
+		'wingspan',
+		'can_fly',
+		'plumage',
+		'gestational_period',
+		'offspring_number',
+		'average_body_temperature',
+		'water_type',
+		'colour',
+		'reproduction_type',
 		'diet',
 		'created_at',
 		'updated_at'
-	]; // Add fillable attributes in extended class
+	];
 	
 	public function location() {
 		return $this->belongsTo('App\Models\Location');
