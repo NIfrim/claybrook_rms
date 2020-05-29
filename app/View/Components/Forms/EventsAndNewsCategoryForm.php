@@ -16,7 +16,6 @@ class EventsAndNewsCategoryForm extends DefaultForm
 		return view('components.forms.events-and-news-category-form', [
 				'data' => $this->data,
 				'formType' => $this->formType,
-				'route' => route('admin.eventsAndNews.submit', ['type' => $this->data['type'], 'formType' => $this->formType])
 			]
 		);
 	}
