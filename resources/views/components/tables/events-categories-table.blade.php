@@ -17,15 +17,15 @@
                     <td>{{$row[$column['name']]}}</td>
                 @endforeach
                 <td class="d-flex justify-content-between flex-nowrap actionsColumn">
-                    <a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'id' => $row->id])}}">
+                    <a href = "{{route('admin.'.$category.'.manage', ['type' => 'eventsCategory', 'id' => $row->id])}}">
                         <i class="icon-btn create material-icons p-2" title="Edit">create</i>
                     </a>
                     
-                    <form action = "{{route('admin.eventsAndNews.delete', ['type' => $subcategory ?? $category])}}" method="post">
+                    <form action = "{{route('admin.eventsAndNews.delete', ['type' => 'eventsCategory'])}}" method="post">
                         @csrf
                         <input type = "text" name="ids" value="{{$row->id}}" hidden />
-                        
-                        <button type="submit" class="icon-btn">
+    
+                        <button type="submit" class="icon-btn p-0">
                             <i class="remove material-icons p-2 deleteRow" title="Delete">delete</i>
                         </button>
                     
