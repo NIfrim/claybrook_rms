@@ -7,7 +7,7 @@
         <div class="card-body">
             @csrf
             {{--Add the zoo and own id--}}
-            <input type = "number" id="id" name="id" value="{{$data['currentRow']['id'] ?? $data['id']}}" required hidden readonly />
+            <input type = "number" id="id" name="id" value="{{$data['currentRow']['id'] ?? ''}}" required hidden readonly />
             <input type = "number" id="zooId" name="zoo_id" value="{{$data['currentRow']['zoo_id'] ?? $data['zooId']}}" required hidden readonly />
             
             <div class="container-responsive">
@@ -56,43 +56,85 @@
                     </div>
                 </div>
     
-                {{--Start Date--}}
-                <div class="form-group row">
-                    <label for="startDate" class="col-xl-2 col-form-label">{{ __('Start date') }}</label>
-                    
-                    <div class="col-xl-10">
-                        <input type = "date"
-                               id="startDate"
-                               name="start_date"
-                               value="{{old('start_date') ?? $data['currentRow']['start_date'] ?? ''}}"
-                               class="form-control @error('startDate') is-invalid @enderror"
-                               required
-                               autofocus>
-            
-                        @error('startDate')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
+                @if($subcategory === 'events')
+                    {{--Start Date--}}
+                    <div class="form-group row">
+                        <label for="startDate" class="col-xl-2 col-form-label">{{ __('Start date') }}</label>
+                        
+                        <div class="col-xl-10">
+                            <input type = "date"
+                                   id="startDate"
+                                   name="start_date"
+                                   value="{{old('start_date') ?? $data['currentRow']['start_date'] ?? ''}}"
+                                   class="form-control @error('startDate') is-invalid @enderror"
+                                   required
+                                   autofocus>
+                
+                            @error('startDate')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
                     </div>
-                </div>
-    
-                {{--End Date--}}
-                <div class="form-group row">
-                    <label for="endDate" class="col-xl-2 col-form-label">{{ __('End date') }}</label>
         
-                    <div class="col-xl-10">
-                        <input type = "date"
-                               id="endDate"
-                               name="end_date"
-                               value="{{old('end_date') ?? $data['currentRow']['end_date'] ?? ''}}"
-                               class="form-control @error('endDate') is-invalid @enderror"
-                               required
-                               autofocus>
+                    {{--End Date--}}
+                    <div class="form-group row">
+                        <label for="endDate" class="col-xl-2 col-form-label">{{ __('End date') }}</label>
             
-                        @error('endDate')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
+                        <div class="col-xl-10">
+                            <input type = "date"
+                                   id="endDate"
+                                   name="end_date"
+                                   value="{{old('end_date') ?? $data['currentRow']['end_date'] ?? ''}}"
+                                   class="form-control @error('endDate') is-invalid @enderror"
+                                   required
+                                   autofocus>
+                
+                            @error('endDate')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
                     </div>
-                </div>
+                    
+                @elseif ($subcategory === 'news')
+                    {{--Date posted--}}
+                    <div class="form-group row">
+                        <label for="datePosted" class="col-xl-2 col-form-label">{{ __('Date posted') }}</label>
+            
+                        <div class="col-xl-10">
+                            <input type = "date"
+                                   id="datePosted"
+                                   name="date_posted"
+                                   value="{{old('date_posted') ?? $data['currentRow']['date_posted'] ?? ''}}"
+                                   class="form-control @error('datePosted') is-invalid @enderror"
+                                   required
+                                   autofocus>
+                
+                            @error('datePosted')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+        
+                    {{--Date ends--}}
+                    <div class="form-group row">
+                        <label for="dateExpire" class="col-xl-2 col-form-label">{{ __('Date ends') }}</label>
+            
+                        <div class="col-xl-10">
+                            <input type = "date"
+                                   id="dateExpire"
+                                   name="date_expire"
+                                   value="{{old('date_expire') ?? $data['currentRow']['date_expire'] ?? ''}}"
+                                   class="form-control @error('dateExpire') is-invalid @enderror"
+                                   required
+                                   autofocus>
+                
+                            @error('dateExpire')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                @endif
     
                 {{--Repeat--}}
                 <div class="form-group row">
@@ -108,8 +150,6 @@
                 
                             <option value = "" {{old('repeat') !== '' | isset($data['currentRow']) && isset($data['currentRow']['repeat'])  ? '' : 'selected'}}>Select</option>
                             <option value = "NEVER" {{old('repeat') === 'NEVER' | isset($data['currentRow']) && isset($data['currentRow']['repeat']) && $data['currentRow']['repeat'] === 'NEVER' ? 'selected' : ''}}>Never</option>
-                            <option value = "DAILY" {{old('repeat') === 'DAILY' | isset($data['currentRow']) && isset($data['currentRow']['repeat']) && $data['currentRow']['repeat'] === 'DAILY' ? 'selected' : ''}}>Daily</option>
-                            <option value = "WEEKLY" {{old('repeat') === 'WEEKLY' | isset($data['currentRow']) && isset($data['currentRow']['repeat']) && $data['currentRow']['repeat'] === 'WEEKLY' ? 'selected' : ''}}>Weekly</option>
                             <option value = "MONTHLY" {{old('repeat') === 'MONTHLY' | isset($data['currentRow']) && isset($data['currentRow']['repeat']) && $data['currentRow']['repeat'] === 'MONTHLY' ? 'selected' : ''}}>Monthly</option>
                             <option value = "YEARLY" {{old('repeat') === 'YEARLY' | isset($data['currentRow']) && isset($data['currentRow']['repeat']) && $data['currentRow']['repeat'] === 'YEARLY' ? 'selected' : ''}}>Yearly</option>
                         </select>
