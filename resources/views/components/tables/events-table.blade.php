@@ -26,7 +26,7 @@
                         @csrf
                         <input type = "text" name="ids" value="{{$event->id}}" hidden />
                         
-                        <button type="submit" class="icon-btn">
+                        <button type="submit" class="icon-btn p-0">
                             <i class="remove material-icons p-2 deleteRow" title="Delete">delete</i>
                         </button>
                     
