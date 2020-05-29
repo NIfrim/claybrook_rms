@@ -6,6 +6,9 @@
         
         <div class="card-body">
             @csrf
+            {{--Send the id along with the form--}}
+            <input type = "number" name="id" value="{{old('id') ?? $data['currentRow']['id'] ?? ''}}" hidden readonly>
+            
             <div class="container-responsive">
                 {{--Title--}}
                 <div class="form-group row">
