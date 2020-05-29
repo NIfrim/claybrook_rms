@@ -209,46 +209,6 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		 *	@desc Route to submit changes when creating or editing a location
 		 */
 		Route::post('/{type}/{formType}', 'LocationsController@submit')->name('submit');
-		
-//		/* Aviary routes */
-//		Route::prefix('aviary')->group(function () {
-//
-//			/** @route admin/locations/aviary
-//			 * 	@method GET
-//			 *	@desc Route to manage records regarding aviary locations
-//			 */
-//			Route::get('/', 'AviaryController@index')->name('aviary');
-//
-//			/** @route admin/locations/aviary/{formType} [new|edit]
-//			 * 	@method GET
-//			 *	@desc Route to access the form for creating/updating an aviary location
-//			 */
-//			Route::get('/{formType}', 'AviaryController@showLocationForm')->name('aviary.manage');
-//
-//			/** @route admin/locations/aviary/{formType} [new|edit]
-//			 * 	@method POST
-//			 *	@desc Route to create or update a location
-//			 */
-//			Route::post('/{formType}', 'AviaryController@save')->name('aviary.manage');
-//		});
-//
-//		/** @route admin/locations/aquarium
-//		 * 	@method GET
-//		 *	@desc Route to manage aquarium type locations
-//		 */
-//		Route::get('/aquarium', 'AquariumController@index')->name('aquarium');
-//
-//		/** @route admin/locations/compounds
-//		 * 	@method GET
-//		 *	@desc Route to manage compound type locations
-//		 */
-//		Route::get('/compounds', 'CompoundsController@index')->name('compounds');
-//
-//		/** @route admin/locations/compounds
-//		 * 	@method GET
-//		 *	@desc Route to manage hothouse type locations
-//		 */
-//		Route::get('/hothouse', 'HothouseController@index')->name('hothouse');
 	});
 	
 	/* Reviews section routes */
@@ -264,17 +224,30 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	/* Sponsor section routes */
 	Route::prefix('sponsors')->name('sponsors.')->namespace('Sponsors')->group(function () {
 		
-		/** @route admin/sponsors/agreements
+		/** @route admin/sponsors/{type} {accounts|agreements|signage}
 		 * 	@method GET
-		 *	@desc Route to view and manage all the sponsors agreements
+		 *	@desc Route to list specific sponsors information
 		 */
-		Route::get('/agreements', 'AgreementsController@index')->name('agreements');
+		Route::get('/{type}', 'SponsorsController@list')->name('list');
 		
-		/** @route admin/sponsors/signage
+		/** @route admin/sponsors/{type}/{id}
 		 * 	@method GET
-		 *	@desc Route to view and manage all the sponsors signage
+		 *	@desc Route to access the form for creating/editing
 		 */
-		Route::get('/signage', 'SignageController@index')->name('signage');
+		Route::get('/{type}/{id}', 'SponsorsController@showForm')->name('manage');
+		
+		/** @route admin/sponsors/{type}/delete
+		 * 	@method POST
+		 *	@desc Route to remove specific records related to sponsors {agreements|accounts|signage}
+		 */
+		Route::post('/{type}/delete', 'SponsorsController@delete')->name('delete');
+		
+		/** @route admin/sponsors/{type}/{formType} {agreements|accounts|signage}/[new|edit]
+		 * 	@method POST
+		 *	@desc Route to submit changes when creating or editing
+		 */
+		Route::post('/{type}/{formType}', 'SponsorsController@submit')->name('submit');
+
 	});
 	
 	/*Other Admin Routes*/
