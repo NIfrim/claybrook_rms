@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class EventsAndNewsController extends Controller
 {
-	public $category = 'locations', $subcategory, $title, $idTemplate;
+	public $category = 'eventsAndNews', $subcategory, $title, $idTemplate;
 	
 	/**
 	 * Create a new controller instance.
@@ -26,18 +26,21 @@ class EventsAndNewsController extends Controller
 	 * @param String $type [The type of location, e.g. aviary, aquarium...]
 	 * @param string|null $id
 	 *
+	 * @param string|null $subType
+	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function showForm(string $type, ?string $id)
 	{
 		$model = $this->getModel($type);
 		$relations = $this->getRelations($type);
-		$categories = call_user_func($type === 'events' ? 'App\Models\EventsCategory::get' : 'App\Models\NewsCategory::get');
 		
-		$data['type'] = substr(strtoupper($type), 0, -1);
-		$data['categories'] = $categories;
+		if ($type === 'events' || $type === 'news') {
+			$categories = call_user_func($this->getModel($type.'Category').'::get');
+			$data['categories'] = $categories;
+		}
 		
-		if ($id !== 'new') {
+		if ($id !== 'new' && $id !== 'newCategory') {
 			
 			$data['currentRow'] = call_user_func($model.'::'.'with', $relations)->find($id);
 			
@@ -46,6 +49,7 @@ class EventsAndNewsController extends Controller
 			$data['zooId'] = 1;
 			
 		}
+		
 		
 		return view('admin.eventsAndNews.forms', [
 			'category' => 'eventsAndNews',
@@ -67,7 +71,7 @@ class EventsAndNewsController extends Controller
 		return view('admin.eventsAndNews.home', [
 			'category' => 'eventsAndNews',
 			'subcategory' => $type,
-			'model' => $this->getModel($subType ?? $type),
+			'model' => $this->getModel($type),
 			'relations' => $this->getRelations($type),
 		]);
 	}
@@ -106,10 +110,21 @@ class EventsAndNewsController extends Controller
 		$successAlert = sizeof($ids) > 1 ? 'Multiple records deleted successfully' : 'One record deleted successfully';
 		
 		// Remove the records from the database using destroy()
-		call_user_func('App\Models\Location::destroy', $ids);
+		call_user_func($this->getModel($type).'::destroy', $ids);
 		
 		// Return the user to the table list
-		return redirect(route('admin.locations.list', ['type' => $type]))->with('success', $successAlert);
+		if ($type === 'eventsCategory' || $type === 'newsCategory') {
+			// Get subcategory by splitting the $type string into an array of words with uppercase letters as delimiters
+			$subcategory = preg_split('/(?=[A-Z])/', $type, -1, PREG_SPLIT_NO_EMPTY)[0];
+			
+			return redirect(route('admin.eventsAndNews.list.categories', ['type' => $subcategory]))->with('success', $successAlert);
+			
+		} else {
+			
+			return redirect(route('admin.eventsAndNews.list', ['type' => $type]))->with('success', $successAlert);
+			
+		}
+		
 	}
 	
 	
@@ -144,7 +159,17 @@ class EventsAndNewsController extends Controller
 		}
 		
 		// Redirect user to section table
-		return redirect(route('admin.eventsAndNews.list', ['type'=> $type]));
+		if ($type === 'eventsCategory' || $type === 'newsCategory') {
+			// Get subcategory by splitting the $type string into an array of words with uppercase letters as delimiters
+			$subcategory = preg_split('/(?=[A-Z])/', $type, -1, PREG_SPLIT_NO_EMPTY)[0];
+			
+			return redirect(route('admin.eventsAndNews.list.categories', ['type' => $subcategory]))->with('success', 'Successfully edited a category for '.$subcategory);
+			
+		} else {
+			
+			return redirect(route('admin.eventsAndNews.list', ['type'=> $type]))->with('success', 'Successfully saved one record');
+			
+		}
 	}
 	
 	/** Get the relations specific to the model
@@ -162,14 +187,14 @@ class EventsAndNewsController extends Controller
 				return ['newsCategory', 'zoo'];
 			
 			case 'eventsCategory':
-			case 'newsCategory':
 				return ['events'];
+			case 'newsCategory':
+				return ['news'];
 			
 			default:
 				return [];
 		}
 	}
-	
 	
 	/**
 	 * Return array with specific data based on column.
@@ -231,7 +256,7 @@ class EventsAndNewsController extends Controller
 					$validationRules['category_id'] = ['required', 'numeric'];
 					$validationRules['start_date'] = ['required', 'date'];
 					$validationRules['end_date'] = ['required', 'date'];
-					$validationRules['repeat'] = ['required', 'string', 'in:DAILY,WEEKLY,MONTHLY,YEARLY,NEVER'];
+					$validationRules['repeat'] = ['required', 'string', 'in:MONTHLY,YEARLY,NEVER'];
 					break;
 					
 				case 'news':
@@ -239,7 +264,7 @@ class EventsAndNewsController extends Controller
 					$validationRules['category_id'] = ['required', 'numeric'];
 					$validationRules['date_posted'] = ['required', 'date'];
 					$validationRules['date_expire'] = ['required', 'date'];
-					$validationRules['repeat'] = ['required', 'string', 'in:DAILY,WEEKLY,MONTHLY,YEARLY,NEVER'];
+					$validationRules['repeat'] = ['required', 'string', 'in:MONTHLY,YEARLY,NEVER'];
 					break;
 				
 				default: break;
