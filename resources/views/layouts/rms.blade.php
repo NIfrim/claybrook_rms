@@ -31,7 +31,7 @@
         
         <div class="flex-grow-1 d-flex flex-column">
             {{--TOP NAV--}}
-            <x-navigation.top-nav :category="$category" :subcategory="$subcategory" :formType="$formType ?? null" />
+            <x-navigation.top-nav :category="$category" :subcategory="$subcategory" :subcategory2="$subcategory2 ?? null" :formType="$formType ?? null" />
             <main id="main" class="container-fluid overflow-auto">
                 @yield('content')
     
