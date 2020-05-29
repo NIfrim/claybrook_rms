@@ -288,22 +288,7 @@ class AnimalsController extends Controller
 	 * @return String|null
 	 */
 	private function getModel(String $type) {
-		switch ($type) {
-			case 'birds':
-				return 'App\Models\Bird';
-			
-			case 'fishes':
-				return 'App\Models\Fish';
-			
-			case 'mammals':
-				return 'App\Models\Mammal';
-			
-			case 'reptiles':
-				return 'App\Models\Reptile';
-			
-			default:
-				return null;
-		}
+		return 'App\Models\Animal';
 	}
 	
 	/**
