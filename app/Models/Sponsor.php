@@ -21,7 +21,7 @@ class Sponsor extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'zoo_id', 'title', 'first_name', 'last_name', 'job_title', 'email', 'password', 'primary_contact_number', 'secondary_contact_number', 'address', 'created_at', 'updated_at', 'active', 'registered'
+		'zoo_id', 'title', 'first_name', 'last_name', 'job_title', 'email', 'password', 'primary_contact_number', 'secondary_contact_number', 'building', 'road', 'town', 'postcode', 'created_at', 'updated_at', 'active', 'registered'
 	];
  
 	/**
@@ -32,7 +32,11 @@ class Sponsor extends Authenticatable
 	protected $hidden = [
 		'password', 'remember_token'
 	];
-    
+ 
+	public function zoo() {
+		return $this->belongsTo('App\Models\Zoo');
+	}
+	
     public function reviews() {
     	return $this->hasMany('App\Models\Review');
 	}
@@ -42,6 +46,6 @@ class Sponsor extends Authenticatable
 	}
 	
 	public function sponsorAgreements() {
-		return $this->hasMany('App\SponsorAgreement');
+		return $this->hasMany('App\Models\SponsorAgreement');
 	}
 }
