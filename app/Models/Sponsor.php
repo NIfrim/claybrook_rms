@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method static where(string $string, $email)
+ */
 class Sponsor extends Authenticatable
 {
 	use Notifiable;
@@ -21,7 +24,7 @@ class Sponsor extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'zoo_id', 'title', 'first_name', 'last_name', 'job_title', 'email', 'password', 'primary_contact_number', 'secondary_contact_number', 'building', 'road', 'town', 'postcode', 'created_at', 'updated_at', 'active', 'registered'
+		'zoo_id', 'title', 'first_name', 'last_name', 'job_title', 'email', 'password', 'primary_contact_number', 'secondary_contact_number', 'building', 'road', 'city', 'postcode', 'active'
 	];
  
 	/**
