@@ -281,7 +281,7 @@
             <a href = "{{route('admin.sponsors.list', ['type' => $subcategory ?? $category])}}">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </a>
-            <button type="submit" name="submit-animal-details" class="btn btn-primary">Submit</button>
+            <button type="submit" name="submitType" value="sponsor" class="btn btn-primary">Submit</button>
         </div>
     </div>
 </form>
