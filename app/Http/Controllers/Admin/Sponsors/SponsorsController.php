@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin\Sponsors;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class SponsorsController extends Controller
 {
@@ -35,12 +37,7 @@ class SponsorsController extends Controller
 		$model = $this->getModel($type);
 		$relations = $this->getRelations($type);
 		
-		if ($type === 'events' || $type === 'news') {
-			$categories = call_user_func($this->getModel($type.'Category').'::get');
-			$data['categories'] = $categories;
-		}
-		
-		if ($id !== 'new' && $id !== 'newCategory') {
+		if ($id !== 'new') {
 			
 			$data['currentRow'] = call_user_func($model.'::'.'with', $relations)->find($id);
 			
@@ -50,11 +47,10 @@ class SponsorsController extends Controller
 			
 		}
 		
-		
-		return view('admin.eventsAndNews.forms', [
-			'category' => 'eventsAndNews',
+		return view('admin.sponsors.forms', [
+			'category' => 'sponsors',
 			'subcategory' => $type,
-			'formType' => $id === 'newCategory' | $id === 'new' ? $id : 'edit',
+			'formType' => $id === 'new' ? $id : 'edit',
 			'data' => $data,
 		]);
 	}
@@ -113,10 +109,6 @@ class SponsorsController extends Controller
 		
 		// Create new or update record
 		switch ($formType) {
-			case 'newCategory':
-				call_user_func('App\Models\\'.ucfirst($type).'Category::create', $request->all());
-				break;
-			
 			case 'new':
 				call_user_func($this->getModel($type).'::create', $request->all());
 				break;
@@ -129,17 +121,7 @@ class SponsorsController extends Controller
 		}
 		
 		// Redirect user to section table
-		if ($type === 'eventsCategory' || $type === 'newsCategory') {
-			// Get subcategory by splitting the $type string into an array of words with uppercase letters as delimiters
-			$subcategory = preg_split('/(?=[A-Z])/', $type, -1, PREG_SPLIT_NO_EMPTY)[0];
-			
-			return redirect(route('admin.eventsAndNews.list.categories', ['type' => $subcategory]))->with('success', 'Successfully edited a category for '.$subcategory);
-			
-		} else {
-			
-			return redirect(route('admin.eventsAndNews.list', ['type'=> $type]))->with('success', 'Successfully saved one record');
-			
-		}
+		return redirect(route('admin.sponsors.list', ['type' => $type]))->with('success', 'Successfully updated one record');
 	}
 	
 	/** Get the relations specific to the model
@@ -175,34 +157,54 @@ class SponsorsController extends Controller
 	 */
 	private function validator(array $request, $type)
 	{
-		$validationRules = [
-			'title' => ['required', 'string', 'max:255'],
-			'short_description' => ['required', 'string'],
-			'long_description' => ['required', 'string'],
-			'image' => [isset($request['image']) ? 'string' : ''],
-		];
-		
-		// Add related inputs if
-		if ($request['submitType'] !== 'category') {
-			switch ($type) {
-				case 'events':
-					$validationRules['zoo_id'] = ['required', 'numeric'];
-					$validationRules['category_id'] = ['required', 'numeric'];
-					$validationRules['start_date'] = ['required', 'date'];
-					$validationRules['end_date'] = ['required', 'date'];
-					$validationRules['repeat'] = ['required', 'string', 'in:MONTHLY,YEARLY,NEVER'];
-					break;
-				
-				case 'news':
-					$validationRules['zoo_id'] = ['required', 'numeric'];
-					$validationRules['category_id'] = ['required', 'numeric'];
-					$validationRules['date_posted'] = ['required', 'date'];
-					$validationRules['date_expire'] = ['required', 'date'];
-					$validationRules['repeat'] = ['required', 'string', 'in:MONTHLY,YEARLY,NEVER'];
-					break;
-				
-				default: break;
-			}
+		$validationRules = [];
+		// Add the related validation rules
+		switch ($type) {
+			case 'accounts':
+				$sponsor = Sponsor::where('email', $request['email'])->first();
+				$validationRules['zoo_id'] = ['required', 'numeric'];
+				$validationRules['title'] = ['required', 'string', 'in:Mr.,Mrs.,Ms.,Miss.,Dr.,Prof.'];
+				$validationRules['first_name'] = ['required', 'string', 'max:45'];
+				$validationRules['last_name'] = ['required', 'string', 'max:45'];
+				$validationRules['email'] = ['required', 'email', Rule::unique('sponsors')->ignore($sponsor), 'max:255'];
+				$validationRules['primary_contact_number'] = ['required', 'string', Rule::unique('sponsors')->ignore($sponsor), 'max:15'];
+				if (isset($request['secondary_contact_number'])) {
+					$validationRules['secondary_contact_number'] = ['string', Rule::unique('sponsors')->ignore($sponsor), 'max:15'];
+				}
+				if (isset($request['building'])) {
+					$validationRules['building'] = ['string', 'max:45'];
+				}
+				if (isset($request['road'])) {
+					$validationRules['road'] = ['string', 'max:45'];
+				}
+				if (isset($request['city'])) {
+					$validationRules['city'] = ['string', 'max:45'];
+				}
+				if (isset($request['postcode'])) {
+					$validationRules['postcode'] = ['string', 'max:10'];
+				}
+				$validationRules['active'] = ['required', 'numeric', 'in:0,1'];
+				break;
+			
+			case 'agreements':
+				$validationRules['sponsor_id'] = ['required', 'numeric'];
+				$validationRules['date'] = ['required', 'date'];
+				$validationRules['agreement_start'] = ['required', 'date'];
+				$validationRules['agreement_end'] = ['required', 'date'];
+				$validationRules['signage_area'] = ['required', 'numeric'];
+				if ($request['documents']) $validationRules['documents'] = ['array'];
+				$validationRules['payment_status'] = ['required', 'string', 'in:PENDING,PAID,OVERDUE,DECLINED'];
+				break;
+			
+			case 'signage':
+				$validationRules['animal_id'] = ['required', 'numeric'];
+				$validationRules['agreement_id'] = ['required', 'numeric'];
+				$validationRules['status'] = ['required', 'string', 'in:APPROVED,DENIED,PENDING'];
+				if ($request['reason']) $validationRules['reason'] = ['string'];
+				$validationRules['images'] = ['required', 'array'];
+				break;
+			
+			default: break;
 		}
 		
 		return Validator::make($request, $validationRules);
