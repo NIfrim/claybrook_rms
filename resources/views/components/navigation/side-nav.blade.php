@@ -74,8 +74,8 @@
                     <li class="menu-sub-item {{$subcategory === 'aviary' ? 'active' : ''}}">
                         <a href="{{route('admin.locations.list', ['type' => 'aviary'])}}"><span class="menu-sub-item-text">Aviary</span></a>
                     </li>
-                    <li class="menu-sub-item {{$subcategory === 'compounds' ? 'active' : ''}}">
-                        <a href="{{route('admin.locations.list', ['type' => 'compound'])}}"><span class="menu-sub-item-text">Compounds</span></a>
+                    <li class="menu-sub-item {{$subcategory === 'compound' ? 'active' : ''}}">
+                        <a href="{{route('admin.locations.list', ['type' => 'compound'])}}"><span class="menu-sub-item-text">Compound</span></a>
                     </li>
                     <li class="menu-sub-item {{$subcategory === 'hothouse' ? 'active' : ''}}">
                         <a href="{{route('admin.locations.list', ['type' => 'hothouse'])}}"><span class="menu-sub-item-text">Hothouse</span></a>
@@ -85,7 +85,7 @@
 
             {{--Reviews--}}
             <li class="menu-item {{$category === 'reviews' ? 'active' : ''}}">
-                <a href="{{route('admin.reviews')}}" class="d-flex flex-nowrap justify-content-between">
+                <a href="{{route('admin.reviews.list')}}" class="d-flex flex-nowrap justify-content-between">
                     <span class="menu-item-text">Reviews</span>
                 </a>
             </li>
