@@ -31,7 +31,7 @@ class LocationsController extends Controller
 	public function showForm(string $type, ?string $id)
 	{
 		$model = 'App\Models\Location';
-		$relations = $this->getRelations($type);
+		$relations = $this->getRelations();
 		
 		$locationRecords = call_user_func($model.'::'.'with', $relations)->get();
 		
@@ -72,7 +72,7 @@ class LocationsController extends Controller
 			'category' => 'locations',
 			'subcategory' => $type,
 			'model' => 'App\Models\Location',
-			'relations' => ['zoo', 'birds', 'fish', 'mammals', 'reptiles'],
+			'relations' => $this->getRelations(),
 		]);
 	}
 	
@@ -202,34 +202,10 @@ class LocationsController extends Controller
 	/**
 	 * Get the relations based on the type of the location
 	 *
-	 * @param string $type
-	 *
 	 * @return array
 	 */
-	private function getRelations(string $type) {
-		$relations = ['zoo'];
-		
-		switch ($type){
-			case 'aviary':
-				array_push($relations, 'birds');
-				break;
-				
-			case 'aquarium':
-				array_push($relations, 'fish');
-				break;
-				
-			case 'compound':
-				array_push($relations, 'mammals');
-				break;
-				
-			case 'hothouse':
-				array_push($relations, 'reptiles');
-				break;
-				
-			default: break;
-		}
-		
-		return $relations;
+	private function getRelations() {
+		return ['zoo', 'animals'];
 	}
 	
 	
