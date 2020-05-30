@@ -10,6 +10,14 @@ class AgreementSignage extends Model
 		'images' => 'array'
 	];
 	
+	protected $fillable = [
+		'animal_id',
+		'agreement_id',
+		'status',
+		'reason',
+		'images'
+	];
+	
     public function animals() {
     	return $this->hasMany('App\Models\Animal');
 	}
