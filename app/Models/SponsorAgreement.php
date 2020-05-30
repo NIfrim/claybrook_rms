@@ -10,6 +10,16 @@ class SponsorAgreement extends Model
 		'documents' => 'array'
 	];
 	
+	protected $fillable = [
+		'sponsor_id',
+		'date',
+		'agreement_start',
+		'agreement_end',
+		'signage_area',
+		'payment_status',
+		'documents'
+	];
+	
 	public function sponsor() {
 		return $this->belongsTo('App\Models\Sponsor');
 	}
