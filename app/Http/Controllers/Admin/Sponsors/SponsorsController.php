@@ -168,21 +168,11 @@ class SponsorsController extends Controller
 				$validationRules['last_name'] = ['required', 'string', 'max:45'];
 				$validationRules['email'] = ['required', 'email', Rule::unique('sponsors')->ignore($sponsor), 'max:255'];
 				$validationRules['primary_contact_number'] = ['required', 'string', Rule::unique('sponsors')->ignore($sponsor), 'max:15'];
-				if (isset($request['secondary_contact_number'])) {
-					$validationRules['secondary_contact_number'] = ['string', Rule::unique('sponsors')->ignore($sponsor), 'max:15'];
-				}
-				if (isset($request['building'])) {
-					$validationRules['building'] = ['string', 'max:45'];
-				}
-				if (isset($request['road'])) {
-					$validationRules['road'] = ['string', 'max:45'];
-				}
-				if (isset($request['city'])) {
-					$validationRules['city'] = ['string', 'max:45'];
-				}
-				if (isset($request['postcode'])) {
-					$validationRules['postcode'] = ['string', 'max:10'];
-				}
+				if (isset($request['secondary_contact_number'])) $validationRules['secondary_contact_number'] = ['string', Rule::unique('sponsors')->ignore($sponsor), 'max:15'];
+				if (isset($request['building'])) $validationRules['building'] = ['string', 'max:45'];
+				if (isset($request['road'])) $validationRules['road'] = ['string', 'max:45'];
+				if (isset($request['city'])) $validationRules['city'] = ['string', 'max:45'];
+				if (isset($request['postcode'])) $validationRules['postcode'] = ['string', 'max:10'];
 				$validationRules['active'] = ['required', 'numeric', 'in:0,1'];
 				break;
 			
@@ -192,16 +182,16 @@ class SponsorsController extends Controller
 				$validationRules['agreement_start'] = ['required', 'date'];
 				$validationRules['agreement_end'] = ['required', 'date'];
 				$validationRules['signage_area'] = ['required', 'numeric'];
-				if ($request['documents']) $validationRules['documents'] = ['array'];
+				if (isset($request['documents'])) $validationRules['documents'] = ['array'];
 				$validationRules['payment_status'] = ['required', 'string', 'in:PENDING,PAID,OVERDUE,DECLINED'];
 				break;
 			
 			case 'signage':
-				$validationRules['animal_id'] = ['required', 'numeric'];
+				$validationRules['animal_id'] = ['required', 'string', 'max:45'];
 				$validationRules['agreement_id'] = ['required', 'numeric'];
 				$validationRules['status'] = ['required', 'string', 'in:APPROVED,DENIED,PENDING'];
-				if ($request['reason']) $validationRules['reason'] = ['string'];
-				$validationRules['images'] = ['required', 'array'];
+				if (isset($request['reason'])) $validationRules['reason'] = ['string'];
+				if (isset($request['images'])) $validationRules['images'] = ['array'];
 				break;
 			
 			default: break;
