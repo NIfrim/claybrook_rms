@@ -2,9 +2,9 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
+use App\Models\User;
 use Faker\Generator as Faker;
-	use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 	
 	$factory->define(User::class, function (Faker $faker) {
     return [
@@ -13,7 +13,6 @@ use Faker\Generator as Faker;
         'first_name' => $faker->firstName,
 		'last_name' => $faker->lastName,
 		'email' => $faker->unique()->safeEmail,
-		'registered' => $faker->dateTimeThisDecade,
 		'password' => Hash::make('password'),
     ];
 });
