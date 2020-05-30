@@ -25,19 +25,7 @@ class Location extends Model
 		return $this->belongsTo('App\Models\Zoo');
 	}
 	
-	public function birds() {
-		return $this->hasMany('App\Models\Bird');
-	}
-	
-	public function fish() {
-		return $this->hasMany('App\Models\Fish');
-	}
-	
-	public function mammals() {
-		return $this->hasMany('App\Models\Mammal');
-	}
-	
-	public function reptiles() {
-		return $this->hasMany('App\Models\Reptile');
+	public function animals() {
+		return $this->hasMany('App\Models\Animal');
 	}
 }
