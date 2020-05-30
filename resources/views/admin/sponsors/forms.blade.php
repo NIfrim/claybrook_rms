@@ -2,11 +2,23 @@
 
 @section('content')
 	<div class="container forms-container">
-		@if($formType === 'new')
-			<p>New forms</p>
+		@switch($subcategory)
+			@case('accounts')
+				<x-forms.sponsors-form :data="$data" :formType="$formType" :category="$category" :subcategory="$subcategory" title="{{implode(' - ', array_filter([ucfirst($category), ucfirst($subcategory), 'Manage']))}}" />
+				@break
+		
+			@case('agreements')
+				<x-forms.sponsors-agreements-form :data="$data" :formType="$formType" :category="$category" :subcategory="$subcategory" title="{{implode(' - ', array_filter([ucfirst($category), ucfirst($subcategory), 'Manage']))}}" />
+				@break
+		
+			@case('signage')
+		
+				@break
 			
-		@else
-			<p>Edit forms</p>
-		@endif
+			@default
+				<p>Expected 'accounts' | 'agreements' | 'signage'.</p>
+				<p>Received {{$subcategory}}</p>
+		@endswitch
+		
 	</div>
 @endsection
