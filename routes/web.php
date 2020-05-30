@@ -212,13 +212,19 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	});
 	
 	/* Reviews section routes */
-	Route::prefix('reviews')->namespace('Reviews')->group(function () {
+	Route::prefix('reviews')->name('reviews.')->namespace('Reviews')->group(function () {
 		
 		/** @route admin/reviews
 		 * 	@method GET
-		 *	@desc Route to manage review records
+		 *	@desc Route to list all the reviews based on who posted them
 		 */
-		Route::get('/', 'ReviewsController@index')->name('reviews');
+		Route::get('/', 'ReviewsController@list')->name('list');
+		
+		/** @route admin/reviews/delete
+		 * 	@method POST
+		 *	@desc Route to remove reviews
+		 */
+		Route::post('/delete', 'ReviewsController@delete')->name('delete');
 	});
 	
 	/* Sponsor section routes */
