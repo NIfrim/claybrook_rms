@@ -15,7 +15,7 @@ class AgreementSignage extends Model
 		'agreement_id',
 		'status',
 		'reason',
-		'images'
+		'images',
 	];
 	
     public function animals() {
