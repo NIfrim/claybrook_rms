@@ -26,6 +26,7 @@ class HomeController extends Controller
 			'title' => 'Welcome to Claybrook Zoo',
 			'category' => 'home',
 			'subcategory' => null,
+			'zoo' => ['name' => 'Claybrook Zoo', 'address' => ['building_number' => '45', 'road_name' => 'Zoo Lane', 'city' => 'Eastlands', 'county' => 'North Yorkshire', 'postcode' => 'YR123TH'], 'company_number' => 211545],
 		]);
 	}
 }
