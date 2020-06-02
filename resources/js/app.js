@@ -9,3 +9,4 @@ require( 'datatables.net-select-bs4' );
 require('./tables');
 require('./alerts');
 require('./forms');
+require('./web-nav');
