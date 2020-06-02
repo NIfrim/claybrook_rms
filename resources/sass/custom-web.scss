@@ -1,0 +1,155 @@
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.web-title {
+  font-family: $title;
+  padding: 0 !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+main {
+  overflow-y: scroll !important;
+  z-index: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 2rem;
+  color: red;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 2rem;
+  color: red;
+}
+
+/*****************WEBSITE NAVIGATION******************/
+
+.web-nav {
+  background-color: $logoGreen;
+  width: 100vw;
+  z-index: 10;
+  -webkit-box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);
+  -moz-box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);
+}
+
+.hide-nav {
+  height: 0;
+  overflow-x: hidden;
+}
+
+.nav-buttons-wrapper > li .web-title {
+  color: $white !important;
+}
+
+.sub-menu-wrapper {
+  background-color: $logoYellow;
+  background-image: url('/images/website/patterns/grass.PNG');
+  background-position: bottom;
+  -webkit-background-size: 100px;
+  background-size: 100px;
+  background-repeat: repeat-x;
+}
+
+.sub-menu-wrapper > ul li {
+  margin: 0 0.5rem 2.5rem 0.5rem !important;
+  white-space: nowrap;
+}
+
+.sub-menu-wrapper > ul li .web-title {
+  color: $logoGreen !important;
+}
+
+.sub-menu-wrapper > ul .active .web-title {
+  color: $white!important;
+}
+
+.web-nav-btn {
+  border-bottom: none !important;
+  white-space: nowrap;
+}
+
+.sub-menu-wrapper > ul li:hover .web-title {
+  color: $white !important;
+}
+
+.nav-icons-list > li span {
+  font-size: 2rem;
+  padding: 1rem;
+}
+
+#buyTickets *, #becomeSponsor * {
+  cursor: pointer;
+  color: $logoYellow !important;
+}
+
+.dropdown-toggle::after {
+  content: none !important;
+}
+
+/* END Web navigation */
+
+
+
+/***************** ROWS STYLING ******************/
+
+.row-type-one .row-top {
+  background-color: $lightGreen;
+  height: 300px;
+}
+
+.row-type-one .row-title {
+  color: $lightYellow;
+}
+
+.row-type-one .row-bottom {
+  margin-top: -150px;
+  height: 200px;
+}
+
+/* END Rows styling */
+
+
+
+/***************** FOOTER STYLING ******************/
+
+footer .footer-top {
+  background-color: $lightLogoGreen;
+  padding: 3rem 0;
+}
+
+footer .footer-top * {
+  color: $lightYellow;
+}
+
+footer .footer-bottom {
+  background-color: $lightYellow;
+  padding: 3rem 0;
+}
+
+footer .footer-bottom a {
+  text-decoration: underline;
+}
+
+footer .footer-bottom * {
+  color: $logoGreen;
+}
+
+/* END Footer styling */
