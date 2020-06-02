@@ -63428,6 +63428,8 @@ __webpack_require__(/*! ./alerts */ "./resources/js/alerts.js");
 
 __webpack_require__(/*! ./forms */ "./resources/js/forms.js");
 
+__webpack_require__(/*! ./web-nav */ "./resources/js/web-nav.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -63542,6 +63544,7 @@ $(document).ready(function () {
   $('#clearSelection').click(function () {
     table.rows('.selected').deselect();
     clearFormInput();
+    $('.select-info').remove();
   });
   /* Add selected rows ids to the remove selected form input */
 
@@ -63580,6 +63583,45 @@ function addSelectedToInput() {
 function findInString(string, needle) {
   return string.includes(needle);
 }
+
+/***/ }),
+
+/***/ "./resources/js/web-nav.js":
+/*!*********************************!*\
+  !*** ./resources/js/web-nav.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('.nav-buttons-wrapper .nav-link').click(function () {
+    var allNavLinks = $('.nav-buttons-wrapper .nav-link');
+    var allSubmenus = $('.sub-menu-list'); // Collapse all nav links
+
+    allNavLinks.attr('aria-expanded', 'false');
+    allNavLinks.addClass('collapsed');
+    allSubmenus.removeClass('show');
+    $(this).attr('aria-expanded', 'true');
+    $(this).removeClass('collapsed');
+  });
+  var lastScrollPos = 0;
+  $('main').scroll(function () {
+    var currentScrollPos = this.scrollTop;
+    var allSubmenus = $('.sub-menu-list');
+
+    if (currentScrollPos < lastScrollPos) {//
+    } else {
+      // Scrolling down code
+      allSubmenus.removeClass('show');
+    }
+
+    lastScrollPos = currentScrollPos;
+  });
+  $('main').click(function () {
+    var allSubmenus = $('.sub-menu-list');
+    allSubmenus.removeClass('show');
+  });
+});
 
 /***/ }),
 
