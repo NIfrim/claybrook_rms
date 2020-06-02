@@ -31,6 +31,7 @@ class AnimalsController extends Controller
 			'subcategory' => $type,
 			'model' => $this->getModel(),
 			'relations' => ['location', 'educationalInfo', 'animalHabitat', 'sponsorshipBand', 'sponsorSignage'],
+			'zoo' => ['name' => 'Claybrook Zoo', 'address' => ['building_number' => '45', 'road_name' => 'Zoo Lane', 'city' => 'Eastlands', 'county' => 'North Yorkshire', 'postcode' => 'YR123TH'], 'company_number' => 211545],
 		]);
 	}
 	
@@ -53,7 +54,7 @@ class AnimalsController extends Controller
 			case 'birds':
 				return 'Our - Birds';
 			
-			case 'fishes':
+			case 'fish':
 				return 'Our - Fishes';
 			
 			case 'mammals':
