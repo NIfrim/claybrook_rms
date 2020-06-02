@@ -1,128 +1,143 @@
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark web-nav">
 	<div class="container d-flex flex-nowrap justify-content-between">
 		{{-- Website logo --}}
-		<a class="navbar-brand" href="#">
+		<a class="navbar-brand" href="{{route('website.welcome')}}">
 			<img src="/images/website/brand/Logo-small.PNG" width="85" alt="Claybrook Logo" loading="lazy">
 		</a>
 		
 		{{-- Main nav buttons --}}
-		<ul class="d-flex justify-content-start" list-unstyled>
+		<ul class="nav-buttons-wrapper d-flex justify-content-between list-unstyled align-self-stretch align-items-end m-0 flex-grow-1 px-5">
 			
 			{{-- Our zoo menu item --}}
 			<li class="menu-item">
-				<a href="#ourZooSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'our-zoo' ? 'true' : 'false'}}" class="d-flex flex-nowrap justify-content-between">
-					<span class="menu-item-text">Our Zoo</span>
+				<a href="#ourZooSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'our-zoo' ? 'true' : 'false'}}" class="nav-link d-flex flex-nowrap justify-content-between web-nav-btn">
+					<h3 class="menu-item-text web-title">Our Zoo</h3>
 				</a>
-				
-				{{-- Our zoo submenu --}}
-				<ul class="collapse list-unstyled {{$category === 'our-zoo' ? 'show' : ''}} list-unstyled" id="ourZooSubmenu">
-					<li class="menu-sub-item {{$subcategory === 'birds' ? 'active' : ''}}">
-						<a href="{{route('website.animals.show', ['type' => 'birds'])}}"><span class="menu-sub-item-text">Birds</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'fish' ? 'active' : ''}}">
-						<a href="{{route('website.animals.show', ['type' => 'fish'])}}"><span class="menu-sub-item-text">Fish</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'mammals' ? 'active' : ''}}">
-						<a href="{{route('website.animals.show', ['type' => 'mammals'])}}"><span class="menu-sub-item-text">Mammals</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'reptiles' ? 'active' : ''}}">
-						<a href="{{route('website.animals.show', ['type' => 'reptiles'])}}"><span class="menu-sub-item-text">Reptiles</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'attractions' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Attractions</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'opening-times' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Opening Times</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Map & Directions</span></a>
-					</li>
-				</ul>
 			</li>
 			
 			{{-- Experiences menu item --}}
 			<li class="menu-item">
-				<a href="#experiencesSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'our-zoo' ? 'true' : 'false'}}" class="d-flex flex-nowrap justify-content-between">
-					<span class="menu-item-text">Experiences</span>
+				<a href="#experiencesSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'experiences' ? 'true' : 'false'}}" class="nav-link d-flex flex-nowrap justify-content-between web-nav-btn">
+					<h3 class="menu-item-text web-title">Experiences</h3>
 				</a>
-				
-				{{-- Experiences submenu --}}
-				<ul class="collapse list-unstyled {{$category === 'experiences' ? 'show' : ''}} list-unstyled" id="experiencesSubmenu">
-					<li class="menu-sub-item {{$subcategory === 'games' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Games</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'events' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Events</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'news' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Latest News</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Map & Directions</span></a>
-					</li>
-				</ul>
 			</li>
 			
 			{{-- More info menu item --}}
 			<li class="menu-item">
-				<a href="#moreInfoSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'our-zoo' ? 'true' : 'false'}}" class="d-flex flex-nowrap justify-content-between">
-					<span class="menu-item-text">More Info</span>
+				<a href="#moreInfoSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'more-info' ? 'true' : 'false'}}" class="nav-link d-flex flex-nowrap justify-content-between web-nav-btn">
+					<h3 class="menu-item-text web-title">More Info</h3>
 				</a>
-				
-				{{-- Experiences submenu --}}
-				<ul class="collapse list-unstyled {{$category === 'more-info' ? 'show' : ''}} list-unstyled" id="moreInfoSubmenu">
-					<li class="menu-sub-item {{$subcategory === 'about-us' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">About Us</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'contact-details' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Contact Details</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'reviews' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Reviews</span></a>
-					</li>
-					<li class="menu-sub-item {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
-						<a href="#"><span class="menu-sub-item-text">Map & Directions</span></a>
-					</li>
-				</ul>
 			</li>
 		</ul>
 		
 		{{-- Tickets and sponsor buttons --}}
-		<ul class="d-flex flex-column justify-content-start list-unstyled">
-			<li id="buyTickets"><span>Icon</span><h2>Buy Tickets</h2></li>
-			<li id="becomeSponsor"><span>Icon</span><h2>Become a Sponsor</h2></li>
+		<ul class="d-flex flex-grow-1 my-3 flex-column align-self-stretch justify-content-between list-unstyled">
+			<li id="buyTickets" class="d-flex flex-nowrap align-items-center">
+				<span class="material-icons mr-2">local_activity</span>
+				<h3 class="web-title my-0">Buy Tickets</h3>
+			</li>
+			<li id="becomeSponsor" class="d-flex flex-nowrap align-items-center">
+				<span class="material-icons mr-2">person_add</span>
+				<h3 class="web-title my-0">Become a Sponsor</h3>
+			</li>
 		</ul>
 		
-		{{-- Search account and shopping --}}
-		<ul class="d-flex flex-nowrap justify-content-between list-unstyled">
-			{{-- Search menu action --}}
-			<li id="search" class="menu-item">
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-				</form>
-			</li>
-			
-			{{-- Account menu item --}}
-			<li id="account" class="menu-item">
-				<div class="dropdown">
-					<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Account Area
-					</a>
-					
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						<a class="dropdown-item" href="#">Users</a>
-						<a class="dropdown-item" href="#">Sponsors</a>
-					</div>
+		<ul class="list-unstyled d-flex my-auto nav-icons-list">
+			<li class="dropdown">
+				<a class="dropdown-toggle" href="#" role="button" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="material-icons">account_circle</span>
+				</a>
+				
+				<div class="dropdown-menu" aria-labelledby="accountDropdown">
+					<a class="dropdown-item" href="#">Sponsor</a>
+					<a class="dropdown-item" href="#">User</a>
 				</div>
 			</li>
-			
-			{{-- Shopping cart menu item --}}
-			<li id="cart" class="menu-item">
-				<a href="#" data-toggle="collapse" class="d-flex flex-nowrap justify-content-between">
-					<span class="menu-item-text">Cart</span>
-				</a>
+			<li>
+				<span class="material-icons">shopping_cart</span>
 			</li>
 		</ul>
+		
 	</div>
 </nav>
+
+<div class="sub-menu-wrapper flex-shrink-1">
+	{{-- Our zoo submenu --}}
+	<ul class="collapse sub-menu-list container list-unstyled my-0 {{$category === 'our-zoo' ? 'show' : ''}}" id="ourZooSubmenu">
+		<li class="menu-sub-item {{$subcategory === 'birds' ? 'active' : ''}}">
+			<a href="{{route('website.animals.show', ['type' => 'birds'])}}">
+				<h4 class="menu-sub-item-text web-title">Birds</h4>
+			</a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'fish' ? 'active' : ''}}">
+			<a href="{{route('website.animals.show', ['type' => 'fish'])}}">
+				<h4 class="menu-sub-item-text web-title">Fish</h4>
+			</a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'mammals' ? 'active' : ''}}">
+			<a href="{{route('website.animals.show', ['type' => 'mammals'])}}">
+				<h4 class="menu-sub-item-text web-title">Mammals</h4>
+			</a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'reptiles' ? 'active' : ''}}">
+			<a href="{{route('website.animals.show', ['type' => 'reptiles'])}}">
+				<h4 class="menu-sub-item-text web-title">Reptiles</h4>
+			</a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'attractions' ? 'active' : ''}}">
+			<a href="#">
+				<h4 class="menu-sub-item-text web-title">Attractions</h4>
+			</a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'opening-times' ? 'active' : ''}}">
+			<a href="#">
+				<h4 class="menu-sub-item-text web-title">Opening Times</h4>
+			</a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
+			<a href="#">
+				<h4 class="menu-sub-item-text web-title">Map & Directions</h4>
+			</a>
+		</li>
+	</ul>
+	
+	{{-- Experiences submenu --}}
+	<ul class="collapse sub-menu-list container list-unstyled {{$category === 'experiences' ? 'show' : ''}}" id="experiencesSubmenu">
+		<li class="menu-sub-item {{$subcategory === 'games' ? 'active' : ''}}">
+			<a href="#">
+				<h4 class="menu-sub-item-text web-title">Games</h4>
+			</a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'events' ? 'active' : ''}}">
+			<a href="#">
+				<h4 class="menu-sub-item-text web-title">Events</h4>
+			</a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'news' ? 'active' : ''}}">
+			<a href="#">
+				<h4 class="menu-sub-item-text web-title">Latest News</h4>
+			</a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
+			<a href="#">
+				<h4 class="menu-sub-item-text web-title">Map & Directions</h4>
+			</a>
+		</li>
+	</ul>
+	
+	{{-- More info submenu --}}
+	<ul class="collapse sub-menu-list container list-unstyled {{$category === 'more-info' ? 'show' : ''}} list-unstyled" id="moreInfoSubmenu">
+		<li class="menu-sub-item {{$subcategory === 'about-us' ? 'active' : ''}}">
+			<a href="#"><h4 class="menu-sub-item-text web-title">About Us</h4></a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'contact-details' ? 'active' : ''}}">
+			<a href="#"><h4 class="menu-sub-item-text web-title">Contact Details</h4></a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'reviews' ? 'active' : ''}}">
+			<a href="#"><h4 class="menu-sub-item-text web-title">Reviews</h4></a>
+		</li>
+		<li class="menu-sub-item {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
+			<a href="#"><h4 class="menu-sub-item-text web-title">Map & Directions</h4></a>
+		</li>
+	</ul>
+</div>
