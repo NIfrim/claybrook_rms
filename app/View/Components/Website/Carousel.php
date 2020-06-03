@@ -6,15 +6,18 @@ use Illuminate\View\Component;
 
 class Carousel extends Component
 {
-	public $data, $category;
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct(string $category)
+	public $images, $category;
+	
+	/**
+	 * Create a new component instance.
+	 *
+	 * @param string $category
+	 * @param array|null $images
+	 */
+    public function __construct(string $category, ?array $images = null)
     {
         $this->category = $category;
+        $this->images = $images;
     }
 
     /**
@@ -24,6 +27,6 @@ class Carousel extends Component
      */
     public function render()
     {
-        return view('components.website.carousel', ['data' => $this->data]);
+        return view('components.website.carousel');
     }
 }
