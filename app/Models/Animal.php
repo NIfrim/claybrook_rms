@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * @method static create(array $array)
  */
 class Animal extends Model
 {
+	use HasRelationships;
+	
 	protected $keyType = 'string';
 	public $incrementing = false;
 	protected $fillable = [
@@ -41,22 +44,31 @@ class Animal extends Model
 	];
 	
 	public function location() {
-		return $this->belongsTo('App\Models\Location');
+		return $this->belongsTo(Location::class);
 	}
 	
 	public function educationalInfo() {
-		return $this->belongsTo('App\Models\EducationalInfo');
+		return $this->belongsTo(EducationalInfo::class);
 	}
 	
 	public function animalHabitat() {
-		return $this->belongsTo('App\Models\AnimalHabitat');
+		return $this->belongsTo(AnimalHabitat::class);
 	}
 	
 	public function sponsorshipBand() {
-		return $this->belongsTo('App\Models\SponsorshipBand');
+		return $this->belongsTo(SponsorshipBand::class);
 	}
 	
 	public function sponsorSignage() {
-		return $this->belongsTo('App\Models\AgreementSignage');
+		return $this->belongsTo(AgreementSignage::class);
+	}
+	
+	public function sponsor() {
+		return $this->hasOneDeep(
+			Sponsor::class,
+			[AgreementSignage::class, SponsorAgreement::class],
+			['id', 'id', 'id'],
+			['agreement_signage_id', 'agreement_id', 'sponsor_id']
+		);
 	}
 }
