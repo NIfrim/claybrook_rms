@@ -63607,19 +63607,32 @@ $(document).ready(function () {
   var lastScrollPos = 0;
   $('main').scroll(function () {
     var currentScrollPos = this.scrollTop;
-    var allSubmenus = $('.sub-menu-list');
+    var windowWidth = $(window).width();
+    var navButtons = $('.web-title');
+    var navIcons = $('.nav-icon');
+    var logo = $('#logo');
+    var listWrappers = $('nav .list-unstyled');
 
-    if (currentScrollPos < lastScrollPos) {//
-    } else {
-      // Scrolling down code
-      allSubmenus.removeClass('show');
+    if (windowWidth > 991) {
+      if (currentScrollPos < lastScrollPos) {
+        // Scrolling up code
+        navButtons.removeClass('small');
+        navIcons.removeClass('small');
+        listWrappers.removeClass('small');
+        logo.removeClass('smallLogo');
+      } else {
+        // Scrolling down code
+        navButtons.addClass('small');
+        navIcons.addClass('small');
+        listWrappers.addClass('small');
+        logo.addClass('smallLogo');
+      }
     }
 
     lastScrollPos = currentScrollPos;
   });
   $('main').click(function () {
-    var allSubmenus = $('.sub-menu-list');
-    allSubmenus.removeClass('show');
+    $('.collapse').collapse('hide');
   });
 });
 

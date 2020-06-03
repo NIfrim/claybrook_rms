@@ -10945,7 +10945,9 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   font-family: "Schoolbell", cursive;
 }
 
@@ -11239,6 +11241,48 @@ main {
   color: red;
 }
 
+/***************** OTHER STYLING ******************/
+
+.small {
+  font-size: 1.2rem !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.smallLogo {
+  height: 50px;
+  width: auto;
+}
+
+.filled {
+  background-color: #5FC5B2;
+  border-radius: 10px;
+  color: #FAFFD6 !important;
+}
+
+.rotated {
+  transform: rotateZ(3deg);
+}
+
+.row-type-two .btn-lg,
+.row-type-two .btn-group-lg > .btn {
+  background-color: #DAFB13;
+  border: none !important;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+.row-type-two .btn-lg a,
+.row-type-two .btn-group-lg > .btn a {
+  color: #014E2E;
+}
+
+.row-type-two .btn-lg:hover a,
+.row-type-two .btn-group-lg > .btn:hover a {
+  color: #419572;
+}
+
+/* END Other styling */
+
 /*****************WEBSITE NAVIGATION******************/
 
 .web-nav {
@@ -11246,11 +11290,6 @@ main {
   width: 100vw;
   z-index: 10;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.35);
-}
-
-.hide-nav {
-  height: 0;
-  overflow-x: hidden;
 }
 
 .nav-buttons-wrapper > li .web-title {
@@ -11266,7 +11305,6 @@ main {
 }
 
 .sub-menu-wrapper > ul li {
-  margin: 0 0.5rem 2.5rem 0.5rem !important;
   white-space: nowrap;
 }
 
@@ -11281,6 +11319,23 @@ main {
 .web-nav-btn {
   border-bottom: none !important;
   white-space: nowrap;
+}
+
+.nav-item:hover .nav-item-text,
+.nav-item:hover {
+  color: #C1D32F !important;
+}
+
+.nav-item:hover a {
+  border-color: #C1D32F;
+}
+
+.nav-item a[aria-expanded=true] .nav-item-text {
+  color: #C1D32F !important;
+}
+
+.nav-item a[aria-expanded=true] {
+  border-color: #C1D32F;
 }
 
 .sub-menu-wrapper > ul li:hover .web-title {
@@ -11306,9 +11361,26 @@ main {
 
 /***************** ROWS STYLING ******************/
 
+.row-type-one {
+  margin-bottom: 1rem;
+}
+
+.row-type-two {
+  margin-bottom: 1rem;
+}
+
+.did-you-know-row .row-top {
+  margin-bottom: -3rem;
+}
+
+.did-you-know-row .row-bottom {
+  background-color: #C1D32F;
+  min-height: 150px;
+}
+
 .row-type-one .row-top {
   background-color: #419572;
-  height: 300px;
+  min-height: 300px;
 }
 
 .row-type-one .row-title {
@@ -11320,7 +11392,35 @@ main {
   height: 200px;
 }
 
+.row-type-two .row-top {
+  margin-bottom: -3rem;
+}
+
+.row-type-two .row-middle {
+  padding: 4rem;
+  background-color: #419572;
+}
+
+.row-type-two .row-bottom {
+  margin-top: -2rem;
+}
+
 /* END Rows styling */
+
+/***************** CARDS STYLING ******************/
+
+.animal-card {
+  min-height: 200px;
+  flex-basis: 250px;
+  background-color: #5FC5B2;
+  overflow: hidden;
+}
+
+.card-header * {
+  color: #FAFFD6;
+}
+
+/* END Cards Styling */
 
 /***************** FOOTER STYLING ******************/
 
@@ -11347,4 +11447,24 @@ footer .footer-bottom * {
 }
 
 /* END Footer styling */
+
+@media (min-width: 576px) {
+  .navbar-collapse {
+    display: flex;
+  }
+}
+
+@media (min-width: 992px) {
+  /***************** SIZING ******************/
+
+  .mb-lg-5 {
+    margin-bottom: 2rem !important;
+  }
+
+  .mb-lg-6 {
+    margin-bottom: 2.5rem !important;
+  }
+
+  /* End Sizing */
+}
 
