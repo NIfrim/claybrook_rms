@@ -16,20 +16,34 @@ $(document).ready(function() {
 
 	$('main').scroll(function () {
 		let currentScrollPos = this.scrollTop;
-		const allSubmenus = $('.sub-menu-list');
+		let windowWidth = $(window).width();
 
-		if (currentScrollPos < lastScrollPos) {
-			//
-		} else {
-			// Scrolling down code
-			allSubmenus.removeClass('show');
+		const navButtons = $('.web-title');
+		const navIcons = $('.nav-icon');
+		const logo = $('#logo');
+		const listWrappers = $('nav .list-unstyled');
+
+		if (windowWidth > 991) {
+			if (currentScrollPos < lastScrollPos) {
+				// Scrolling up code
+				navButtons.removeClass('small');
+				navIcons.removeClass('small');
+				listWrappers.removeClass('small');
+				logo.removeClass('smallLogo');
+
+			} else {
+				// Scrolling down code
+				navButtons.addClass('small');
+				navIcons.addClass('small');
+				listWrappers.addClass('small');
+				logo.addClass('smallLogo');
+			}
 		}
 
 		lastScrollPos = currentScrollPos;
-	})
+	});
 
 	$('main').click(function () {
-		const allSubmenus = $('.sub-menu-list');
-		allSubmenus.removeClass('show');
+		$('.collapse').collapse('hide');
 	})
 });
