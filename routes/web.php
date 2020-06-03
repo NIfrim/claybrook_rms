@@ -245,6 +245,12 @@ Route::name('website.')->namespace('Website')->group(function () {
 	 */
 	Route::get('/animals/{type}', 'AnimalsController@show')->name('animals.show');
 	
+	/** @route animals/{type}/{id}
+	 * 	@method GET
+	 *	@desc Route to access a specific animal
+	 */
+	Route::get('/animals/{type}/{id}', 'AnimalsController@show')->name('animals.showOne');
+	
 	/*----------------------------------------------------*/
 	
 	
