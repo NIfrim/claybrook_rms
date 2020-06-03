@@ -39,6 +39,57 @@ main {
   color: red;
 }
 
+
+
+/***************** OTHER STYLING ******************/
+
+.small {
+  font-size: 1.2rem !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.smallLogo {
+  height: 50px;
+  width: auto;
+}
+
+.filled {
+  background-color: $teal;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  color: $lightYellow !important;
+}
+
+.rotated {
+  -webkit-transform: rotateZ(3deg);
+  -moz-transform: rotateZ(3deg);
+  -ms-transform: rotateZ(3deg);
+  -o-transform: rotateZ(3deg);
+  transform: rotateZ(3deg);
+}
+
+.row-type-two .btn-lg {
+  background-color: $lightMelon;
+  border: none !important;
+  -webkit-box-shadow: 2px 2px 3px rgba($black, .25);
+  -moz-box-shadow: 2px 2px 3px rgba($black, .25);
+  box-shadow: 2px 2px 3px rgba($black, .25);
+}
+
+.row-type-two .btn-lg a {
+  color: $logoGreen;
+}
+
+.row-type-two .btn-lg:hover a {
+  color: $lightGreen;
+}
+
+/* END Other styling */
+
+
+
 /*****************WEBSITE NAVIGATION******************/
 
 .web-nav {
@@ -48,11 +99,6 @@ main {
   -webkit-box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);
   -moz-box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);
   box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);
-}
-
-.hide-nav {
-  height: 0;
-  overflow-x: hidden;
 }
 
 .nav-buttons-wrapper > li .web-title {
@@ -69,7 +115,7 @@ main {
 }
 
 .sub-menu-wrapper > ul li {
-  margin: 0 0.5rem 2.5rem 0.5rem !important;
+  //margin: 0 0.5rem 2.5rem 0.5rem !important;
   white-space: nowrap;
 }
 
@@ -84,6 +130,22 @@ main {
 .web-nav-btn {
   border-bottom: none !important;
   white-space: nowrap;
+}
+
+.nav-item:hover .nav-item-text, .nav-item:hover {
+  color: $logoYellow !important;
+}
+
+.nav-item:hover a {
+  border-color: $logoYellow;
+}
+
+.nav-item a[aria-expanded="true"] .nav-item-text {
+  color: $logoYellow !important;
+}
+
+.nav-item a[aria-expanded="true"] {
+  border-color: $logoYellow;
 }
 
 .sub-menu-wrapper > ul li:hover .web-title {
@@ -110,9 +172,26 @@ main {
 
 /***************** ROWS STYLING ******************/
 
+.row-type-one {
+  margin-bottom: 1rem;
+}
+
+.row-type-two {
+  margin-bottom: 1rem;
+}
+
+.did-you-know-row .row-top {
+  margin-bottom: -3rem;
+}
+
+.did-you-know-row .row-bottom {
+  background-color: $logoYellow;
+  min-height: 150px;
+}
+
 .row-type-one .row-top {
   background-color: $lightGreen;
-  height: 300px;
+  min-height: 300px;
 }
 
 .row-type-one .row-title {
@@ -124,7 +203,36 @@ main {
   height: 200px;
 }
 
+.row-type-two .row-top {
+  margin-bottom: -3rem;
+}
+
+.row-type-two .row-middle {
+  padding: 4rem;
+  background-color: $lightGreen;
+}
+
+.row-type-two .row-bottom {
+  margin-top: -2rem;
+}
+
 /* END Rows styling */
+
+
+/***************** CARDS STYLING ******************/
+
+.animal-card {
+  min-height: 200px;
+  flex-basis: 250px;
+  background-color: $teal;
+  overflow: hidden;
+}
+
+.card-header * {
+  color: $lightYellow;
+}
+
+/* END Cards Styling */
 
 
 
@@ -153,3 +261,31 @@ footer .footer-bottom * {
 }
 
 /* END Footer styling */
+
+
+
+
+// Small screen sizes
+@media (min-width: 576px) {
+
+  .navbar-collapse{
+    display: flex;
+  }
+}
+
+// Large screen sizes
+@media (min-width: 992px) {
+
+  /***************** SIZING ******************/
+
+  .mb-lg-5 {
+    margin-bottom: 2rem !important;
+  }
+
+  .mb-lg-6 {
+    margin-bottom: 2.5rem !important;
+  }
+
+  /* End Sizing */
+
+}
