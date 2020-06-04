@@ -25,7 +25,7 @@
     
 </head>
 <body>
-    <div id="app" class="d-flex flex-nowrap">
+    <div id="rms" class="d-flex flex-nowrap">
         {{--SIDE NAV--}}
         <x-navigation.side-nav :category="$category" :subcategory="$subcategory" />
         
