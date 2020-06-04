@@ -15,10 +15,9 @@ class EventCard extends Component
 	 * @param string $startDate
 	 * @param string $endDate
 	 * @param string $shortDescription
-	 * @param string $longDescription
-	 * @param string $image
+	 * @param string|null $image
 	 */
-    public function __construct(string $title, string $startDate, string $endDate, string $shortDescription, string $image)
+    public function __construct(string $title, string $startDate, string $endDate, string $shortDescription, ?string $image = null)
     {
         $this->title = $title;
         $this->startDate = $startDate;
