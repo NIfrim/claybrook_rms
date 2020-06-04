@@ -183,6 +183,34 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		Route::post('/delete', 'ReviewsController@delete')->name('delete');
 	});
 	
+	/* Attractions section routes */
+	Route::prefix('attractions')->name('attractions.')->namespace('Attractions')->group(function () {
+		
+		/** @route admin/attractions
+		 * 	@method GET
+		 *	@desc Route to list all attractions
+		 */
+		Route::get('/', 'AttractionsController@list')->name('list');
+		
+		/** @route admin/locations/{type}/{id}
+		 * 	@method GET
+		 *	@desc Route to access the form for creating/editing a location
+		 */
+		Route::get('/{id}', 'AttractionsController@showForm')->name('manage');
+		
+		/** @route admin/attractions/{formType} [new|edit]
+		 * 	@method POST
+		 *	@desc Route to submit changes when creating or editing an attraction
+		 */
+		Route::post('/{formType}', 'AttractionsController@submit')->name('submit');
+		
+		/** @route admin/attractions/delete
+		 * 	@method POST
+		 *	@desc Route to remove attractions
+		 */
+		Route::post('/{type}/delete', 'AttractionsController@delete')->name('delete');
+	});
+	
 	/* Sponsor section routes */
 	Route::prefix('sponsors')->name('sponsors.')->namespace('Sponsors')->group(function () {
 		
@@ -261,13 +289,13 @@ Route::name('website.')->namespace('Website')->group(function () {
 	|--------------------------------------------------------------------------
 	*/
 	
-	Route::prefix('attractions')->name('attractions.')->namespace('Attractions')->group(function () {
+	Route::prefix('attractions')->name('attractions.')->group(function () {
 		
-//		/** @route attractions/{type}
-//		 * 	@method GET
-//		 *	@desc Route to access the attractions section
-//		 */
-//		Route::get('/attractions/{type}', 'AttractionsController@show')->name('show');
+		/** @route attractions/{type}
+		 * 	@method GET
+		 *	@desc Route to access the attractions section
+		 */
+		Route::get('/attractions', 'AttractionsController@show')->name('show');
 	});
 	
 	/*----------------------------------------------------*/
