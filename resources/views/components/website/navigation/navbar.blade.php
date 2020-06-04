@@ -94,7 +94,7 @@
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'attractions' ? 'active' : ''}}">
-			<a href="#">
+			<a href="{{route('website.attractions.show')}}">
 				<h4 class="menu-sub-item-text web-title">Attractions</h4>
 			</a>
 		</li>
