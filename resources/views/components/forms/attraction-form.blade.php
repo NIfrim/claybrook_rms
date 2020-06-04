@@ -66,6 +66,68 @@
                         @enderror
                     </div>
                 </div>
+    
+                {{--Attraction for--}}
+                <div class="form-group row">
+                    <label for="for" class="col-xl-2 col-form-label">{{ __('Suitable for') }}</label>
+        
+                    <div class="col-xl-10">
+                        <select name = "for" id = "for" class="form-control @error('for') is-invalid @enderror" required autofocus>
+                            <option value = "" {{old('for') !== '' | isset($data['currentRow']) && isset($data['currentRow']['for']) ? '' : 'selected'}}>Select</option>
+                            <option value = "ANYONE" {{old('for') === 'ANYONE' | isset($data['currentRow']) && isset($data['currentRow']['for']) && $data['currentRow']['for'] === 'ANYONE' ? 'selected' : ''}}>Anyone</option>
+                            <option value = "ADULTS" {{old('for') === 'ADULTS' | isset($data['currentRow']) && isset($data['currentRow']['for']) && $data['currentRow']['for'] === 'ADULTS' ? 'selected' : ''}}>Adults</option>
+                            <option value = "CHILDREN" {{old('for') === 'CHILDREN' | isset($data['currentRow']) && isset($data['currentRow']['for']) && $data['currentRow']['for'] === 'CHILDREN' ? 'selected' : ''}}>Children</option>
+                        </select>
+            
+                        @error('for')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+    
+                {{--Attraction intensity--}}
+                <div class="form-group row">
+                    <label for="rideIntensity" class="col-xl-2 col-form-label">{{ __('Ride intensity') }}</label>
+        
+                    <div class="col-xl-10">
+                        <select name = "ride_intensity" id = "rideIntensity" class="form-control @error('rideIntensity') is-invalid @enderror" required autofocus>
+                            <option value = "" {{old('ride_intensity') !== '' | isset($data['currentRow']) && isset($data['currentRow']['ride_intensity']) ? '' : 'selected'}}>Select</option>
+                            <option value = "NIGHTMARE" {{old('ride_intensity') === 'NIGHTMARE' | isset($data['currentRow']) && isset($data['currentRow']['ride_intensity']) && $data['currentRow']['ride_intensity'] === 'NIGHTMARE' ? 'selected' : ''}}>Nightmare</option>
+                            <option value = "HIGH" {{old('ride_intensity') === 'HIGH' | isset($data['currentRow']) && isset($data['currentRow']['ride_intensity']) && $data['currentRow']['ride_intensity'] === 'HIGH' ? 'selected' : ''}}>High</option>
+                            <option value = "MEDIUM" {{old('ride_intensity') === 'MEDIUM' | isset($data['currentRow']) && isset($data['currentRow']['ride_intensity']) && $data['currentRow']['ride_intensity'] === 'MEDIUM' ? 'selected' : ''}}>Medium</option>
+                            <option value = "LOW" {{old('ride_intensity') === 'LOW' | isset($data['currentRow']) && isset($data['currentRow']['ride_intensity']) && $data['currentRow']['ride_intensity'] === 'LOW' ? 'selected' : ''}}>Low</option>
+                        </select>
+            
+                        @error('rideIntensity')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+    
+                {{--Minimum Height--}}
+                <div class="form-group row">
+                    <label for="minimumHeight" class="col-xl-2 col-form-label">{{ __('Minimum height') }}</label>
+        
+                    <div class="col-xl-10 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">cm</span>
+                        </div>
+                        <input
+                            id="minimumHeight"
+                            type="number"
+                            class="form-control @error('minimumHeight') is-invalid @enderror"
+                            name="minimum_height"
+                            maxlength="45"
+                            value="{{old('minimum_height') ?? $data['currentRow']['minimum_height'] ?? ''}}"
+                            required
+                            autofocus
+                        />
+            
+                        @error('minimumHeight')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
                 
                 {{--Short description--}}
                 <div class="form-group row">
