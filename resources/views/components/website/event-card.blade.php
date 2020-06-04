@@ -1,14 +1,16 @@
-<div class="card event-card">
-    <div class="card-body">
-        <div class="card-title">{{$title}}</div>
-        <div class="card-date">{{$startDate}} - {{$endDate}}</div>
-        <img src = "{{$image}}" alt = "Event card image">
+<div class="card flex-shrink-0 m-2 p-0 rounded-lg shadow-sm news-card">
+    <div class="card-header">
+        <h5 class="card-title mb-1">{{$title}}</h5>
+        <p class="card-date mb-1">Between: <small class="text-muted">{{$startDate}} - {{$endDate}}</small> </p>
     </div>
-    <div class="card-body">
-        <div class="card-text">{{$shortDescription}}</div>
-        <div class="card-actions">
-            <span class="material-icons">share</span>
-            <span class="material-icons">keyboard_arrow_down</span>
+    <a href = "#">
+        <img src = "{{$image ?? 'https://via.placeholder.com/250x150'}}" alt = "Event image">
+    </a>
+    <div class="card-footer">
+        <div class="card-text" data-lines="1">{{$shortDescription}}</div>
+        <div class="card-actions d-flex justify-content-between">
+            <span class="material-icons card-share">share</span>
+            <span class="material-icons card-read-more">keyboard_arrow_down</span>
         </div>
     </div>
 </div>
