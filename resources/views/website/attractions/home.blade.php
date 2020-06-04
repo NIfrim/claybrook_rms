@@ -10,9 +10,9 @@
 	</div>
 	
 	@if(sizeof($attractionsCategories) > 0)
-		@foreach(array_keys($attractionsCategories->toArray()) as $category)
+		@foreach(array_keys($attractionsCategories->toArray()) as $rideType)
 
-			<x-website.row-type-two :type="$category" :cardsData="$attractionsCategories->get($category) ?? null" action="Visit us for more {{$category}}" />
+			<x-website.row-type-two :type="$category" :title="$rideType.' rides'" :cardsData="$attractionsCategories->get($rideType) ?? null" action="Visit us for more rides" />
 		
 		@endforeach
 	@endif
