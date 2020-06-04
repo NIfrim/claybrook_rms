@@ -17,6 +17,10 @@ class CreateAttractionsTable extends Migration
             $table->id();
             $table->string('name', 45);
             $table->string('type', 45);
+			$table->enum('for', ['ANYONE','ADULTS','CHILDREN']);
+			$table->enum('ride_intensity',  ['NIGHTMARE','HIGH','MEDIUM','LOW']);
+			$table->unsignedTinyInteger('minimum_height');
+			$table->string('type', 45);
             $table->string('short_description', 255);
             $table->string('long_description');
             $table->timestamps();
