@@ -30,6 +30,7 @@ function addSelectedToInput () {
 	// Get the selected row id which is in column 0
 	let selectedRowId = $(this).find('td').first().text();
 
+	// Only add if not already added
 	if (!findInString(removeFormInput.val(), selectedRowId)) {
 		// Get the values of the removeFormInput as array, and remove empty elements
 		let newVal = removeFormInput.val().split(',').filter(elem => elem.length !== 0);
