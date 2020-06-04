@@ -291,11 +291,11 @@ Route::name('website.')->namespace('Website')->group(function () {
 	
 	Route::prefix('attractions')->name('attractions.')->group(function () {
 		
-		/** @route attractions/{type}
+		/** @route attractions/{id?}
 		 * 	@method GET
 		 *	@desc Route to access the attractions section
 		 */
-		Route::get('/attractions', 'AttractionsController@show')->name('show');
+		Route::get('/{id?}', 'AttractionsController@show')->name('show');
 	});
 	
 	/*----------------------------------------------------*/
