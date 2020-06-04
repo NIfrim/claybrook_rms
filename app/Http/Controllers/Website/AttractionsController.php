@@ -12,17 +12,35 @@ class AttractionsController extends Controller
 	/**
 	 * Show the attractions main page, or selected one.
 	 *
+	 * @param string|null $id
+	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function show()
+	public function show(?string $id = null)
 	{
-		return view('website.attractions.home', [
-			'title' => 'Attractions & Rides',
-			'attractionsCategories' => $this->getData('attractions'),
-			'category' => 'attractions',
-			'subcategory' => null,
-			'zoo' => $this->getZoo(),
-		]);
+		if ($id) {
+			
+			$attraction = $this->getData('attractions', [['id', '=', $id]])->first();
+			
+			return view('website.attractions.single', [
+				'title' => $attraction->name,
+				'category' => 'attractions',
+				'subcategory' => null,
+				'attraction' => $attraction,
+				'zoo' => $this->getZoo(),
+				'didYouKnowMessage' => $attraction->did_you_know,
+			]);
+		
+		} else {
+			
+			return view('website.attractions.home', [
+				'title' => 'Attractions & Rides',
+				'attractionsCategories' => $this->getData('attractions'),
+				'category' => 'attractions',
+				'subcategory' => null,
+				'zoo' => $this->getZoo(),
+			]);
+		}
 	}
 	
 	/** Returns zoo information
@@ -44,7 +62,7 @@ class AttractionsController extends Controller
 		
 		if ($filters) {
 			
-			$data = call_user_func($this->getModel().'::with', $relations)->where($filters)->get()->groupBy('type');
+			$data = call_user_func($this->getModel().'::with', $relations)->where($filters)->get();
 			
 		} else {
 			
