@@ -11,6 +11,9 @@ class Attraction extends Model
     	'zoo_id',
 		'name',
 		'type',
+		'for',
+		'ride_intensity',
+		'minimum_height',
 		'short_description',
 		'long_description',
 	];
