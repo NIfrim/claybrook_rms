@@ -31,6 +31,9 @@ class AttractionsTable extends DefaultTable
 			['name' => 'zoo_id', 'title' => 'zoo id', 'type' => 'number'],
 			['name' => 'name', 'title' => 'name', 'type' => 'text'],
 			['name' => 'type', 'title' => 'type', 'type' => 'text'],
+			['name' => 'for', 'title' => 'suitable for', 'type' => 'text'],
+			['name' => 'ride_intensity', 'title' => 'ride intensity', 'type' => 'text'],
+			['name' => 'minimum_height', 'title' => 'min. height', 'type' => 'text'],
 			['name' => 'short_description', 'title' => 'short description', 'type' => 'text'],
 		];
 		
