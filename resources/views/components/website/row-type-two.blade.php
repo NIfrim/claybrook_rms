@@ -7,85 +7,119 @@
 	</div>
 	
 	<div class="row-middle">
-		<div class="container d-flex flex-wrap align-items-center justify-content-between">
-			@if($cardsData)
-				
-				@foreach($cardsData as $card)
-					<x-website.animal-card
-							:title="$card->species.' - '.$card->name"
-							:data="$card"
-							:type="$type"
-					/>
-				@endforeach
+		<div class="container d-flex flex-wrap align-items-center justify-content-center">
 			
-			@elseif($single)
+			@if(in_array($type, ['birds', 'mammals', 'fish', 'reptiles']))
 				
-				@if(in_array($otherData->type, ['BIRD', 'FISH', 'MAMMAL', 'REPTILE']))
+				@if($cardsData)
 					
-					<ul class="quick-info-list list-unstyled d-flex flex-column justify-content-between align-items-baseline">
-						<li class="list-item d-flex">
-							<h4 class="p-1">Species:</h4>
-							<h4 class="p-1"><small class="text-white">{{$otherData->species}}</small></h4>
-						</li>
+					@foreach($cardsData as $card)
+						<x-website.animal-card
+								:title="$card->species.' - '.$card->name"
+								:data="$card"
+								:type="$type"
+						/>
+					@endforeach
+				
+				@elseif($single)
+					
+					@if(in_array($otherData->type, ['BIRD', 'FISH', 'MAMMAL', 'REPTILE']))
 						
-						<li class="list-item d-flex">
-							<h4 class="p-1">Name:</h4>
-							<h4 class="p-1"><small class="text-white">{{$otherData->name}}</small></h4>
-						</li>
-						
-						<li class="list-item d-flex">
-							<h4 class="p-1">Height:</h4>
-							<h4 class="p-1"><small class="text-white">{{$otherData->height ?? ' - '}} m</small></h4>
-						</li>
-						
-						<li class="list-item d-flex">
-							<h4 class="p-1">Weight:</h4>
-							<h4 class="p-1"><small class="text-white">{{$otherData->weight ?? ' - '}} kg</small></h4>
-						</li>
-						
-						<li class="list-item d-flex">
-							<h4 class="p-1">Life Span:</h4>
-							<h4 class="p-1"><small class="text-white">{{$otherData->life_span ?? ' - '}}</small></h4>
-						</li>
-						
-						<li class="list-item d-flex">
-							<h4 class="p-1">Diet:</h4>
-							<h4 class="p-1"><small class="text-white">{{$otherData->diet ?? ' - '}}</small></h4>
-						</li>
-						
-						@switch($type)
+						<ul class="quick-info-list list-unstyled d-flex flex-column justify-content-between align-items-baseline">
+							<li class="list-item d-flex">
+								<h4 class="p-1">Species:</h4>
+								<h4 class="p-1"><small class="text-white">{{$otherData->species}}</small></h4>
+							</li>
 							
-							@case('birds')
-								<li class="list-item d-flex">
-									<h4 class="p-1">Wingspan:</h4>
-									<h4 class="p-1"><small class="text-white">{{$otherData->wingspan ?? ' - '}} cm</small></h4>
-								</li>
+							<li class="list-item d-flex">
+								<h4 class="p-1">Name:</h4>
+								<h4 class="p-1"><small class="text-white">{{$otherData->name}}</small></h4>
+							</li>
+							
+							<li class="list-item d-flex">
+								<h4 class="p-1">Height:</h4>
+								<h4 class="p-1"><small class="text-white">{{$otherData->height ?? ' - '}} m</small></h4>
+							</li>
+							
+							<li class="list-item d-flex">
+								<h4 class="p-1">Weight:</h4>
+								<h4 class="p-1"><small class="text-white">{{$otherData->weight ?? ' - '}} kg</small></h4>
+							</li>
+							
+							<li class="list-item d-flex">
+								<h4 class="p-1">Life Span:</h4>
+								<h4 class="p-1"><small class="text-white">{{$otherData->life_span ?? ' - '}}</small></h4>
+							</li>
+							
+							<li class="list-item d-flex">
+								<h4 class="p-1">Diet:</h4>
+								<h4 class="p-1"><small class="text-white">{{$otherData->diet ?? ' - '}}</small></h4>
+							</li>
+							
+							@switch($type)
 								
-								<li class="list-item d-flex">
-									<h4 class="p-1">Nest construction:</h4>
-									<h4 class="p-1"><small class="text-white">{{$otherData->nest_construction ?? ' - '}}</small></h4>
-								</li>
-							@break
+								@case('birds')
+									<li class="list-item d-flex">
+										<h4 class="p-1">Wingspan:</h4>
+										<h4 class="p-1"><small class="text-white">{{$otherData->wingspan ?? ' - '}} cm</small></h4>
+									</li>
+									
+									<li class="list-item d-flex">
+										<h4 class="p-1">Nest construction:</h4>
+										<h4 class="p-1"><small class="text-white">{{$otherData->nest_construction ?? ' - '}}</small></h4>
+									</li>
+								@break
+								
+								@case('fish')
+									<li class="list-item d-flex">
+										<h4 class="p-1">Colour:</h4>
+										<h4 class="p-1"><small class="text-white">{{$otherData->colour}}</small></h4>
+									</li>
+									
+									<li class="list-item d-flex">
+										<h4 class="p-1">Water temperature:</h4>
+										<h4 class="p-1"><small class="text-white">{{$otherData->water_temperature ?? ' - '}}Celsius</small></h4>
+									</li>
+								@break
+								
+								@case('reptiles')
+									<li class="list-item d-flex">
+										<h4 class="p-1">Reproduction type:</h4>
+										<h4 class="p-1"><small class="text-white">{{$otherData->reproduction_type}}</small></h4>
+									</li>
+								@break
+							
+							@endswitch
 						
-							@case('fish')
-							@break
-							
-							@case('mammals')
-							@break
-							
-							@case('reptiles')
-							@break
-							
-						@endswitch
+						</ul>
+					@endif
+				
+				@else
 					
-					</ul>
+					<h4 class="p-1">No data for {{$title}}</h4>
+				
 				@endif
 				
-			@else
+			@elseif($type === 'attractions')
+
+				@if($cardsData)
+					
+					@foreach($cardsData as $attraction)
+						<x-website.attraction-card
+								:id="$attraction->id"
+								:name="$attraction->name"
+								:type="$attraction->type"
+								:shortDescription="$attraction->short_description"
+								:image="$attraction->image"
+						/>
+					@endforeach
 				
-				<h4 class="p-1">No data for {{$title}}</h4>
+				@elseif($single)
+				@endif
 			
 			@endif
+			
+			
 		</div>
 	</div>
 	
