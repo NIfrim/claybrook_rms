@@ -6,19 +6,20 @@ use Illuminate\View\Component;
 
 class RowTypeOne extends Component
 {
-	public $type, $title, $cardsData;
+	public $type, $title, $rowData, $cardsData;
 	
 	/**
 	 * Create a new component instance.
 	 *
 	 * @param string $type
-	 * @param array $cardsData
+	 * @param string $title
+	 * @param object $cardsData
 	 */
-    public function __construct(string $type, array $cardsData)
+    public function __construct(string $type, string $title, ?object $cardsData = null)
     {
         $this->type = $type;
+        $this->title = $title;
         $this->cardsData = $cardsData;
-        $this->title = $this->getTitle($type);
     }
 
     /**
@@ -30,12 +31,4 @@ class RowTypeOne extends Component
     {
         return view('components.website.row-type-one');
     }
-    
-    private function getTitle(string $type) {
-    	switch ($type) {
-			case 'events': return 'Upcoming Events';
-			case 'animalSpotlight': return 'Animal Spotlight';
-			default: return 'Missing title';
-		}
-	}
 }
