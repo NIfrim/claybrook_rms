@@ -12,17 +12,18 @@ class RowTypeTwo extends Component
 	 * Create a new component instance.
 	 *
 	 * @param string $type
+	 * @param string $title
 	 * @param object|null $otherData
 	 * @param object $cardsData
 	 * @param bool|null $single
 	 * @param string|null $action
 	 */
-	public function __construct(string $type, ?object $otherData = null, ?object $cardsData = null, ?bool $single = false, ?string $action = null)
+	public function __construct(string $type, string $title, ?object $otherData = null, ?object $cardsData = null, ?bool $single = false, ?string $action = null)
 	{
 		$this->type = $type;
 		$this->action = $action;
 		$this->cardsData = $cardsData;
-		$this->title = $this->getTitle($single ? 'single' : $type);
+		$this->title = $title;
 		$this->single = $single;
 		$this->otherData = $otherData;
 	}
@@ -44,7 +45,7 @@ class RowTypeTwo extends Component
 			case 'mammals': return 'Some of our mammals';
 			case 'fish': return 'Some of our fishes';
 			case 'reptiles': return 'Some of our reptiles';
-			default: return 'Missing title';
+			default: return $this->type;
 		}
 	}
 }
