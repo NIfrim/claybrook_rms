@@ -63430,6 +63430,8 @@ __webpack_require__(/*! ./forms */ "./resources/js/forms.js");
 
 __webpack_require__(/*! ./web-nav */ "./resources/js/web-nav.js");
 
+__webpack_require__(/*! ./cards */ "./resources/js/cards.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -63474,6 +63476,24 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/cards.js":
+/*!*******************************!*\
+  !*** ./resources/js/cards.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var readMoreBtn = $('.card-read-more'); // Expand text container and rotate
+
+  readMoreBtn.click(function () {
+    $(this).parent().siblings('.card-text').toggleClass('expand');
+    $(this).toggleClass('rotate180');
+  });
+});
 
 /***/ }),
 
@@ -63558,7 +63578,7 @@ function clearFormInput() {
 function addSelectedToInput() {
   var removeFormInput = $('#removeInput'); // Get the selected row id which is in column 0
 
-  var selectedRowId = $(this).find('td').first().text();
+  var selectedRowId = $(this).find('td').first().text(); // Only add if not already added
 
   if (!findInString(removeFormInput.val(), selectedRowId)) {
     // Get the values of the removeFormInput as array, and remove empty elements
