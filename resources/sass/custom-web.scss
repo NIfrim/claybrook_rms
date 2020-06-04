@@ -3,8 +3,12 @@ body {
   overflow: hidden;
 }
 
+h1,h2,h3,h4,h5,h6 {
+  font-family: $web-title;
+}
+
 .web-title {
-  font-family: $title;
+  font-family: $web-title;
   padding: 0 !important;
 }
 
@@ -68,6 +72,18 @@ main {
   -ms-transform: rotateZ(3deg);
   -o-transform: rotateZ(3deg);
   transform: rotateZ(3deg);
+}
+
+.rotate180 {
+  -webkit-transform: rotateZ(180deg);
+  -moz-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  -o-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+
+.expand {
+  max-height: 15rem !important;
 }
 
 .row-type-two .btn-lg {
@@ -173,11 +189,11 @@ main {
 /***************** ROWS STYLING ******************/
 
 .row-type-one {
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
 }
 
 .row-type-two {
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
 }
 
 .did-you-know-row .row-top {
@@ -186,10 +202,10 @@ main {
 
 .did-you-know-row .row-bottom {
   background-color: $logoYellow;
-  min-height: 150px;
+  min-height: 200px;
 }
 
-.row-type-one .row-top {
+.row-type-one .row-body {
   background-color: $lightGreen;
   min-height: 300px;
 }
@@ -198,9 +214,8 @@ main {
   color: $lightYellow;
 }
 
-.row-type-one .row-bottom {
-  margin-top: -150px;
-  height: 200px;
+.row-type-one .row-cards {
+  min-height: 200px;
 }
 
 .row-type-two .row-top {
@@ -221,16 +236,29 @@ main {
 
 /***************** CARDS STYLING ******************/
 
-.animal-card {
+.animal-card,
+.event-card,
+.news-card {
   min-height: 200px;
   flex-basis: 250px;
-  background-color: $teal;
+  background-color: $brightGreen;
   overflow: hidden;
 }
 
 .card-header * {
   color: $lightYellow;
 }
+
+.card-text {
+  overflow: hidden;
+  max-height: 1.5rem;
+}
+
+.card-read-more,
+.card-share {
+  cursor: pointer;
+}
+
 
 /* END Cards Styling */
 
