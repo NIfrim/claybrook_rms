@@ -89,6 +89,13 @@
                     <span class="menu-item-text">Reviews</span>
                 </a>
             </li>
+    
+            {{-- Attractions --}}
+            <li class="menu-item {{$category === 'attractions' ? 'active' : ''}}">
+                <a href="{{route('admin.attractions.list')}}" class="d-flex flex-nowrap justify-content-between">
+                    <span class="menu-item-text">Attractions</span>
+                </a>
+            </li>
 
             {{--Sponsors--}}
             <li class="menu-item">
