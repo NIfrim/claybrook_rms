@@ -3,11 +3,11 @@
 @section('content')
 	{{-- Carousel showing animal images --}}
 	<x-website.carousel :category="$category" />
-	
-	<x-website.row-type-two :type="$subcategory ?? ''" :otherData="$animal" single="true"   />
+
+	<x-website.row-type-two :type="$subcategory ?? $category" :title="'I am '.$animal->name" :otherData="$animal" single="true"  />
 	
 	{{-- Did you know row --}}
-	<x-website.did-you-know-row title="Did you know?" :message="$didYouKnowMessage" />
+	<x-website.row-type-three title="Did you know?" :message="$animal->long_description" />
 	
 @endsection
 

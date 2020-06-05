@@ -16,4 +16,8 @@ class NewsCategory extends Model
 	public function news() {
 		return $this->hasMany('App\Models\News', 'category_id');
 	}
+	
+	public function zoo() {
+		return $this->hasOneThrough(Zoo::class, News::class, 'zoo_id', 'id');
+	}
 }

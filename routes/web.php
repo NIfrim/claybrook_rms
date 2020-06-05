@@ -261,42 +261,178 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 
 Route::name('website.')->namespace('Website')->group(function () {
 	
-	/*
-	|--------------------------------------------------------------------------
-	| Animals
-	|--------------------------------------------------------------------------
-	*/
-	
-	/** @route animals/{type}
-	 * 	@method GET
-	 *	@desc Route to access the animals section by type
-	 */
-	Route::get('/animals/{type}', 'AnimalsController@show')->name('animals.show');
-	
-	/** @route animals/{type}/{id}
-	 * 	@method GET
-	 *	@desc Route to access a specific animal
-	 */
-	Route::get('/animals/{type}/{id}', 'AnimalsController@show')->name('animals.showOne');
-	
-	/*----------------------------------------------------*/
-	
-	
-	
-	/*
-	|--------------------------------------------------------------------------
-	| Attractions
-	|--------------------------------------------------------------------------
-	*/
-	
-	Route::prefix('attractions')->name('attractions.')->group(function () {
+	/* Our zoo category with related subcategories */
+	Route::prefix('our-zoo')->name('ourZoo.')->group(function () {
 		
-		/** @route attractions/{id?}
+		/*
+		|--------------------------------------------------------------------------
+		| Attractions
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /our-zoo/attractions/{id?}
 		 * 	@method GET
 		 *	@desc Route to access the attractions section
 		 */
-		Route::get('/{id?}', 'AttractionsController@show')->name('show');
+		Route::get('/attractions/{id?}', 'AttractionsController@show')->name('attractions.show');
+		
+		/*----------------------------------------------------*/
+
+		
+		
+		/*
+		|--------------------------------------------------------------------------
+		| Opening Times
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /our-zoo/opening-times
+		 * 	@method GET
+		 *	@desc Route to access the opening times section
+		 */
+		Route::get('/opening-times', 'OpeningTimesController@show')->name('openingTimes.show');
+		
+		/*----------------------------------------------------*/
+		
+		
+		
+		/*
+		|--------------------------------------------------------------------------
+		| Map and Directions
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /our-zoo//map-and-directions
+		 * 	@method GET
+		 *	@desc Route to access the map and directions section
+		 */
+		Route::get('/map-and-directions', 'MapAndDirectionsController@show')->name('mapAndDirections.show');
+		
+		/*----------------------------------------------------*/
+		
+		
+		
+		/*
+		|--------------------------------------------------------------------------
+		| Animals
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /our-zoo/{type}/{id?}
+		 * 	@method GET
+		 *	@desc Route to access the animals section either by type or individual animals by id
+		 */
+		Route::get('/{type}/{id?}', 'AnimalsController@show')->name('animals.show');
+		
+		//		/** @route animals/{type}/{id}
+		//		 * 	@method GET
+		//		 *	@desc Route to access a specific animal
+		//		 */
+		//		Route::get('/animals/{type}/', 'AnimalsController@show')->name('animals.showOne');
+		
+		/*----------------------------------------------------*/
+	
 	});
+	
+	/* Experiences category with related subcategories */
+	Route::prefix('experiences')->name('experiences.')->group(function () {
+		
+		/*
+		|--------------------------------------------------------------------------
+		| Map and Directions
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /experiences/map-and-directions
+		 * 	@method GET
+		 *	@desc Route to access the map and directions section
+		 */
+		Route::get('/map-and-directions', 'MapAndDirectionsController@show')->name('mapAndDirections.show');
+		
+		/*----------------------------------------------------*/
+		
+		
+		
+		/*
+		|--------------------------------------------------------------------------
+		| Current Events
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /experiences/events/{id?}
+		 * 	@method GET
+		 *	@desc Route to access the news section
+		 */
+		Route::get('/events/{id?}', 'EventsController@show')->name('events.show');
+		
+		/*----------------------------------------------------*/
+		
+		
+		
+		/*
+		|--------------------------------------------------------------------------
+		| Current News
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /experiences/news/{id?}
+		 * 	@method GET
+		 *	@desc Route to access the news section
+		 */
+		Route::get('/news/{id?}', 'NewsController@show')->name('news.show');
+		
+		/*----------------------------------------------------*/
+		
+	});
+	
+	
+	
+	/* Experiences category with related subcategories */
+	Route::prefix('more-info')->name('moreInfo.')->group(function () {
+		
+		/*
+		|--------------------------------------------------------------------------
+		| About Us
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /more-info/about-us
+		 * 	@method GET
+		 *	@desc Route to access the about us section
+		 */
+		Route::get('/about-us', 'AboutUsController@show')->name('aboutUs.show');
+		
+		/*----------------------------------------------------*/
+		
+		
+		
+		/*
+		|--------------------------------------------------------------------------
+		| Contact Details
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /more-info/contact-details
+		 * 	@method GET
+		 *	@desc Route to access the contact details section
+		 */
+		Route::get('/contact-details', 'ContactUsController@show')->name('contactDetails.show');
+		
+		/*----------------------------------------------------*/
+	
+	});
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Tickets and Passes
+	|--------------------------------------------------------------------------
+	*/
+	
+	/** @route /tickets-and-passes
+	 * 	@method GET
+	 *	@desc Route to access the tickets section
+	 */
+	Route::get('/tickets-and-passes', 'TicketsController@show')->name('ticketsAndPasses.show');
 	
 	/*----------------------------------------------------*/
 	
@@ -305,22 +441,14 @@ Route::name('website.')->namespace('Website')->group(function () {
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Other sections
+	| Welcome page
 	|--------------------------------------------------------------------------
 	*/
 	
-//	/** @route /opening-times
-//	 * 	@method GET
-//	 *	@desc Route to access the animals section by type
-//	 */
-//	Route::get('/opening-times', 'OpeningTimesController@show')->name('openingTimes.show');
-//
-//	/** @route /map-and-directions
-//	 * 	@method GET
-//	 *	@desc Route to access the map and directions section
-//	 */
-//	Route::get('/map-and-directions', 'MapAndDirectionsController@show')->name('mapAndDirections.show');
-	
+	/** @route /
+	 * 	@method GET
+	 *	@desc Route to access the website landing page
+	 */
 	Route::get('/', 'HomeController@show')->name('welcome');
 	
 	/*----------------------------------------------------*/

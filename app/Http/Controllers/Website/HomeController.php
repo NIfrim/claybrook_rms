@@ -19,6 +19,10 @@ class HomeController extends Controller
 	 */
 	public function show()
 	{
+		$url = explode('/', $_SERVER['REQUEST_URI']);
+		$category = $url[1];
+		$subcategory = $url[2] ?? null;
+		
 		return view('website.welcome', [
 			'title' => 'Welcome to Claybrook Zoo',
 			'animals' => $this->getData('animals', [

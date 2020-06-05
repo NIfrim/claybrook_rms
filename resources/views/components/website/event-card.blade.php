@@ -1,9 +1,9 @@
 <div class="card flex-shrink-0 m-2 p-0 rounded-lg shadow-sm news-card">
     <div class="card-header">
         <h5 class="card-title mb-1">{{$title}}</h5>
-        <p class="card-date mb-1">Between: <small class="text-muted">{{$startDate}} - {{$endDate}}</small> </p>
+        <p class="card-date mb-1">Between: <small class="text-muted">{{$startDate}} & {{$endDate}}</small> </p>
     </div>
-    <a href = "#">
+    <a href = "{{route('website.experiences.events.show', ['id' => $id])}}">
         <img src = "{{$image ?? 'https://via.placeholder.com/250x150'}}" alt = "Event image">
     </a>
     <div class="card-footer">

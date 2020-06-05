@@ -39,8 +39,10 @@
 				<li class="nav-item">
 					<ul class="navbar-nav d-flex flex-grow-1 my-3 flex-column align-self-stretch justify-content-between list-unstyled">
 						<li id="buyTickets" class="d-flex flex-nowrap align-items-center">
-							<span class="material-icons mr-2">local_activity</span>
-							<h3 class="web-title my-0">Buy Tickets</h3>
+							<a href = "{{route('website.ticketsAndPasses.show')}}" class="d-flex flex-nowrap">
+								<span class="material-icons mr-2">local_activity</span>
+								<h3 class="web-title my-0">Buy Tickets</h3>
+							</a>
 						</li>
 						<li id="becomeSponsor" class="d-flex flex-nowrap align-items-center">
 							<span class="material-icons mr-2">person_add</span>
@@ -72,81 +74,89 @@
 
 <div class="sub-menu-wrapper flex-shrink-1">
 	{{-- Our zoo submenu --}}
-	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled my-0 pb-lg-1 pb-sm-5 {{$category === 'our-zoo' ? 'show' : ''}}" id="ourZooSubmenu">
+	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled my-0 pb-lg-1 pb-sm-5" id="ourZooSubmenu">
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'birds' ? 'active' : ''}}">
-			<a href="{{route('website.animals.show', ['type' => 'birds'])}}">
+			<a href="{{route('website.ourZoo.animals.show', ['type' => 'birds'])}}">
 				<h4 class="menu-sub-item-text web-title">Birds</h4>
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'fish' ? 'active' : ''}}">
-			<a href="{{route('website.animals.show', ['type' => 'fish'])}}">
+			<a href="{{route('website.ourZoo.animals.show', ['type' => 'fish'])}}">
 				<h4 class="menu-sub-item-text web-title">Fish</h4>
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'mammals' ? 'active' : ''}}">
-			<a href="{{route('website.animals.show', ['type' => 'mammals'])}}">
+			<a href="{{route('website.ourZoo.animals.show', ['type' => 'mammals'])}}">
 				<h4 class="menu-sub-item-text web-title">Mammals</h4>
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'reptiles' ? 'active' : ''}}">
-			<a href="{{route('website.animals.show', ['type' => 'reptiles'])}}">
+			<a href="{{route('website.ourZoo.animals.show', ['type' => 'reptiles'])}}">
 				<h4 class="menu-sub-item-text web-title">Reptiles</h4>
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'attractions' ? 'active' : ''}}">
-			<a href="{{route('website.attractions.show')}}">
+			<a href="{{route('website.ourZoo.attractions.show')}}">
 				<h4 class="menu-sub-item-text web-title">Attractions</h4>
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'opening-times' ? 'active' : ''}}">
-			<a href="#">
+			<a href="{{route('website.ourZoo.openingTimes.show')}}">
 				<h4 class="menu-sub-item-text web-title">Opening Times</h4>
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
-			<a href="#">
+			<a href="{{route('website.ourZoo.mapAndDirections.show')}}">
 				<h4 class="menu-sub-item-text web-title">Map & Directions</h4>
 			</a>
 		</li>
 	</ul>
 	
 	{{-- Experiences submenu --}}
-	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled pb-lg-1 pb-sm-5 {{$category === 'experiences' ? 'show' : ''}}" id="experiencesSubmenu">
+	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled pb-lg-1 pb-sm-5" id="experiencesSubmenu">
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'games' ? 'active' : ''}}">
 			<a href="#">
 				<h4 class="menu-sub-item-text web-title">Games</h4>
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'events' ? 'active' : ''}}">
-			<a href="#">
+			<a href="{{route('website.experiences.events.show')}}">
 				<h4 class="menu-sub-item-text web-title">Events</h4>
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'news' ? 'active' : ''}}">
-			<a href="#">
+			<a href="{{route('website.experiences.news.show')}}">
 				<h4 class="menu-sub-item-text web-title">Latest News</h4>
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
-			<a href="#">
+			<a href="{{route('website.experiences.mapAndDirections.show')}}">
 				<h4 class="menu-sub-item-text web-title">Map & Directions</h4>
 			</a>
 		</li>
 	</ul>
 	
 	{{-- More info submenu --}}
-	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled pb-lg-1 pb-sm-5 {{$category === 'more-info' ? 'show' : ''}} list-unstyled" id="moreInfoSubmenu">
+	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled pb-lg-1 pb-sm-5 list-unstyled" id="moreInfoSubmenu">
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'about-us' ? 'active' : ''}}">
-			<a href="#"><h4 class="menu-sub-item-text web-title">About Us</h4></a>
+			<a href="{{route('website.moreInfo.aboutUs.show')}}">
+				<h4 class="menu-sub-item-text web-title">About Us</h4>
+			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'contact-details' ? 'active' : ''}}">
-			<a href="#"><h4 class="menu-sub-item-text web-title">Contact Details</h4></a>
+			<a href="{{route('website.moreInfo.contactDetails.show')}}">
+				<h4 class="menu-sub-item-text web-title">Contact Details</h4>
+			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'reviews' ? 'active' : ''}}">
-			<a href="#"><h4 class="menu-sub-item-text web-title">Reviews</h4></a>
+			<a href="#">
+				<h4 class="menu-sub-item-text web-title">Reviews</h4>
+			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
-			<a href="#"><h4 class="menu-sub-item-text web-title">Map & Directions</h4></a>
+			<a href="">
+				<h4 class="menu-sub-item-text web-title">Map & Directions</h4>
+			</a>
 		</li>
 	</ul>
 </div>

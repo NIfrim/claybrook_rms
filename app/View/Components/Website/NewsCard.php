@@ -6,19 +6,21 @@ use Illuminate\View\Component;
 
 class NewsCard extends Component
 {
-	public $title, $datePosted, $dateExpire, $shortDescription, $image;
+	public $id, $title, $datePosted, $dateExpire, $shortDescription, $image;
 	
 	/**
 	 * Create a new component instance.
 	 *
+	 * @param int $id
 	 * @param string $title
 	 * @param string $datePosted
 	 * @param string $dateExpire
 	 * @param string $shortDescription
 	 * @param string|null $image
 	 */
-	public function __construct(string $title, string $datePosted, string $dateExpire, string $shortDescription, ?string $image = null)
+	public function __construct(int $id, string $title, string $datePosted, string $dateExpire, string $shortDescription, ?string $image = null)
 	{
+		$this->id = $id;
 		$this->title = $title;
 		$this->datePosted = $datePosted;
 		$this->dateExpire = $dateExpire;

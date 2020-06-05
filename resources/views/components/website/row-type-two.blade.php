@@ -7,8 +7,8 @@
 	</div>
 	
 	<div class="row-middle">
-		<div class="container d-flex flex-wrap align-items-center justify-content-center">
-			
+		<div class="container d-flex flex-wrap align-items-start justify-content-center">
+
 			@if(in_array($type, ['birds', 'mammals', 'fish', 'reptiles']))
 				
 				@if($cardsData)
@@ -23,76 +23,7 @@
 				
 				@elseif($single)
 					
-					@if(in_array($otherData->type, ['BIRD', 'FISH', 'MAMMAL', 'REPTILE']))
-						
-						<ul class="quick-info-list list-unstyled d-flex flex-column justify-content-between align-items-baseline">
-							<li class="list-item d-flex">
-								<h4 class="p-1">Species:</h4>
-								<h4 class="p-1"><small class="text-white">{{$otherData->species}}</small></h4>
-							</li>
-							
-							<li class="list-item d-flex">
-								<h4 class="p-1">Name:</h4>
-								<h4 class="p-1"><small class="text-white">{{$otherData->name}}</small></h4>
-							</li>
-							
-							<li class="list-item d-flex">
-								<h4 class="p-1">Height:</h4>
-								<h4 class="p-1"><small class="text-white">{{$otherData->height ?? ' - '}} m</small></h4>
-							</li>
-							
-							<li class="list-item d-flex">
-								<h4 class="p-1">Weight:</h4>
-								<h4 class="p-1"><small class="text-white">{{$otherData->weight ?? ' - '}} kg</small></h4>
-							</li>
-							
-							<li class="list-item d-flex">
-								<h4 class="p-1">Life Span:</h4>
-								<h4 class="p-1"><small class="text-white">{{$otherData->life_span ?? ' - '}}</small></h4>
-							</li>
-							
-							<li class="list-item d-flex">
-								<h4 class="p-1">Diet:</h4>
-								<h4 class="p-1"><small class="text-white">{{$otherData->diet ?? ' - '}}</small></h4>
-							</li>
-							
-							@switch($type)
-								
-								@case('birds')
-									<li class="list-item d-flex">
-										<h4 class="p-1">Wingspan:</h4>
-										<h4 class="p-1"><small class="text-white">{{$otherData->wingspan ?? ' - '}} cm</small></h4>
-									</li>
-									
-									<li class="list-item d-flex">
-										<h4 class="p-1">Nest construction:</h4>
-										<h4 class="p-1"><small class="text-white">{{$otherData->nest_construction ?? ' - '}}</small></h4>
-									</li>
-								@break
-								
-								@case('fish')
-									<li class="list-item d-flex">
-										<h4 class="p-1">Colour:</h4>
-										<h4 class="p-1"><small class="text-white">{{$otherData->colour}}</small></h4>
-									</li>
-									
-									<li class="list-item d-flex">
-										<h4 class="p-1">Water temperature:</h4>
-										<h4 class="p-1"><small class="text-white">{{$otherData->water_temperature ?? ' - '}}Celsius</small></h4>
-									</li>
-								@break
-								
-								@case('reptiles')
-									<li class="list-item d-flex">
-										<h4 class="p-1">Reproduction type:</h4>
-										<h4 class="p-1"><small class="text-white">{{$otherData->reproduction_type}}</small></h4>
-									</li>
-								@break
-							
-							@endswitch
-						
-						</ul>
-					@endif
+					<x-website.animal-quick-info :type="$type" :data="$otherData" />
 				
 				@else
 					
@@ -115,7 +46,74 @@
 					@endforeach
 				
 				@elseif($single)
+					
+					<x-website.attraction-quick-info :data="$otherData" />
+					
 				@endif
+			
+			@elseif($type === 'opening-times')
+			
+				<x-website.opening-times :data="$otherData" />
+			
+			@elseif($type === 'map-and-directions')
+				
+				<x-website.map-and-directions :title="$title" :data="$otherData" />
+			
+			@elseif($type === 'news')
+				
+				@if($single)
+					
+					<x-website.news-info :title="$title" :data="$otherData" />
+					
+				@else
+					
+					<x-website.news-category-row :title="$title"  :data="$otherData" />
+					
+				@endif
+			
+			
+			@elseif($type === 'events')
+				
+				@if($single)
+					
+					<x-website.event-info :title="$title" :data="$otherData" />
+				
+				@else
+					
+					<x-website.events-category-row :title="$title"  :data="$otherData" />
+				
+				@endif
+			
+			
+			@elseif($type === 'about-us')
+				
+					<x-website.about-us-info :title="$title"  :data="$otherData" />
+			
+			@elseif($type === 'contact-details')
+				
+				@if($title === 'Our Location')
+					
+					<x-website.contact-us-location :title="$title"  :data="$otherData" />
+					
+				@else
+					
+					<x-website.contact-us-info :title="$title"  :data="$otherData" />
+					
+				@endif
+			
+			
+			@elseif($type === 'tickets-and-passes')
+				
+				@if($title === 'Tickets')
+					
+					<x-website.tickets-purchase :title="$title"  :data="$otherData" />
+				
+				@elseif($title === 'Annual passes')
+					
+					<x-website.annual-passes-purchase :title="$title"  :data="$otherData" />
+				
+				@endif
+				
 			
 			@endif
 			

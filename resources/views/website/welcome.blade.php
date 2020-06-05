@@ -2,7 +2,7 @@
 
 @section('content')
     
-    <x-website.carousel :category="$category" />
+    <x-website.carousel :category="$subcategory ?? $category" />
 
     @if(sizeof($eventsCategories) > 0)
     
@@ -11,7 +11,7 @@
         
             {{-- Only if there are news inside the category --}}
             @if(sizeof($eventCategory->events) > 0)
-                <x-website.row-type-one type="events" title="$eventCategory->title" :cardsData="$eventCategory->events ?? null" />
+                <x-website.row-type-one :type="$subcategory ?? $category" :title="$eventCategory->title" :cardsData="$eventCategory->events ?? null" />
             @endif
     
         @endforeach
@@ -26,12 +26,12 @@
             
             {{-- Only if there are news inside the category --}}
             @if(sizeof($newsCategory->news) > 0)
-                <x-website.row-type-one type="news" :title="$newsCategory->title" :cardsData="$newsCategory->news ?? null" />
+                <x-website.row-type-one :type="$subcategory ?? $category" :title="$newsCategory->title" :cardsData="$newsCategory->news ?? null" />
             @endif
             
         @endforeach
         
     @endif
 
-    <x-website.row-type-one type="animalSpotlight" title="Animal Spotlight" :cardsData="$animals ?? null" />
+    <x-website.row-type-one :type="$subcategory ?? $category" title="Animal Spotlight" :cardsData="$animals ?? null" />
 @endsection

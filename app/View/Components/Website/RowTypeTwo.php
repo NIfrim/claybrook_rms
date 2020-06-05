@@ -37,15 +37,4 @@ class RowTypeTwo extends Component
 	{
 		return view('components.website.row-type-two');
 	}
-	
-	private function getTitle(string $type) {
-		switch ($type) {
-			case 'single': return 'Some quick info';
-			case 'birds': return 'Some of our birds';
-			case 'mammals': return 'Some of our mammals';
-			case 'fish': return 'Some of our fishes';
-			case 'reptiles': return 'Some of our reptiles';
-			default: return $this->type;
-		}
-	}
 }

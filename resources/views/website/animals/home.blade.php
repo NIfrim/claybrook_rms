@@ -9,10 +9,10 @@
 		</div>
 	</div>
 	
-	<x-website.row-type-two :type="$subcategory" :title="'Some '.$subcategory" :cardsData="$animals ?? []" action="Visit us for more {{$subcategory}}" />
+	<x-website.row-type-two :type="$subcategory ?? $category" :title="'Some '.$subcategory" :cardsData="$animals ?? []" action="Visit us for more {{$subcategory}}" />
 	
 	{{-- Did you know row --}}
-	<x-website.did-you-know-row title="Did you know?" :message="$didYouKnowMessage" />
+	<x-website.row-type-three title="Did you know?" message="Some interesting facts about the zoo animals..." />
 	
 @endsection
 
