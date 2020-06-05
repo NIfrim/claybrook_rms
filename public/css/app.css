@@ -11205,6 +11205,8 @@ body {
   /* END Web navigation */
   /***************** ROWS STYLING ******************/
   /* END Rows styling */
+  /***************** TEXT STYLING ******************/
+  /* END Text styling */
   /***************** CARDS STYLING ******************/
   /* END Cards Styling */
   /***************** FOOTER STYLING ******************/
@@ -11418,6 +11420,14 @@ body {
 
 #app .row-type-two .row-bottom {
   margin-top: -2rem;
+}
+
+#app .row-type-two .mapAndDirectionsColumn {
+  max-width: 340px;
+}
+
+#app .text-secondary {
+  color: #FAFFD6 !important;
 }
 
 #app .animal-card,
