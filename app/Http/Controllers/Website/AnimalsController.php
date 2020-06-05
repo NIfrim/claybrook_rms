@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Animal;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 
 class AnimalsController extends Controller
 {
@@ -19,17 +19,18 @@ class AnimalsController extends Controller
 	 */
 	public function show(String $type, ?string $id = null)
 	{
+		$url = explode('/', $_SERVER['REQUEST_URI']);
+		$category = $url[1];
+		$subcategory = $url[2];
+		
 		if ($id) {
-			
-			$animal = $this->getAnimals($type, $id);
 			
 			return view('website.animals.single', [
 				'title' => $this->getTitle($type),
-				'category' => 'our-zoo',
-				'subcategory' => $type,
-				'animal' => $animal,
-				'zoo' => $this->getZoo(),
-				'didYouKnowMessage' => $animal->did_you_know,
+				'category' => $category,
+				'subcategory' => $subcategory,
+				'animal' => $this->getData('animals', [['id', '=', $id]])->first(),
+				'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']])->first(),
 			]);
 			
 		} else {
@@ -38,42 +39,35 @@ class AnimalsController extends Controller
 				'title' => $this->getTitle($type),
 				'category' => 'our-zoo',
 				'subcategory' => $type,
-				'animals' => $this->getAnimals($type),
-				'zoo' => $this->getZoo(),
-				'didYouKnowMessage' => $this->getDidYouKnow($type),
+				'animals' => $this->getData('animals', [['type', '=', $this->getType($type)]]),
+				'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']])->first(),
 			]);
 			
 		}
 	}
 	
-	/** Returns zoo information
+	/** Returns list of data using specified table
+	 *  Accepts filters as array ['attribute', 'comparator', 'value'];
+	 *
+	 * @param string $table
+	 * @param array|null $filters
+	 *
+	 * @return Model
 	 */
-	private function getZoo() {
-		return ['name' => 'Claybrook Zoo', 'address' => ['building_number' => '45', 'road_name' => 'Zoo Lane', 'city' => 'Eastlands', 'county' => 'North Yorkshire', 'postcode' => 'YR123TH'], 'company_number' => 211545];
-	}
-	
-	/** Returns zoo information
-	 *
-	 * @param string $type
-	 *
-	 * @param string|null $id
-	 *
-	 * @return Animal
-	 */
-	private function getAnimals(string $type, ?string $id = null) {
-		$relations = $this->getRelations($type);
+	private function getData(string $table, ?array $filters = null) {
+		$relations = $this->getRelations($table);
 		
-		if ($id) {
+		if ($filters) {
 			
-			$animals = call_user_func($this->getModel().'::with', $relations)->find($id);
+			$data = call_user_func($this->getModel().'::with', $relations)->where($filters)->get();
 			
 		} else {
 			
-			$animals = call_user_func($this->getModel().'::with', $relations)->where('type', '=', $this->getType($type))->get();
+			$data = call_user_func($this->getModel().'::with', $relations)->get();
 			
 		}
 		
-		return $animals;
+		return $data;
 	}
 	
 	/** Returns the model used for getting the data
@@ -145,30 +139,6 @@ class AnimalsController extends Controller
 			
 			default:
 				return 'Missing title';
-		}
-	}
-	
-	/** Returns a message for the did you know row
-	 *
-	 * @param String $type
-	 * @return String|null
-	 */
-	private function getDidYouKnow(String $type) {
-		switch ($type) {
-			case 'birds':
-				return 'We have over 2000 species of birds along with one of the oldest bird specie named The Shoebill Stork. ';
-			
-			case 'fish':
-				return 'Some interesting facts about fishes';
-			
-			case 'mammals':
-				return 'Some interesting facts about mammals';
-			
-			case 'reptiles':
-				return 'Some interesting facts about reptiles';
-			
-			default:
-				return 'No interesting facts';
 		}
 	}
 }
