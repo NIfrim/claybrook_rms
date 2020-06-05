@@ -18,17 +18,20 @@ class AttractionsController extends Controller
 	 */
 	public function show(?string $id = null)
 	{
+		$url = explode('/', $_SERVER['REQUEST_URI']);
+		$category = $url[1];
+		$subcategory = $url[2];
+
 		if ($id) {
 			
 			$attraction = $this->getData('attractions', [['id', '=', $id]])->first();
 			
 			return view('website.attractions.single', [
 				'title' => $attraction->name,
-				'category' => 'attractions',
-				'subcategory' => null,
+				'category' => $category,
+				'subcategory' => $subcategory,
 				'attraction' => $attraction,
 				'zoo' => $this->getZoo(),
-				'didYouKnowMessage' => $attraction->did_you_know,
 			]);
 		
 		} else {
@@ -36,8 +39,8 @@ class AttractionsController extends Controller
 			return view('website.attractions.home', [
 				'title' => 'Attractions & Rides',
 				'attractionsCategories' => $this->getData('attractions'),
-				'category' => 'attractions',
-				'subcategory' => null,
+				'category' => $category,
+				'subcategory' => $subcategory,
 				'zoo' => $this->getZoo(),
 			]);
 		}
@@ -89,14 +92,8 @@ class AttractionsController extends Controller
 	 */
 	private function getRelations(string $type) {
 		switch ($type) {
-			case 'animals':
-				return ['sponsor'];
-			
-			case 'news_categories':
-				return ['news'];
-			
-			case 'events_categories':
-				return ['events'];
+			case 'attractions':
+				return ['zoo'];
 			
 			default: return [];
 		}
