@@ -240,8 +240,22 @@ body {
     margin-top: -2rem;
   }
 
+  .row-type-two .mapAndDirectionsColumn {
+    max-width: 340px;
+  }
+
   /* END Rows styling */
 
+
+  /***************** TEXT STYLING ******************/
+
+  .text-secondary {
+    color: $lightYellow !important;
+  }
+
+
+
+  /* END Text styling */
 
   /***************** CARDS STYLING ******************/
 
