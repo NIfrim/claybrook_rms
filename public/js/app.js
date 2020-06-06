@@ -63614,7 +63614,7 @@ function findInString(string, needle) {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  $('.nav-buttons-wrapper .nav-link').click(function () {
+  $('#app .nav-buttons-wrapper .nav-link').click(function () {
     var allNavLinks = $('.nav-buttons-wrapper .nav-link');
     var allSubmenus = $('.sub-menu-list'); // Collapse all nav links
 
@@ -63625,7 +63625,7 @@ $(document).ready(function () {
     $(this).removeClass('collapsed');
   });
   var lastScrollPos = 0;
-  $('main').scroll(function () {
+  $('#app main').scroll(function () {
     var currentScrollPos = this.scrollTop;
     var windowWidth = $(window).width();
     var navButtons = $('.web-title');
@@ -63651,7 +63651,7 @@ $(document).ready(function () {
 
     lastScrollPos = currentScrollPos;
   });
-  $('main').click(function () {
+  $('#app main').click(function () {
     $('.collapse').collapse('hide');
   });
 });

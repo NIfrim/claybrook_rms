@@ -11133,7 +11133,6 @@ a:hover {
 .menu-item-text {
   width: 120px;
   text-align: center;
-  padding-left: 1em;
   color: #FAFFD6 !important;
 }
 
@@ -11295,6 +11294,10 @@ body {
   background-color: #DAFB13;
   border: none !important;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+#app .bg-secondary {
+  background-color: #FAFFD6 !important;
 }
 
 #app .row-type-two .btn-lg a,
