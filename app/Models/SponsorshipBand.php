@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class SponsorshipBand extends Model
 {
-	public $incrementing = false;
-	protected $keyType = 'string';
+	protected $fillable = [
+		'band',
+		'price',
+		'duration',
+	];
 	
 	public function animals() {
 		return $this->hasMany(Animal::class);

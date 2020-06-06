@@ -11,6 +11,8 @@
 	
 	<x-website.row-type-two :type="$subcategory ?? $category" title="Sponsorship Details" :otherData="$sponsorshipBands" />
 	
+	<x-website.row-type-two :type="$subcategory ?? $category" title="Register as a sponsor" />
+	
 	<x-website.row-type-three title="Important!" message="Important announcements will go here..." />
 	
 @endsection

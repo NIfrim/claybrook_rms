@@ -28,7 +28,8 @@ class SponsorshipBandsTable extends DefaultTable
 	protected function getColumns()
 	{
 		$columns = [
-			['name' => 'id', 'title' => 'band', 'type' => 'text'],
+			['name' => 'id', 'title' => 'id', 'type' => 'text'],
+			['name' => 'band', 'title' => 'band', 'type' => 'text'],
 			['name' => 'price', 'title' => 'price', 'type' => 'number'],
 			['name' => 'duration', 'title' => 'duration', 'type' => 'text'],
 		];

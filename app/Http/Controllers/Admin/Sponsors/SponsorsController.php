@@ -166,7 +166,7 @@ class SponsorsController extends Controller
 		// Add the related validation rules
 		switch ($type) {
 			case 'sponsorshipBands':
-				$validationRules['id'] = ['required', 'string', 'max:1'];
+				$validationRules['band'] = ['required', 'string'];
 				$validationRules['price'] = ['required', 'numeric'];
 				$validationRules['duration'] = ['required', 'numeric', 'max:12'];
 				break;

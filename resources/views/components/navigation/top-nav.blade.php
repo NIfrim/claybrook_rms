@@ -16,10 +16,12 @@
 							</a>
 						@endif
 					@else
-						@if($category !== 'sponsors' && $category !== 'reviews')
-						<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'id' => isset($subcategory2) ? 'newCategory' : 'new'])}}">
-							<button type="button" class="btn btn-primary mx-2">Add New</button>
-						</a>
+						@if($category !== 'reviews')
+							@if($subcategory !== 'accounts' && $subcategory !== 'agreements' && $subcategory !== 'signage')
+								<a href = "{{route('admin.'.$category.'.'.'manage', ['type' => $subcategory ?? $category, 'id' => isset($subcategory2) ? 'newCategory' : 'new'])}}">
+									<button type="button" class="btn btn-primary mx-2">Add New</button>
+								</a>
+							@endif
 						@endif
 					
 						<button id="clearSelection" type="button" class="btn btn-primary mx-2">Clear Selection</button>

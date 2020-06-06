@@ -116,7 +116,19 @@
 			
 			@elseif($type === 'become-a-sponsor')
 				
-				<x-website.become-a-sponsor-section :title="$title" :data="$otherData" />
+				@if($title === 'Sponsorship Details')
+					
+					<x-website.sponsorship-details :title="$title" :data="$otherData" />
+					
+				@elseif($title === 'Register as a sponsor')
+				
+					<div class="d-flex flex-column">
+						<h4 class="p-2 text-secondary">If all is good, use the form below to register as a sponsor:</h4>
+						<x-website.sponsor-registration-form :title="$title" />
+					</div>
+					
+				
+				@endif
 			
 			@endif
 			
