@@ -61,6 +61,23 @@
                     </li>
                 </ul>
             </li>
+    
+    
+            {{--Tickets and Passes--}}
+            <li class="menu-item">
+                <a href="#ticketsAndPassesSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'ticketsAndPasses' ? 'true' : 'false'}}" class="d-flex flex-nowrap justify-content-between">
+                    <span class="menu-item-text">Tickets & Passes</span>
+                    <i class="material-icons menu-item-icon">keyboard_arrow_down</i></a>
+                </a>
+                <ul class="collapse list-unstyled {{$category === 'ticketsAndPasses' ? 'show' : ''}}" id="ticketsAndPassesSubmenu">
+                    <li class="menu-sub-item {{$subcategory === 'tickets' ? 'active' : ''}}">
+                        <a href="{{route('admin.ticketsAndPasses.list', ['type' => 'tickets'])}}"><span class="menu-sub-item-text">Tickets</span></a>
+                    </li>
+                    <li class="menu-sub-item {{$subcategory === 'passes' ? 'active' : ''}}">
+                        <a href="{{route('admin.ticketsAndPasses.list', ['type' => 'passes'])}}"><span class="menu-sub-item-text">Passes</span></a>
+                    </li>
+                </ul>
+            </li>
 
             {{--Locations--}}
             <li class="menu-item">
@@ -103,12 +120,18 @@
                     <span class="menu-item-text">Sponsors</span>
                     <i class="material-icons menu-item-icon">keyboard_arrow_down</i></a>
                 <ul class="collapse list-unstyled {{$category === 'sponsors' ? 'show' : ''}}" id="sponsorsSubmenu">
+                    <li class="menu-sub-item {{$subcategory === 'sponsorshipBands' ? 'active' : ''}}">
+                        <a href="{{route('admin.sponsors.list', ['type' => 'sponsorshipBands'])}}"><span class="menu-sub-item-text">Sponsorship bands</span></a>
+                    </li>
+                    
                     <li class="menu-sub-item {{$subcategory === 'accounts' ? 'active' : ''}}">
                         <a href="{{route('admin.sponsors.list', ['type' => 'accounts'])}}"><span class="menu-sub-item-text">Accounts</span></a>
                     </li>
+                    
                     <li class="menu-sub-item {{$subcategory === 'agreements' ? 'active' : ''}}">
                         <a href="{{route('admin.sponsors.list', ['type' => 'agreements'])}}"><span class="menu-sub-item-text">Agreements</span></a>
                     </li>
+                    
                     <li class="menu-sub-item {{$subcategory === 'signage' ? 'active' : ''}}">
                         <a href="{{route('admin.sponsors.list', ['type' => 'signage'])}}"><span class="menu-sub-item-text">Signage</span></a>
                     </li>

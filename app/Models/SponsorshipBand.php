@@ -10,6 +10,6 @@ class SponsorshipBand extends Model
 	protected $keyType = 'string';
 	
 	public function animals() {
-		return $this->hasMany('App\Models\Animal');
+		return $this->hasMany(Animal::class);
 	}
 }

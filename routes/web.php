@@ -139,6 +139,36 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		Route::post('/{type}/{formType}', 'EventsAndNewsController@submit')->name('submit');
 	});
 	
+	
+	/* Tickets and Passes section routes */
+	Route::prefix('ticketsAndPasses')->name('ticketsAndPasses.')->namespace('TicketsAndPasses')->group(function () {
+		
+		/** @route admin/ticketsAndPasses/{type}
+		 * 	@method GET
+		 *	@desc Route to list tickets or passes
+		 */
+		Route::get('/{type}', 'TicketsAndPassesController@list')->name('list');
+		
+		/** @route admin/ticketsAndPasses/{type}/{id} {tickets|passes}/{id|new}
+		 * 	@method GET
+		 *	@desc Route to access the form for creating/editing a ticket type or pass type
+		 */
+		Route::get('/{type}/{id}', 'TicketsAndPassesController@showForm')->name('manage');
+		
+		/** @route admin/ticketsAndPasses/{type}/delete {tickets|passes}
+		 * 	@method POST
+		 *	@desc Route to remove tickets or passes
+		 */
+		Route::post('/{type}/delete', 'TicketsAndPassesController@delete')->name('delete');
+		
+		/** @route admin/ticketsAndPasses/{type}/{formType} {tickets|passes}/[new|edit]
+		 * 	@method POST
+		 *	@desc Route to submit changes when creating or editing a ticket or a pass
+		 */
+		Route::post('/{type}/{formType}', 'TicketsAndPassesController@submit')->name('submit');
+	});
+	
+	
 	/* Locations section routes */
 	Route::prefix('locations')->name('locations.')->namespace('Locations')->group(function () {
 		
@@ -432,10 +462,24 @@ Route::name('website.')->namespace('Website')->group(function () {
 	 * 	@method GET
 	 *	@desc Route to access the tickets section
 	 */
-	Route::get('/tickets-and-passes', 'TicketsController@show')->name('ticketsAndPasses.show');
+	Route::get('/tickets-and-passes', 'TicketsAndPassesController@show')->name('ticketsAndPasses.show');
 	
 	/*----------------------------------------------------*/
 	
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Become a sponsor
+	|--------------------------------------------------------------------------
+	*/
+	
+	/** @route /become-a-sponsor
+	 * 	@method GET
+	 *	@desc Route to access the become a sponsor section
+	 */
+	Route::get('/become-a-sponsor', 'BecomeASponsorController@show')->name('becomeASponsor.show');
+	
+	/*----------------------------------------------------*/
 	
 	
 	

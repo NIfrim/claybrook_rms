@@ -45,8 +45,10 @@
 							</a>
 						</li>
 						<li id="becomeSponsor" class="d-flex flex-nowrap align-items-center">
-							<span class="material-icons mr-2">person_add</span>
-							<h3 class="web-title my-0">Become a Sponsor</h3>
+							<a href = "{{route('website.becomeASponsor.show')}}" class="d-flex flex-nowrap">
+								<span class="material-icons mr-2">person_add</span>
+								<h3 class="web-title my-0">Become a sponsor</h3>
+							</a>
 						</li>
 					</ul>
 				</li>

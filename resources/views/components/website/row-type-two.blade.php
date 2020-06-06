@@ -108,12 +108,15 @@
 					
 					<x-website.tickets-purchase :title="$title"  :data="$otherData" />
 				
-				@elseif($title === 'Annual passes')
+				@elseif($title === 'Annual Passes')
 					
 					<x-website.annual-passes-purchase :title="$title"  :data="$otherData" />
 				
 				@endif
+			
+			@elseif($type === 'become-a-sponsor')
 				
+				<x-website.become-a-sponsor-section :title="$title" :data="$otherData" />
 			
 			@endif
 			

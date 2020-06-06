@@ -15,8 +15,6 @@ body {
     padding: 0 !important;
   }
 
-
-
   a {
     text-decoration: none;
   }
@@ -101,6 +99,10 @@ body {
     -webkit-box-shadow: 2px 2px 3px rgba($black, .25);
     -moz-box-shadow: 2px 2px 3px rgba($black, .25);
     box-shadow: 2px 2px 3px rgba($black, .25);
+  }
+
+  .bg-secondary {
+    background-color: $lightYellow !important;
   }
 
   .row-type-two .btn-lg a {

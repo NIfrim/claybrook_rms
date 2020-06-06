@@ -4,7 +4,11 @@
   <div class="container">
     <div class="row justify-content-center">
       
-      @if($subcategory === 'accounts')
+      @if($subcategory === 'sponsorshipBands')
+    
+        <x-tables.sponsorship-bands-table selectable=true :model="$model" :relations="$relations" :category="$category" :subcategory="$subcategory" />
+  
+      @elseif($subcategory === 'accounts')
 
         <x-tables.sponsors-accounts-table selectable=true :model="$model" :relations="$relations" :category="$category" :subcategory="$subcategory" />
         

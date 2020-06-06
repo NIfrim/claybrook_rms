@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin\Sponsors;
 
 use App\Http\Controllers\Controller;
+use App\Models\AgreementSignage;
 use App\Models\Sponsor;
+use App\Models\SponsorAgreement;
+use App\Models\SponsorshipBand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -28,7 +31,6 @@ class SponsorsController extends Controller
 	 * @param String $type [The type of location, e.g. aviary, aquarium...]
 	 * @param string|null $id
 	 *
-	 * @param string|null $subType
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
@@ -132,6 +134,9 @@ class SponsorsController extends Controller
 	 */
 	private function getRelations(String $type) {
 		switch ($type) {
+			case 'sponsorshipBands':
+				return ['animals'];
+			
 			case 'accounts':
 				return ['zoo', 'reviews', 'paymentDetails', 'sponsorAgreements'];
 			
@@ -160,6 +165,12 @@ class SponsorsController extends Controller
 		$validationRules = [];
 		// Add the related validation rules
 		switch ($type) {
+			case 'sponsorshipBands':
+				$validationRules['id'] = ['required', 'string', 'max:1'];
+				$validationRules['price'] = ['required', 'numeric'];
+				$validationRules['duration'] = ['required', 'numeric', 'max:12'];
+				break;
+			
 			case 'accounts':
 				$sponsor = Sponsor::where('email', $request['email'])->first();
 				$validationRules['zoo_id'] = ['required', 'numeric'];
@@ -210,19 +221,19 @@ class SponsorsController extends Controller
 	private function getModel(string $type)
 	{
 		switch ($type) {
+			case 'sponsorshipBands':
+				return SponsorshipBand::class;
+			
 			case 'accounts':
-				return 'App\Models\Sponsor';
-				break;
+				return Sponsor::class;
 			
 			case 'agreements':
-				return 'App\Models\SponsorAgreement';
-				break;
+				return SponsorAgreement::class;
 			
 			case 'signage':
-				return 'App\Models\AgreementSignage';
-				break;
+				return AgreementSignage::class;
 			
-			default: return null;
+			default: throw new \Error('Could not get model for: '.$type);
 		}
 	}
 }

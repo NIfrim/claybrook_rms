@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pass;
+use App\Models\Ticket;
 use App\Models\Zoo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class TicketsController extends Controller
+class TicketsAndPassesController extends Controller
 {
 	/**
 	 * Show the opening times section
@@ -27,6 +29,8 @@ class TicketsController extends Controller
 			'title' => 'Tickets and Passes',
 			'category' => $category,
 			'subcategory' => $subcategory,
+			'tickets' => $this->getData('tickets'),
+			'passes' => $this->getData('passes'),
 			'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']]),
 		]);
 	}
@@ -44,11 +48,11 @@ class TicketsController extends Controller
 		
 		if ($filters) {
 			
-			$data = call_user_func($this->getModel().'::with', $relations)->where($filters)->get()->first();
+			$data = call_user_func($this->getModel($table).'::with', $relations)->where($filters)->get();
 			
 		} else {
 			
-			$data = call_user_func($this->getModel().'::with', $relations)->get()->first();
+			$data = call_user_func($this->getModel($table).'::with', $relations)->get();
 			
 		}
 		
@@ -57,10 +61,23 @@ class TicketsController extends Controller
 	
 	/** Returns the model used for getting the data
 	 *
+	 * @param string $model
+	 *
 	 * @return String|null
 	 */
-	private function getModel() {
-		return Zoo::class;
+	private function getModel(string $model) {
+		switch ($model) {
+			case 'tickets':
+				return Ticket::class;
+				
+			case 'passes':
+				return Pass::class;
+				
+			case 'zoos':
+				return Zoo::class;
+				
+			default: throw new \Error('Missing model name');
+		}
 	}
 	
 	/** Returns the model used for getting the data

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('.nav-buttons-wrapper .nav-link').click(function () {
+	$('#app .nav-buttons-wrapper .nav-link').click(function () {
 		const allNavLinks = $('.nav-buttons-wrapper .nav-link');
 		const allSubmenus = $('.sub-menu-list');
 
@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 	let lastScrollPos = 0;
 
-	$('main').scroll(function () {
+	$('#app main').scroll(function () {
 		let currentScrollPos = this.scrollTop;
 		let windowWidth = $(window).width();
 
@@ -43,7 +43,7 @@ $(document).ready(function() {
 		lastScrollPos = currentScrollPos;
 	});
 
-	$('main').click(function () {
+	$('#app main').click(function () {
 		$('.collapse').collapse('hide');
 	})
 });

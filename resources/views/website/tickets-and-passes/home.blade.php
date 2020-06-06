@@ -9,9 +9,9 @@
 		</div>
 	</div>
 	
-	<x-website.row-type-two :type="$subcategory ?? $category" title="Tickets" action="Add to cart" />
+	<x-website.row-type-two :type="$subcategory ?? $category" title="Tickets" :otherData="$tickets" action="Add to cart" />
 	
-	<x-website.row-type-two :type="$subcategory ?? $category" title="Annual Passes" action="Add to cart" />
+	<x-website.row-type-two :type="$subcategory ?? $category" title="Annual Passes" :otherData="$passes" action="Add to cart" />
 	
 	<x-website.row-type-three title="Important!" message="Important announcements will go here..." />
 	

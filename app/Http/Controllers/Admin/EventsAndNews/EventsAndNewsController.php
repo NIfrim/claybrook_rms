@@ -21,12 +21,11 @@ class EventsAndNewsController extends Controller
 	}
 	
 	/**
-	 * Show all the birds records.
+	 * Show all events and news.
 	 *
-	 * @param String $type [The type of location, e.g. aviary, aquarium...]
+	 * @param String $type [events | news]
 	 * @param string|null $id
 	 *
-	 * @param string|null $subType
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
