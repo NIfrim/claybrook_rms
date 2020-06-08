@@ -63432,6 +63432,8 @@ __webpack_require__(/*! ./web-nav */ "./resources/js/web-nav.js");
 
 __webpack_require__(/*! ./cards */ "./resources/js/cards.js");
 
+__webpack_require__(/*! ./sponsorAgreementForm */ "./resources/js/sponsorAgreementForm.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -63543,6 +63545,37 @@ function toggleHiddenInputs(togglerVal) {
 
 /***/ }),
 
+/***/ "./resources/js/sponsorAgreementForm.js":
+/*!**********************************************!*\
+  !*** ./resources/js/sponsorAgreementForm.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {});
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+
+  return "";
+}
+
+/***/ }),
+
 /***/ "./resources/js/tables.js":
 /*!********************************!*\
   !*** ./resources/js/tables.js ***!
@@ -63551,7 +63584,7 @@ function toggleHiddenInputs(togglerVal) {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  var table = $('#table, #table2').DataTable({
+  var table = $('#table, #table2, #agreementsTable').DataTable({
     select: true,
     language: {
       emptyTable: "No data available in table"

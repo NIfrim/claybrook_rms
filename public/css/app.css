@@ -11033,7 +11033,8 @@ a:hover {
 
 /*****************TABLES******************/
 
-#table th {
+#table th,
+#agreementsTable th {
   background-color: #419572;
   position: -webkit-sticky;
   position: sticky;
@@ -11041,8 +11042,21 @@ a:hover {
 }
 
 #table tbody .selected,
-#table2 tbody .selected {
+#table2 tbody .selected,
+#agreementsTable tbody .selected {
   background-color: rgba(253, 126, 20, 0.3) !important;
+}
+
+#agreementsTable_filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 .table th,
@@ -11050,7 +11064,9 @@ a:hover {
   vertical-align: middle !important;
 }
 
-#table_wrapper {
+#table_wrapper,
+#table2_wrapper,
+#agreementsTable_wrapper {
   width: 100%;
 }
 
@@ -11200,6 +11216,8 @@ body {
   height: 100% !important;
   /***************** OTHER STYLING ******************/
   /* END Other styling */
+  /***************** FORMS STYLING ******************/
+  /* End Forms styling */
   /*****************WEBSITE NAVIGATION******************/
   /* END Web navigation */
   /***************** ROWS STYLING ******************/
@@ -11226,11 +11244,11 @@ body {
   padding: 0 !important;
 }
 
-#app a {
+#app .nav-item a {
   text-decoration: none;
 }
 
-#app a:hover {
+#app .nav-item a:hover {
   text-decoration: none;
 }
 
@@ -11258,6 +11276,10 @@ body {
 
 #app .section-title {
   margin: 2rem 0;
+}
+
+#app .cursor-pointer {
+  cursor: pointer;
 }
 
 #app .small {
@@ -11305,9 +11327,24 @@ body {
   color: #014E2E;
 }
 
+#app .text-underline-secondary {
+  -webkit-text-decoration: underline #FAFFD6;
+          text-decoration: underline #FAFFD6;
+}
+
+#app .text-underline-primary {
+  -webkit-text-decoration: underline #014E2E;
+          text-decoration: underline #014E2E;
+}
+
 #app .row-type-two .btn-lg:hover a,
 #app .row-type-two .btn-group-lg > .btn:hover a {
   color: #419572;
+}
+
+#app #registerSponsorForm input,
+#app #registerSponsorForm select {
+  height: auto !important;
 }
 
 #app .web-nav {
