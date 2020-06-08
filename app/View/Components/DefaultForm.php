@@ -16,12 +16,12 @@ class DefaultForm extends Component
 	 * Create a new component instance.
 	 *
 	 * @param String $formType
-	 * @param array|null $data
+	 * @param object|null $data
 	 * @param string $category
 	 * @param string|null $subcategory
 	 * @param string $title
 	 */
-    public function __construct(String $formType, ?array $data, string $category, ?string $subcategory, string $title)
+    public function __construct(String $formType, $data, string $category, ?string $subcategory, string $title)
     {
         $this->formType = $formType;
         $this->data = $data ?? null;

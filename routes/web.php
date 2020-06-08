@@ -415,8 +415,6 @@ Route::name('website.')->namespace('Website')->group(function () {
 		
 	});
 	
-	
-	
 	/* Experiences category with related subcategories */
 	Route::prefix('more-info')->name('moreInfo.')->group(function () {
 		
@@ -452,6 +450,7 @@ Route::name('website.')->namespace('Website')->group(function () {
 	
 	});
 	
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Tickets and Passes
@@ -482,7 +481,6 @@ Route::name('website.')->namespace('Website')->group(function () {
 	/*----------------------------------------------------*/
 	
 	
-	
 	/*
 	|--------------------------------------------------------------------------
 	| Welcome page
@@ -506,36 +504,36 @@ Route::name('website.')->namespace('Website')->group(function () {
 */
 
 Route::prefix('user')->name('user.')->namespace('User')->group(function () {
-	
+
 	/*Auth Routes*/
 	Route::namespace('Auth')->group(function () {
-		
+
 		/** @route user/login
 		 * 	@method GET
 		 *	@desc Route to access the login form
 		 */
 		Route::get('/auth', 'LoginController@showLoginForm')->name('auth.show');
-		
+
 		/** @route user/login
 		 * 	@method POST
 		 *	@desc Route to submit credentials for validation and get access to account management
 		 */
 		Route::post('/login', 'LoginController@login')->name('login');
-		
+
 		/** @route user/register
 		 * 	@method POST
 		 *	@desc Route to register a new account
 		 */
 		Route::post('/register', 'RegisterController@register')->name('register');
-		
+
 		/** @route logout
 		 * 	@method POST
 		 *	@desc Route to request logout from account management
 		 */
 		Route::post('/logout', 'LoginController@logout')->name('logout');
-		
+
 	});
-	
+
 	/*Other User Routes*/
 	Route::get('/', 'HomeController@index')->name('home');
 });
@@ -551,40 +549,89 @@ Route::prefix('user')->name('user.')->namespace('User')->group(function () {
 
 Route::prefix('sponsor')->name('sponsor.')->namespace('Sponsor')->group(function () {
 	
+	/* Sponsor profile routes */
+	Route::prefix('profile')->name('profile.')->group(function () {
+		
+		/** @route sponsor/profile
+		 * 	@method GET
+		 *	@desc Route to access the profile section
+		 */
+		Route::get('/', 'HomeController@profile')->name('show');
+		
+		/** @route sponsor/profile
+		 * 	@method POST
+		 *	@desc Route to submit profile changes
+		 */
+		Route::post('/', 'HomeController@submit')->name('submit');
+		
+	});
+	
+	
+	/* Sponsor agreements routes */
+	Route::prefix('agreements')->name('agreements.')->group(function () {
+		
+		/** @route sponsor/agreements
+		 * 	@method GET
+		 *	@desc Route to access the sponsor agreements section
+		 */
+		Route::get('/', 'HomeController@agreements')->name('show');
+
+		
+		/** @route sponsor/agreement/{id}
+		 * 	@method GET
+		 *	@desc Route to access the form for modifying an agreement
+		 */
+		Route::get('/{id}', 'HomeController@manage')->name('manage');
+		
+		/** @route sponsor/agreements
+		 * 	@method POST
+		 *	@desc Route to submit agreements changes
+		 */
+		Route::post('/', 'HomeController@submit')->name('submit');
+		
+		/** @route sponsor/agreements
+		 * 	@method POST
+		 *	@desc Route to submit agreements changes
+		 */
+		Route::post('/', 'HomeController@delete')->name('delete');
+		
+	});
+	
+	
 	/*Auth Routes*/
 	Route::namespace('Auth')->group(function () {
-		
+
 		/** @route sponsor/auth
 		 * 	@method GET
 		 *	@desc Route to access the authentication forms (login/register)
 		 */
 		Route::get('/auth', 'LoginController@showLoginForm')->name('auth.show');
-		
+
 		/** @route sponsor/login
 		 * 	@method POST
 		 *	@desc Route to submit credentials for validation and get access to account management
 		 */
 		Route::post('/login', 'LoginController@login')->name('login');
-		
+
 		/** @route sponsor/register
 		 * 	@method POST
 		 *	@desc Route to register a new account
 		 */
 		Route::post('/register', 'RegisterController@register')->name('register');
-		
+
 		/** @route sponsor/logout
 		 * 	@method POST
 		 *	@desc Route to request logout from account management
 		 */
-		Route::post('/logout', 'LoginController@logout')->name('logout');
-		
+		Route::get('/logout', 'LoginController@logout')->name('logout');
+
 	});
-	
+
 	/*Other sponsor Routes*/
 	Route::get('/', 'HomeController@index')->name('home');
 });
-
-/*----------------------------------------------------*/
+//
+///*----------------------------------------------------*/
 
 
 /*-------------------------- Website Routes END --------------------------*/

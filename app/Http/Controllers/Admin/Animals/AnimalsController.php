@@ -136,6 +136,11 @@ class AnimalsController extends Controller
 		// Validate the form data
 		$this->validator($request->all())->validate();
 		
+		// @todo file upload
+		if ($request->hasFile('images')) {
+			//
+		}
+		
 		// Create new or update record
 		switch ($formType) {
 			case 'new':

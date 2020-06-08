@@ -21,6 +21,10 @@ class SponsorAgreement extends Model
 	];
 	
 	public function sponsor() {
-		return $this->belongsTo('App\Models\Sponsor');
+		return $this->belongsTo(Sponsor::class);
+	}
+	
+	public function signages() {
+		return $this->hasMany(AgreementSignage::class, 'agreement_id');
 	}
 }

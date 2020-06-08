@@ -1,4 +1,4 @@
-	<form method="POST" action="#" id="registerSponsorForm">
+	<form method="POST" action="{{route('sponsor.register')}}" id="registerSponsorForm">
 		@csrf
 		
 		<div class="form-group row">
@@ -69,40 +69,6 @@
 				<input id="newEmail" type="text" class="form-control @error('newEmail') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="new-email" autofocus>
 				
 				@error('newEmail')
-				<span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-				@enderror
-			</div>
-		</div>
-		
-		<div class="form-group row">
-			<label for="jobTitle" class="col-form-label text-md-right text-secondary">{{ __('Job Title') }}</label>
-			
-			<div class="col-md-12 input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text material-icons">work</span>
-				</div>
-				<input id="jobTitle" type="text" class="form-control @error('jobTitle') is-invalid @enderror" name="job_title" value="{{ old('job_title') }}" required autocomplete="new-job-title" autofocus>
-				
-				@error('jobTitle')
-				<span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-				@enderror
-			</div>
-		</div>
-		
-		<div class="form-group row">
-			<label for="pContactNumber" class="col-form-label text-md-right text-secondary">{{ __('Contact Number') }}</label>
-			
-			<div class="col-md-12 input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text material-icons">phone</span>
-				</div>
-				<input id="pContactNumber" type="text" class="form-control @error('pContactNumber') is-invalid @enderror" name="primary_contact_number" value="{{ old('primary_contact_number') }}" required autocomplete="new-contact-number" autofocus>
-				
-				@error('pContactNumber')
 				<span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

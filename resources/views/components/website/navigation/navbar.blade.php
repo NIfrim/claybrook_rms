@@ -62,8 +62,22 @@
 				</a>
 				
 				<div class="dropdown-menu" aria-labelledby="accountDropdown">
-					<a class="dropdown-item" href="#">Sponsor</a>
-					<a class="dropdown-item" href="#">User</a>
+					@if(auth('sponsor')->check())
+						
+						<a href = "{{route('sponsor.profile.show')}}" class="dropdown-item">Profile</a>
+						<a href = "{{route('sponsor.agreements.show')}}" class="dropdown-item">Sponsor Animal</a>
+						<a href = "{{route('sponsor.logout')}}" class="dropdown-item">Logout Sponsor</a>
+						
+					@elseif(auth('user')->check())
+						
+						<a href = "#">Logout Visitor</a>
+						
+					@else
+						
+						<a class="dropdown-item" href="{{route('sponsor.auth.show')}}">Sponsor</a>
+						<a class="dropdown-item" href="#">Visitor</a>
+						
+					@endif
 				</div>
 			</li>
 			<li>

@@ -11,3 +11,4 @@ require('./alerts');
 require('./forms');
 require('./web-nav');
 require('./cards');
+require('./sponsorAgreementForm');

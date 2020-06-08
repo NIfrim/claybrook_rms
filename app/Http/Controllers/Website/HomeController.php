@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\EventsCategory;
 use App\Models\News;
 use App\Models\NewsCategory;
+use App\Models\Zoo;
 use Illuminate\Database\Eloquent\Model;
 
 class HomeController extends Controller
@@ -19,10 +20,6 @@ class HomeController extends Controller
 	 */
 	public function show()
 	{
-		$url = explode('/', $_SERVER['REQUEST_URI']);
-		$category = $url[1];
-		$subcategory = $url[2] ?? null;
-		
 		return view('website.welcome', [
 			'title' => 'Welcome to Claybrook Zoo',
 			'animals' => $this->getData('animals', [
@@ -33,14 +30,8 @@ class HomeController extends Controller
 			'newsCategories' => $this->getData('news_categories'),
 			'category' => 'home',
 			'subcategory' => null,
-			'zoo' => ['name' => 'Claybrook Zoo', 'address' => ['building_number' => '45', 'road_name' => 'Zoo Lane', 'city' => 'Eastlands', 'county' => 'North Yorkshire', 'postcode' => 'YR123TH'], 'company_number' => 211545],
+			'zoo' => $this->getData('zoos',[['name', '=', 'Claybrook Zoo']]),
 		]);
-	}
-	
-	/** Returns zoo information
-	 */
-	private function getZoo() {
-		return ['name' => 'Claybrook Zoo', 'address' => ['building_number' => '45', 'road_name' => 'Zoo Lane', 'city' => 'Eastlands', 'county' => 'North Yorkshire', 'postcode' => 'YR123TH'], 'company_number' => 211545];
 	}
 	
 	/** Returns list of data using specified table
@@ -74,6 +65,9 @@ class HomeController extends Controller
 	 */
 	private function getModel(string $type) {
 		switch ($type) {
+			case 'zoos':
+				return Zoo::class;
+				
 			case 'animals':
 				return Animal::class;
 				
@@ -101,14 +95,6 @@ class HomeController extends Controller
 	 */
 	private function getRelations(string $type) {
 		switch ($type) {
-			case 'animals':
-				return ['sponsor'];
-			
-			case 'news_categories':
-				return ['news'];
-			
-			case 'events_categories':
-				return ['events'];
 			
 			default: return [];
 		}

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	const table = $('#table, #table2').DataTable({
+	const table = $('#table, #table2, #agreementsTable').DataTable({
 		select: true,
 		language: {
 			emptyTable: "No data available in table"

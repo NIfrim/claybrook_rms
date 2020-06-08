@@ -37,18 +37,18 @@ class Sponsor extends Authenticatable
 	];
  
 	public function zoo() {
-		return $this->belongsTo('App\Models\Zoo');
+		return $this->belongsTo(Zoo::class);
 	}
 	
     public function reviews() {
-    	return $this->hasMany('App\Models\Review');
+    	return $this->hasMany(Review::class);
 	}
 	
 	public function paymentDetails() {
-		return $this->hasMany('App\Models\PaymentDetails');
+		return $this->hasMany(PaymentDetails::class);
 	}
 	
 	public function sponsorAgreements() {
-		return $this->hasMany('App\Models\SponsorAgreement');
+		return $this->hasMany(SponsorAgreement::class);
 	}
 }

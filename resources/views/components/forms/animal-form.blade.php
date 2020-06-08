@@ -1,4 +1,4 @@
-<form action = "{{route('admin.animals.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post">
+<form action = "{{route('admin.animals.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post" enctype="multipart/form-data">
     <div class="card" id="animalFormCard">
         <div class="card-header">
             <h4>{{$title}}</h4>
@@ -10,6 +10,7 @@
             <input type = "text" name="type" value="{{$data['currentRow']['type'] ?? $data['type']}}" hidden>
             
             <div class="container-responsive">
+                
                 {{--The id or generated id--}}
                 <div class="form-group row">
                     <label for="generatedId" class="col-xl-2 col-form-label">{{ __($formType === 'new' ? 'Generated id' : 'ID') }}</label>
@@ -587,6 +588,30 @@
                                   autofocus>{{ old('diet') ?? $data['currentRow']['diet'] ?? '' }}</textarea>
             
                         @error('diet')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+    
+    
+                {{--Images--}}
+                <div class="form-group row">
+                    <label for="images" class="col-xl-2 col-form-label">{{ __('Animal images') }}</label>
+        
+                    <div class="col-xl-10">
+                        <div class="custom-file input-group">
+                            <input type="file"
+                                   class="custom-file-input @error('images') is-invalid @enderror"
+                                   id="images"
+                                   name="images[]"
+                                   accept=".jpeg, .jpg, .png"
+                                   autofocus
+                                   multiple
+                            />
+                            <label class="custom-file-label" for="customFile">Choose Image/s</label>
+                        </div>
+            
+                        @error('images')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>

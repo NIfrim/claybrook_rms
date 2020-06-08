@@ -12,6 +12,10 @@ class Animal extends Model
 {
 	use HasRelationships;
 	
+	protected $casts = [
+		'images' => 'array',
+	];
+	
 	protected $keyType = 'string';
 	public $incrementing = false;
 	protected $fillable = [
@@ -39,6 +43,7 @@ class Animal extends Model
 		'colour',
 		'reproduction_type',
 		'diet',
+		'images',
 		'created_at',
 		'updated_at'
 	];
