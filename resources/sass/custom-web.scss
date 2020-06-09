@@ -50,6 +50,17 @@ body {
 
   /***************** OTHER STYLING ******************/
 
+  .img-250 {
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .img-fluid {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
   .section-title {
     margin: 2rem 0;
   }
@@ -127,6 +138,16 @@ body {
 
   /* END Other styling */
 
+
+
+  /***************** CAROUSEL STYLING ******************/
+
+  .carousel-item {
+    overflow: hidden;
+    height: 50vh;
+  }
+
+  /* END Carousel styling */
 
 
   /***************** FORMS STYLING ******************/

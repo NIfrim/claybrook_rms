@@ -2,7 +2,7 @@
 
 @section('content')
 	 {{--Carousel showing attraaction images --}}
-	<x-website.carousel :category="$category" />
+	<x-website.carousel :category="$category" :subcategory="$subcategory" :images="$attraction->images ?? null" />
 	
 	<x-website.row-type-two :type="$subcategory ?? $category" title="Some quick info" :otherData="$attraction" single="true"   />
 	

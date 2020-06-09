@@ -2,7 +2,7 @@
 
 @section('content')
 	{{-- Carousel showing animal images --}}
-	<x-website.carousel :category="$category" />
+	<x-website.carousel :category="$category" subcategory="animals" :images="$animal->images" />
 
 	<x-website.row-type-two :type="$subcategory ?? $category" :title="'I am '.$animal->name" :otherData="$animal" single="true"  />
 	

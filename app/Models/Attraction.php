@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attraction extends Model
 {
+	protected $casts = [
+		'images' => 'array'
+	];
+	
     protected $fillable = [
     	'zoo_id',
 		'name',
@@ -14,6 +18,7 @@ class Attraction extends Model
 		'for',
 		'ride_intensity',
 		'minimum_height',
+		'images',
 		'short_description',
 		'long_description',
 	];

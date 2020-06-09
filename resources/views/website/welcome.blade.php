@@ -2,7 +2,7 @@
 
 @section('content')
     
-    <x-website.carousel :category="$subcategory ?? $category" />
+    <x-website.carousel :category="$category ?? null" subcategory="home" />
 
     @if(sizeof($eventsCategories) > 0)
     

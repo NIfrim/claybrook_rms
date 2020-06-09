@@ -1,4 +1,4 @@
-<form action = "{{route('admin.eventsAndNews.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post">
+<form action = "{{route('admin.eventsAndNews.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post" enctype="multipart/form-data">
     <div class="card" id="animalFormCard">
         <div class="card-header">
             <h4>{{$title}}</h4>
@@ -193,6 +193,28 @@
                 </div>
     
                 {{--Main image--}}
+                {{--<div class="form-group row">--}}
+                    {{--<label for="customFile" class="col-xl-2 col-form-label">{{ __('Banner image') }}</label>--}}
+        {{----}}
+                    {{--<div class="col-xl-10">--}}
+                        {{--<div class="custom-file input-group">--}}
+                            {{--<input type="file"--}}
+                                   {{--class="custom-file-input @error('image') is-invalid @enderror"--}}
+                                   {{--id="customFile"--}}
+                                   {{--name="file"--}}
+                                   {{--accept=".jpeg, .jpg, .png"--}}
+                                   {{--autofocus />--}}
+                            {{--<label class="custom-file-label" for="customFile">Choose Image</label>--}}
+                        {{--</div>--}}
+            {{----}}
+                        {{--@error('image')--}}
+                        {{--<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>--}}
+                        {{--@enderror--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+    
+    
+                {{--Main image--}}
                 <div class="form-group row">
                     <label for="image" class="col-xl-2 col-form-label">{{ __('Banner image') }}</label>
         
@@ -200,18 +222,27 @@
                         <div class="custom-file input-group">
                             <input type="file"
                                    class="custom-file-input @error('image') is-invalid @enderror"
-                                   id="customFile"
-                                   name="image"
-                                   autofocus>
-                            <label class="custom-file-label" for="customFile">Choose Image</label>
+                                   id="image"
+                                   name="file"
+                                   accept=".jpeg, .jpg, .png"
+                                   autofocus
+                            />
+                            <label class="custom-file-label" for="image">Choose an image</label>
                         </div>
             
                         @error('image')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
+        
+                    @if(isset($data['currentRow']->image))
+                        <div class="row col-md-10 offset-xl-2 p-3">
+                            <div class="col-md-3 col-sm-4">
+                                <img src = "{{'/images/'.$data['currentRow']->getTable().'/'.$data['currentRow']->image}}" class="img-fluid img-thumbnail" alt = "Events or News Image">
+                            </div>
+                        </div>
+                    @endif
                 </div>
-            
             </div>
         </div>
         <div class="card-footer d-flex justify-content-between">

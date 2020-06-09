@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\EventsAndNews;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class EventsAndNewsController extends Controller
@@ -19,6 +20,9 @@ class EventsAndNewsController extends Controller
 	{
 		$this->middleware('auth:admin');
 	}
+	
+	
+	
 	
 	/**
 	 * Show all events and news.
@@ -58,6 +62,9 @@ class EventsAndNewsController extends Controller
 		]);
 	}
 	
+	
+	
+	
 	/**
 	 * Show all the events or news records.
 	 *
@@ -74,6 +81,9 @@ class EventsAndNewsController extends Controller
 			'relations' => $this->getRelations($type),
 		]);
 	}
+	
+	
+	
 	
 	/**
 	 * Show all the events or news records categories.
@@ -92,6 +102,64 @@ class EventsAndNewsController extends Controller
 			'relations' => $this->getRelations($type.'Category'),
 		]);
 	}
+	
+	
+	
+	/**
+	 * Method to upload images
+	 *
+	 * @param Request $request
+	 * @param string $type
+	 * @return string
+	 */
+	public function uploadImages(Request $request, string $type) {
+		$imageFilename = '';
+		
+		if ($request->hasFile('file')) {
+			
+			// First remove the images for the specified animal
+			$this->removeImages($request->id, $type);
+			
+			// Store and add to db
+			$image = $request->file('file');
+			
+			// Store the image file
+			$extension = $image->extension();
+			$fileName = str_replace(' ', '_', $request->title).'-'.$request->id.'.'.$extension;
+			
+			$image->storeAs('public/'.$type, $fileName);
+			
+			// Add to request as string to be added during creation
+			$imageFilename = $fileName;
+		}
+		
+		return $imageFilename;
+	}
+	
+	
+	/**
+	 * Method to remove images
+	 *
+	 * @param string $id
+	 * @param string $type
+	 */
+	public function removeImages(string $id, string $type) {
+		
+		// Get the files to be deleted
+		$filesInDir = Storage::files('public/'.$type);
+		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id) {
+			$segments = explode('/', $elem);
+			$filename = end($segments);
+			$thisId = explode('-', $filename)[1];
+			
+			return $thisId === $id;
+		});
+		
+		// Delete the files
+		Storage::delete($imagesToBeRemoved);
+	}
+	
+	
 	
 	/**
 	 * Delete one of more locations from the database
@@ -143,15 +211,47 @@ class EventsAndNewsController extends Controller
 		// Create new or update record
 		switch ($formType) {
 			case 'newCategory':
-				call_user_func('App\Models\\'.ucfirst($type).'Category::create', $request->all());
+				// Save the images and add their filenames to the request
+				if ($request->hasFile('file')) {
+					$image = $this->uploadImages($request, $type);
+					
+					call_user_func('App\Models\\'.ucfirst($type).'Category::create', array_merge($request->except('file'), ['image' => $image]));
+					
+				} else {
+					
+					call_user_func('App\Models\\'.ucfirst($type).'Category::create', $request->except('file'));
+				}
+				
 				break;
 			
 			case 'new':
-				call_user_func($this->getModel($type).'::create', $request->all());
+				// Save the images and add their filenames to the request
+				if ($request->hasFile('file')) {
+					
+					$image = $this->uploadImages($request, $type);
+					
+					call_user_func($this->getModel($type).'::create', array_merge($request->except('file'), ['image' => $image]));
+				
+				} else {
+					
+					call_user_func($this->getModel($type).'::create', $request->except('file'));
+				}
+				
 				break;
 			
 			case 'edit':
-				call_user_func($this->getModel($type).'::find', $request->id)->update($request->all());
+				// Save the images and add their filenames to the request
+				if ($request->hasFile('file')) {
+					
+					$image = $this->uploadImages($request, $type);
+					
+					call_user_func($this->getModel($type).'::find', $request->id)->update(array_merge($request->except('file'), ['image' => $image]));
+					
+				} else {
+					
+					call_user_func($this->getModel($type).'::find', $request->id)->update($request->except('file'));
+				}
+				
 				break;
 			
 			default: break;
@@ -216,19 +316,6 @@ class EventsAndNewsController extends Controller
 	}
 	
 	
-	/**
-	 * Return only specific columns from rows.
-	 *
-	 * @param String $str
-	 *
-	 * @return integer
-	 */
-	private function getNumberFromString(String $str) {
-		// d+ matches series of digits
-		preg_match('!\d+!', $str, $matches);
-		return $matches[0];
-	}
-	
 	
 	/**
 	 * Get a validator for an incoming form request.
@@ -244,7 +331,6 @@ class EventsAndNewsController extends Controller
 			'title' => ['required', 'string', 'max:255'],
 			'short_description' => ['required', 'string'],
 			'long_description' => ['required', 'string'],
-			'image' => [isset($request['image']) ? 'string' : ''],
 		];
 		
 		// Add related inputs if

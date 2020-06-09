@@ -39,6 +39,8 @@ class AnimalsTable extends DefaultTable
 			['name' => 'height_joined', 'title' => 'height joined', 'type' => 'number'],
 			['name' => 'weight_joined', 'title' => 'weight joined', 'type' => 'number'],
 			['name' => 'diet', 'title' => 'diet', 'type' => 'text'],
+			['name' => 'on_website', 'title' => 'on website', 'type' => 'text'],
+			['name' => 'in_spotlight', 'title' => 'in spotlight', 'type' => 'text'],
 			['name' => 'sponsorship_band_id', 'title' => 'sponsorship band', 'type' => 'text'],
 		];
 		

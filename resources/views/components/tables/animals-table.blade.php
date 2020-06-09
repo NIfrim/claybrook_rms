@@ -24,16 +24,40 @@
 					
 					<form action = "{{route('admin.animals.delete', ['type' => $subcategory ?? $category])}}" method="post">
 						@csrf
-						<input type = "text" name="ids" value="{{$animal->id}}" hidden />
+						<input type = "text" name="ids" value="{{$animal->id}}" hidden readonly />
 						
 						<button type="submit" class="icon-btn p-0">
-							<i class="remove material-icons p-2 deleteRow" title="Delete">delete</i>
+							<i class="remove material-icons p-2" title="Delete">delete</i>
 						</button>
 					
 					</form>
 					
-					<i class="icon-btn healing material-icons p-2" title="Medical History">healing</i>
-					{{--<i class="icon-btn material-icons p-2" title="Website visible">visibility</i>--}}
+					{{-- Toggle animal spotlight --}}
+					<form action = "{{route('admin.animals.toggle', ['type' => $subcategory ?? $category])}}" method="post">
+						@csrf
+						<input type = "text" name="id" value="{{$animal->id}}" hidden readonly="" />
+						
+						<input type = "text" maxlength="1" name="toggler" value="{{$animal ? ($animal->in_spotlight === 'N' ? 'Y' : 'N') : 'N'}}" hidden readonly>
+						
+						<button type="submit" name="toggle-spotlight" class="icon-btn p-0" >
+							<i class="toggle material-icons p-2" title="Visible in spotlight">camera</i>
+						</button>
+					
+					</form>
+					
+					
+					{{-- Toggle on website --}}
+					<form action = "{{route('admin.animals.toggle', ['type' => $subcategory ?? $category])}}" method="post">
+						@csrf
+						<input type = "text" name="id" value="{{$animal->id}}" hidden readonly />
+						
+						<input type = "text" maxlength="1" name="toggler" value="{{$animal ? ($animal->on_website === 'N' ? 'Y' : 'N') : 'N'}}" hidden readonly>
+						
+						<button type="submit" name="toggle-website" class="icon-btn p-0">
+							<i class="toggle material-icons p-2" title="Visible on website">{{$animal->on_website === 'Y' ? 'visibility' : 'visibility_off'}}</i>
+						</button>
+					
+					</form>
 				</td>
 			</tr>
 		@endforeach

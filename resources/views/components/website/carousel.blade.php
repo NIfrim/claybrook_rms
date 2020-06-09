@@ -1,11 +1,12 @@
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
     <div class="carousel-inner">
+
         @if($images)
         
-            @foreach($images as $image)
+            @foreach($images as $index=>$image)
             
-                <div class="carousel-item active">
-                    <img src = "{{$image}}" alt = "Carousel image" width="100%" height="auto" class="img-fluid">
+                <div class="carousel-item {{$index === 0 ? 'active' : ''}}">
+                    <img src = "{{'/images/'.$subcategory.'/'.$image}}" alt = "Carousel image" width="100%" class="img-fluid">
                 </div>
             
             @endforeach

@@ -7,10 +7,10 @@
 	</div>
 	
 	<div class="row-middle">
-		<div class="container d-flex flex-wrap align-items-start justify-content-center">
+		<div class="container d-flex flex-wrap align-items-start justify-content-start">
 
-			@if(in_array($type, ['birds', 'mammals', 'fish', 'reptiles']))
-				
+			@if(in_array($type, ['BIRD', 'MAMMAL', 'FISH', 'REPTILE']) || in_array($type, ['birds', 'mammals', 'fish', 'reptiles']))
+
 				@if($cardsData)
 					
 					@foreach($cardsData as $card)
@@ -41,7 +41,7 @@
 								:name="$attraction->name"
 								:type="$attraction->type"
 								:shortDescription="$attraction->short_description"
-								:image="$attraction->image"
+								:image="$attraction->images ? $attraction->images[0] : null"
 						/>
 					@endforeach
 				
@@ -126,12 +126,10 @@
 						<h4 class="p-2 text-secondary">If all is good, use the form below to register as a sponsor:</h4>
 						<x-website.sponsor-registration-form :title="$title" />
 					</div>
-					
 				
 				@endif
 			
 			@endif
-			
 			
 		</div>
 	</div>
@@ -141,7 +139,7 @@
 		<div class="row-bottom">
 			<div class="container d-flex justify-content-center">
 				<button class="btn-lg">
-					<a href = "#"><h4 class="m-0 p-2">{{$action}}</h4></a>
+					<a href = "{{route('website.ticketsAndPasses.show')}}"><h4 class="m-0 p-2">{{$action}}</h4></a>
 				</button>
 			</div>
 		</div>

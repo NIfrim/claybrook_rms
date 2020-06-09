@@ -66,6 +66,10 @@ a:hover {
   color: $teal;
 }
 
+.actionsColumn .toggle {
+  color: $teal !important;
+}
+
 .icon-btn:hover {
   background-color: rgb($lightGrey, 0.3) !important;
   -webkit-transition: background-color 500ms;

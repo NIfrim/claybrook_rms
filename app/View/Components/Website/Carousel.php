@@ -6,17 +6,19 @@ use Illuminate\View\Component;
 
 class Carousel extends Component
 {
-	public $images, $category;
+	public $images, $category, $subcategory;
 	
 	/**
 	 * Create a new component instance.
 	 *
 	 * @param string $category
+	 * @param string $subcategory
 	 * @param array|null $images
 	 */
-    public function __construct(string $category, ?array $images = null)
+    public function __construct(string $category, string $subcategory, ?array $images = null)
     {
         $this->category = $category;
+        $this->subcategory = $subcategory;
         $this->images = $images;
     }
 

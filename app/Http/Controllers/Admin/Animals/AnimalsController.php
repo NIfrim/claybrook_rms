@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin\Animals;
 
 use App\Http\Controllers\Controller;
+use App\Models\Animal;
+use App\Models\AnimalImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AnimalsController extends Controller
@@ -123,6 +126,8 @@ class AnimalsController extends Controller
 		return redirect(route('admin.animals.list', ['type' => $type]))->with('success', $successAlert);
 	}
 	
+	
+	
 	/**
 	 * Method to submit data to the database
 	 *
@@ -136,19 +141,36 @@ class AnimalsController extends Controller
 		// Validate the form data
 		$this->validator($request->all())->validate();
 		
-		// @todo file upload
-		if ($request->hasFile('images')) {
-			//
-		}
-		
 		// Create new or update record
 		switch ($formType) {
 			case 'new':
-				call_user_func($this->getModel($type).'::'.'create', $request->all());
+				// Save the images and add their filenames to the request
+				if ($request->hasFile('files')) {
+					
+					$images = $this->uploadImages($request, $type);
+					
+					call_user_func($this->getModel($type).'::'.'create', array_merge($request->except('files'), ['images' => $images]));
+					
+				} else {
+					
+					call_user_func($this->getModel($type).'::'.'create', $request->except('files'));
+				}
+				
 				break;
 				
 			case 'edit':
-				call_user_func($this->getModel($type).'::'.'find', $request->id)->update($request->all());
+				// Save the images and add their filenames to the request
+				if ($request->hasFile('files')) {
+					
+					$images = $this->uploadImages($request, $type);
+					
+					call_user_func($this->getModel($type).'::'.'find', $request->id)->update(array_merge($request->except('files'), ['images' => $images]));
+				
+				} else {
+					
+					call_user_func($this->getModel($type).'::'.'find', $request->id)->update($request->except('files'));
+				}
+				
 				break;
 			
 			default: break;
@@ -156,6 +178,100 @@ class AnimalsController extends Controller
 		
 		// Redirect user to section table
 		return redirect(route('admin.animals.list', ['type'=> $type]));
+	}
+	
+	
+	/** Method used to toggle animal visibility on website and in animal spotlight
+	 *
+	 * @param Request $request
+	 * @param string $type
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
+	public function toggle(Request $request, string $type) {
+		
+		// Validate request
+		Validator::make($request->all(), [
+			'id' => ['required', 'string'],
+			'toggler' => ['required', 'string', 'max:1']
+		])->validate();
+		
+		// Toggle visibility
+		if ($request->has('toggle-website')) {
+			
+			// Set the on_website value
+			$animal = Animal::find($request->id);
+			$animal->on_website = $request->toggler;
+			$animal->in_spotlight = $request->toggler;
+			
+			$animal->save();
+			
+		} elseif ($request->has('toggle-spotlight')) {
+			
+			// Set the on_website value
+			$animal = Animal::find($request->id);
+			$animal->in_spotlight = $request->toggler;
+			
+			$animal->save();
+		}
+		
+		// Redirect user to section table
+		return redirect(route('admin.animals.list', ['type'=> $type]));
+	}
+	
+	
+	
+	/**
+	 * Method to upload images
+	 *
+	 * @param Request $request
+	 * @param string $type
+	 * @return array
+	 */
+	public function uploadImages(Request $request, string $type) {
+		$imagesFilenames = [];
+		
+		if ($request->hasFile('files')) {
+			
+			// First remove the images for the specified animal
+			$this->removeImages($request->id);
+			
+			// Store and add to db
+			$images = $request->file('files');
+			
+			foreach ($images as $index=>$image) {
+				// Store the image file
+				$extension = $image->extension();
+				$fileName = $type.'-'.$request->id.'-'.$index.'.'.$extension;
+				
+				$image->storeAs('public/animals', $fileName);
+				
+				// Add to request as string to be added during creation
+				array_push($imagesFilenames, $fileName);
+			}
+		}
+		
+		return $imagesFilenames;
+	}
+	
+	/**
+	 * Method to remove images
+	 * @param string $id
+	 */
+	public function removeImages(string $id) {
+		
+		// Get the files to be deleted
+		$filesInDir = Storage::files('public/animals');
+		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id) {
+			$segments = explode('/', $elem);
+			$filename = end($segments);
+			$thisId = explode('-', $filename)[1];
+			
+			return $thisId === $id;
+		});
+		
+		// Delete the files
+		Storage::delete($imagesToBeRemoved);
 	}
 	
 	/**
@@ -179,6 +295,21 @@ class AnimalsController extends Controller
 		
 		return $generatedId;
 	}
+	
+	
+	/**
+	 * Get the name of the filename for storing.
+	 *
+	 * @param string $type
+	 *
+	 * @param int $index
+	 *
+	 * @return string|null
+	 */
+	public function getFileName(string $type, int $index, $id) {
+		return $type.'-'.$id.'-'.$index;
+	}
+	
 	
 	/**
 	 * Get the id template to be used when generating the id.
@@ -204,52 +335,66 @@ class AnimalsController extends Controller
 	/**
 	 * Get a validator for an incoming form request.
 	 *
-	 * @param  array $data 		The data to be validated
+	 * @param  array $data The data to be validated
+	 *
+	 * @param string|null $type
 	 *
 	 * @return \Illuminate\Contracts\Validation\Validator
 	 */
-	protected function validator(array $data)
+	protected function validator(array $data, ?string $type = null)
 	{
-		$validationRules = [
-			'id' => ['required', 'string', 'max:45'],
-			'location_id' => ['required', 'string', 'max:45'],
-			'species' => ['required', 'string', 'max:45'],
-			'classification' => ['string', 'max:45'],
-			'type' => ['required', 'string', 'in:BIRD,FISH,MAMMAL,REPTILE'],
-			'name' => ['required', 'string', 'max:45'],
-			'date_joined' => ['required', 'date'],
-			'dob' => ['required', 'date'],
-			'gender' => ['required', 'string', 'in:FEMALE,MALE'],
-			'height_joined' => ['required', 'numeric'],
-			'weight_joined' => ['required', 'numeric'],
-		];
-		
-		switch ($data['type']) {
-			case 'BIRD':
-				$validationRules['can_fly'] = ['string', 'in:Y,N'];
-				$validationRules['nest_construction'] = ['string', 'max:45'];
-				$validationRules['clutch_size'] = ['numeric'];
-				$validationRules['wingspan'] = ['numeric'];
-				break;
+		if ($type === 'animalImages') {
 			
-			case 'FISH':
-				$validationRules['water_type'] = ['string', 'max:45'];
-				$validationRules['average_body_temperature'] = ['numeric'];
-				$validationRules['colour'] = ['string', 'max:45'];
-				break;
+			$validationRules = [
+				'id' => ['required', 'string', 'max:45'],
+				'type' => ['required', 'string', 'max:45'],
+			];
 			
-			case 'MAMMAL':
-				$validationRules['gestational_period'] = ['numeric'];
-				$validationRules['offspring_number'] = ['numeric'];
-				break;
+		} else {
 			
-			case 'REPTILE':
-				$validationRules['reproduction_type'] = ['required', 'string', 'in:LIVE BEARER,EGG LAYER'];
-				$validationRules['clutch_size'] = [$data['reproduction_type'] === 'LIVE BEARER' && 'required', $data['reproduction_type'] === 'LIVE BEARER' && 'numeric'];
-				$validationRules['offspring_number'] = [$data['reproduction_type'] === 'LIVE BEARER' && 'required', $data['reproduction_type'] === 'LIVE BEARER' && 'numeric'];
-				break;
+			$validationRules = [
+				'id' => ['required', 'string', 'max:45'],
+				'location_id' => ['required', 'string', 'max:45'],
+				'species' => ['required', 'string', 'max:45'],
+				'classification' => ['string', 'max:45'],
+				'type' => ['required', 'string', 'in:BIRD,FISH,MAMMAL,REPTILE'],
+				'name' => ['required', 'string', 'max:45'],
+				'date_joined' => ['required', 'date'],
+				'dob' => ['required', 'date'],
+				'gender' => ['required', 'string', 'in:FEMALE,MALE'],
+				'height_joined' => ['required', 'numeric'],
+				'weight_joined' => ['required', 'numeric'],
+				'files' => isset($data['files']) ? ['array'] : [],
+			];
 			
-			default: break;
+			switch ($data['type']) {
+				case 'BIRD':
+					$validationRules['can_fly'] = ['string', 'in:Y,N'];
+					$validationRules['nest_construction'] = ['string', 'max:45'];
+					$validationRules['clutch_size'] = ['numeric'];
+					$validationRules['wingspan'] = ['numeric'];
+					break;
+				
+				case 'FISH':
+					$validationRules['water_type'] = ['string', 'max:45'];
+					$validationRules['average_body_temperature'] = ['numeric'];
+					$validationRules['colour'] = ['string', 'max:45'];
+					break;
+				
+				case 'MAMMAL':
+					$validationRules['gestational_period'] = ['numeric'];
+					$validationRules['offspring_number'] = ['numeric'];
+					break;
+				
+				case 'REPTILE':
+					$validationRules['reproduction_type'] = ['required', 'string', 'in:LIVE BEARER,EGG LAYER'];
+					$validationRules['clutch_size'] = [$data['reproduction_type'] === 'LIVE BEARER' && 'required', $data['reproduction_type'] === 'LIVE BEARER' && 'numeric'];
+					$validationRules['offspring_number'] = [$data['reproduction_type'] === 'LIVE BEARER' && 'required', $data['reproduction_type'] === 'LIVE BEARER' && 'numeric'];
+					break;
+				
+				default: break;
+			}
+			
 		}
 		
 		return Validator::make($data, $validationRules);

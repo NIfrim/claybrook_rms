@@ -3,8 +3,8 @@
         <h5 class="card-title mb-1">{{$name}}</h5>
         <p class="card-date mb-1">Type: <small class="text-muted">{{$type}}</small> </p>
     </div>
-    <a href = "{{route('website.ourZoo.attractions.show', ['id' => $id])}}">
-        <img src = "{{$image ?? 'https://via.placeholder.com/250x150'}}" alt = "Attraction image">
+    <a href = "{{route('website.ourZoo.attractions.show', ['id' => $id])}}" class="img-250">
+        <img src = "{{$image ? '/images/attractions/'.$image : 'https://via.placeholder.com/250x250'}}" alt = "Attraction image" class="img-fluid">
     </a>
     <div class="card-footer">
         <div class="card-text" data-lines="1">{{$shortDescription}}</div>

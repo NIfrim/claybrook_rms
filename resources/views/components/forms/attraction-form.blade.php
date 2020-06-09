@@ -1,4 +1,4 @@
-<form action = "{{$route}}" method="post">
+<form action = "{{$route}}" method="post" enctype="multipart/form-data">
     <div class="card" id="attractionFormCard">
         <div class="card-header">
             <h4>{{$title}}</h4>
@@ -162,11 +162,46 @@
                         @enderror
                     </div>
                 </div>
+    
+                {{--Images--}}
+                <div class="form-group row">
+                    <label for="images" class="col-xl-2 col-form-label">{{ __('Attraction images') }}</label>
+        
+                    <div class="col-xl-10">
+                        <div class="custom-file input-group">
+                            <input type="file"
+                                   class="custom-file-input @error('images') is-invalid @enderror"
+                                   id="images"
+                                   name="files[]"
+                                   accept=".jpeg, .jpg, .png"
+                                   autofocus
+                                   multiple
+                            />
+                            <label class="custom-file-label" for="customFile">Choose Image/s</label>
+                        </div>
+            
+                        @error('images')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+        
+                    @if(isset($data['currentRow']->images))
+                        <div class="row col-md-10 offset-xl-2 p-3">
+                            @foreach($data['currentRow']->images as $image)
+                    
+                                <div class="col-md-3 col-sm-4">
+                                    <img src = "{{'/images/attractions/'.$image}}" class="img-fluid img-thumbnail" alt = "Attraction Image">
+                                </div>
+                
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
                 
             </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
-            <a href = "{{route('admin.attractions.list', ['type' => $subcategory ?? $category])}}">
+            <a href = "{{route('admin.attractions.list')}}">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </a>
             <button type="submit" name="submit-animal-details" class="btn btn-primary">Submit</button>

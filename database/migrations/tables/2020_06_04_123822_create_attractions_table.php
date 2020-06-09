@@ -23,6 +23,7 @@ class CreateAttractionsTable extends Migration
 			$table->string('type', 45);
             $table->string('short_description', 255);
             $table->string('long_description');
+			$table->json('images');
             $table->timestamps();
         });
     }

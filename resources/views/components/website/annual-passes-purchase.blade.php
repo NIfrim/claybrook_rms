@@ -1,4 +1,4 @@
-<div class="d-flex flex-column justify-content-start align-items-center">
+<div class="d-flex col-12 justify-content-center align-items-center">
 	<form action = "#" class="container-responsive">
 		@csrf
 		

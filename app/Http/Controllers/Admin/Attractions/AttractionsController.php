@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Attractions;
 use App\Http\Controllers\Controller;
 use App\Models\Attraction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AttractionsController extends Controller
@@ -86,11 +87,33 @@ class AttractionsController extends Controller
 		// Create new or update record
 		switch ($formType) {
 			case 'new':
-				call_user_func($this->getModel().'::create', $request->all());
+				// Save the images and add their filenames to the request
+				if ($request->hasFile('files')) {
+					
+					$images = $this->uploadImages($request);
+					
+					call_user_func($this->getModel().'::create', array_merge($request->except('files'), ['images' => $images]));
+					
+				} else {
+					
+					call_user_func($this->getModel().'::create',$request->except('files'));
+				}
+				
 				break;
 			
 			case 'edit':
-				call_user_func($this->getModel().'::find', $request->id)->update($request->all());
+				// Save the images and add their filenames to the request
+				if ($request->hasFile('files')) {
+					
+					$images = $this->uploadImages($request);
+					
+					call_user_func($this->getModel().'::find', $request->id)->update(array_merge($request->except('files'), ['images' => $images]));
+				
+				} else {
+					
+					call_user_func($this->getModel().'::find', $request->id)->update($request->except('files'));
+				}
+				
 				break;
 			
 			default: break;
@@ -127,6 +150,66 @@ class AttractionsController extends Controller
 	private function getRelations() {
 		return ['zoo'];
 	}
+	
+	
+	
+	/**
+	 * Method to upload images
+	 *
+	 * @param Request $request
+	 * @return array
+	 */
+	public function uploadImages(Request $request) {
+		$imagesFilenames = [];
+		
+		if ($request->hasFile('files')) {
+			
+			// First remove the images for the specified animal
+			$this->removeImages($request->id);
+			
+			// Store and add to db
+			$images = $request->file('files');
+			
+			foreach ($images as $index=>$image) {
+				// Store the image file
+				$extension = $image->extension();
+				$rideName = str_replace(' ', '_', $request->name);
+				$fileName = $rideName.'-'.$request->id.'-'.$index.'.'.$extension;
+				
+				$image->storeAs('public/attractions', $fileName);
+				
+				// Add to request as string to be added during creation
+				array_push($imagesFilenames, $fileName);
+			}
+		}
+		
+		return $imagesFilenames;
+	}
+	
+	
+	
+	/**
+	 * Method to remove images
+	 * @param string $id
+	 */
+	public function removeImages(string $id) {
+		
+		// Get the files to be deleted
+		$filesInDir = Storage::files('public/attractions');
+		
+		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id) {
+			$segments = explode('/', $elem);
+			$filename = end($segments);
+			$thisId = explode('-', $filename)[1];
+			
+			return $thisId === $id;
+		});
+		
+		// Delete the files
+		Storage::delete($imagesToBeRemoved);
+	}
+	
+	
 	
 	/**
 	 * Get a validator for an incoming form request.

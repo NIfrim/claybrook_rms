@@ -48,6 +48,10 @@ class Animal extends Model
 		'updated_at'
 	];
 	
+	public function images() {
+		$this->hasMany(AnimalImage::class, 'animal_id', 'id');
+	}
+	
 	public function location() {
 		return $this->belongsTo(Location::class);
 	}

@@ -603,7 +603,7 @@
                             <input type="file"
                                    class="custom-file-input @error('images') is-invalid @enderror"
                                    id="images"
-                                   name="images[]"
+                                   name="files[]"
                                    accept=".jpeg, .jpg, .png"
                                    autofocus
                                    multiple
@@ -615,6 +615,18 @@
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
+                    
+                    @if(isset($data['currentRow']->images))
+                        <div class="row col-md-10 offset-xl-2 p-3">
+                            @foreach($data['currentRow']->images as $image)
+      
+                                <div class="col-md-3 col-sm-4">
+                                    <img src = "{{'/images/animals/'.$image}}" class="img-fluid img-thumbnail" alt = "Animal Image">
+                                </div>
+                                
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

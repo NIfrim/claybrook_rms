@@ -68,6 +68,18 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		 */
 		Route::get('/{type}/{id}', 'AnimalsController@showForm')->name('manage');
 		
+		/** @route admin/animals/toggle/{type} {bird|mammal|fish|reptile}
+		 * 	@method POST
+		 *	@desc Route to toggle animal on website and in spotlight
+		 */
+		Route::post('/toggle/{type}', 'AnimalsController@toggle')->name('toggle');
+		
+		/** @route admin/animals/upload
+		 * 	@method POST
+		 *	@desc Route to upload animal images
+		 */
+		Route::post('/upload', 'AnimalsController@uploadImages')->name('upload.images');
+		
 		/** @route admin/animals/{type}/delete {birds|fish|mammals|reptiles}
 		 * 	@method POST
 		 *	@desc Route to remove animal records
@@ -353,12 +365,6 @@ Route::name('website.')->namespace('Website')->group(function () {
 		 *	@desc Route to access the animals section either by type or individual animals by id
 		 */
 		Route::get('/{type}/{id?}', 'AnimalsController@show')->name('animals.show');
-		
-		//		/** @route animals/{type}/{id}
-		//		 * 	@method GET
-		//		 *	@desc Route to access a specific animal
-		//		 */
-		//		Route::get('/animals/{type}/', 'AnimalsController@show')->name('animals.showOne');
 		
 		/*----------------------------------------------------*/
 	

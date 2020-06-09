@@ -20,7 +20,7 @@ class AnimalCard extends Component
 		$this->id = $data->id;
 		$this->title = $title;
 		$this->sponsor = isset($data->sponsor) ? $data->sponsor->first_name.' - '.$data->sponsor->last_name : 'No Sponsor';
-		$this->image = $data->image ?? null;
+		$this->image = $data->images ? $data->images[0] : null;
 		$this->type = $type;
 	}
 	
