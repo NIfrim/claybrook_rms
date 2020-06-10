@@ -1,1 +1,18 @@
+require('@popperjs/core');
 require('./bootstrap');
+require('moment');
+require('datatables.net-bs4');
+require( 'datatables.net-fixedcolumns-bs4' );
+require( 'datatables.net-fixedheader-bs4' );
+require( 'datatables.net-responsive-bs4' );
+require( 'datatables.net-searchpanes-bs4' );
+require( 'datatables.net-select-bs4' );
+require( 'datatables.net-buttons-bs4');
+require('./tables');
+require('./alerts');
+require('./forms');
+require('./web-nav');
+require('./cards');
+require('./sponsorAgreementForm');
+require('./medicalHistoryTable');
+require('./watchlistHistoryTable');

@@ -1,0 +1,390 @@
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+#app {
+  height: 100% !important;
+
+  h1,h2,h3,h4,h5,h6 {
+    font-family: $web-title;
+  }
+
+  .web-title {
+    font-family: $web-title;
+    padding: 0 !important;
+  }
+
+  .nav-item a {
+    text-decoration: none;
+  }
+
+  .nav-item a:hover {
+    text-decoration: none;
+  }
+
+  main {
+    overflow-y: scroll !important;
+    z-index: 1;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-image: none;
+  }
+
+  .carousel-control-next-icon:after
+  {
+    content: '>';
+    font-size: 2rem;
+    color: red;
+  }
+
+  .carousel-control-prev-icon:after {
+    content: '<';
+    font-size: 2rem;
+    color: red;
+  }
+
+
+
+  /***************** OTHER STYLING ******************/
+
+  .img-250 {
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .img-fluid {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .section-title {
+    margin: 2rem 0;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .small {
+    font-size: 1.2rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .smallLogo {
+    height: 50px;
+    width: auto;
+  }
+
+  .filled {
+    background-color: $teal;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color: $lightYellow !important;
+  }
+
+  .rotated {
+    -webkit-transform: rotateZ(3deg);
+    -moz-transform: rotateZ(3deg);
+    -ms-transform: rotateZ(3deg);
+    -o-transform: rotateZ(3deg);
+    transform: rotateZ(3deg);
+  }
+
+  .rotate180 {
+    -webkit-transform: rotateZ(180deg);
+    -moz-transform: rotateZ(180deg);
+    -ms-transform: rotateZ(180deg);
+    -o-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+  }
+
+  .expand {
+    max-height: 15rem !important;
+  }
+
+  .row-type-two .btn-lg {
+    background-color: $lightMelon;
+    border: none !important;
+    -webkit-box-shadow: 2px 2px 3px rgba($black, .25);
+    -moz-box-shadow: 2px 2px 3px rgba($black, .25);
+    box-shadow: 2px 2px 3px rgba($black, .25);
+  }
+
+  .bg-secondary {
+    background-color: $lightYellow !important;
+  }
+
+  .row-type-two .btn-lg a {
+    color: $logoGreen;
+  }
+
+  .text-underline-secondary {
+    text-decoration: underline $lightYellow;
+  }
+
+  .text-underline-primary {
+    text-decoration: underline $logoGreen;
+  }
+
+  .row-type-two .btn-lg:hover a {
+    color: $lightGreen;
+  }
+
+  /* END Other styling */
+
+
+
+  /***************** CAROUSEL STYLING ******************/
+
+  .carousel-item {
+    overflow: hidden;
+    height: 50vh;
+  }
+
+  /* END Carousel styling */
+
+
+  /***************** FORMS STYLING ******************/
+
+  #registerSponsorForm input,
+  #registerSponsorForm select {
+    height: auto !important;
+  }
+
+  /* End Forms styling */
+
+
+
+  /*****************WEBSITE NAVIGATION******************/
+
+  .web-nav {
+    background-color: $logoGreen;
+    width: 100vw;
+    z-index: 10;
+    -webkit-box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);
+    -moz-box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);
+  }
+
+  .nav-buttons-wrapper > li .web-title {
+    color: $white !important;
+  }
+
+  .sub-menu-wrapper {
+    background-color: $logoYellow;
+    background-image: url('/images/website/patterns/grass.PNG');
+    background-position: bottom;
+    -webkit-background-size: 100px;
+    background-size: 100px;
+    background-repeat: repeat-x;
+  }
+
+  .sub-menu-wrapper > ul li {
+    //margin: 0 0.5rem 2.5rem 0.5rem !important;
+    white-space: nowrap;
+  }
+
+  .sub-menu-wrapper > ul li .web-title {
+    color: $logoGreen !important;
+  }
+
+  .sub-menu-wrapper > ul .active .web-title {
+    color: $white!important;
+  }
+
+  .web-nav-btn {
+    border-bottom: none !important;
+    white-space: nowrap;
+  }
+
+  .nav-item:hover .nav-item-text, .nav-item:hover {
+    color: $logoYellow !important;
+  }
+
+  .nav-item:hover a {
+    border-color: $logoYellow;
+  }
+
+  .nav-item a[aria-expanded="true"] .nav-item-text {
+    color: $logoYellow !important;
+  }
+
+  .nav-item a[aria-expanded="true"] {
+    border-color: $logoYellow;
+  }
+
+  .sub-menu-wrapper > ul li:hover .web-title {
+    color: $white !important;
+  }
+
+  .nav-icons-list > li span {
+    font-size: 2rem;
+    padding: 1rem;
+  }
+
+  #buyTickets *, #becomeSponsor * {
+    cursor: pointer;
+    color: $logoYellow !important;
+  }
+
+  .dropdown-toggle::after {
+    content: none !important;
+  }
+
+  /* END Web navigation */
+
+
+
+  /***************** ROWS STYLING ******************/
+
+  .row-type-one {
+    margin-bottom: 4rem;
+  }
+
+  .row-type-two {
+    margin-bottom: 4rem;
+  }
+
+  .did-you-know-row .row-top {
+    margin-bottom: -3rem;
+  }
+
+  .did-you-know-row .row-bottom {
+    background-color: $logoYellow;
+    min-height: 200px;
+  }
+
+  .row-type-one .row-body {
+    background-color: $lightGreen;
+    min-height: 300px;
+  }
+
+  .row-type-one .row-title {
+    color: $lightYellow;
+  }
+
+  .row-type-one .row-cards {
+    min-height: 200px;
+  }
+
+  .row-type-two .row-top {
+    margin-bottom: -3rem;
+  }
+
+  .row-type-two .row-middle {
+    padding: 4rem;
+    background-color: $lightGreen;
+  }
+
+  .row-type-two .row-bottom {
+    margin-top: -2rem;
+  }
+
+  .row-type-two .mapAndDirectionsColumn {
+    max-width: 340px;
+  }
+
+  /* END Rows styling */
+
+
+  /***************** TEXT STYLING ******************/
+
+  .text-secondary {
+    color: $lightYellow !important;
+  }
+
+
+
+  /* END Text styling */
+
+  /***************** CARDS STYLING ******************/
+
+  .animal-card,
+  .event-card,
+  .news-card,
+  .attraction-card {
+    min-height: 200px;
+    flex-basis: 250px;
+    background-color: $brightGreen;
+    overflow: hidden;
+  }
+
+  .card-header * {
+    color: $lightYellow;
+  }
+
+  .card-text {
+    overflow: hidden;
+    max-height: 1.5rem;
+  }
+
+  .card-read-more,
+  .card-share {
+    cursor: pointer;
+  }
+
+
+  /* END Cards Styling */
+
+
+
+  /***************** FOOTER STYLING ******************/
+
+  footer .footer-top {
+    background-color: $lightLogoGreen;
+    padding: 3rem 0;
+  }
+
+  footer .footer-top * {
+    color: $lightYellow;
+  }
+
+  footer .footer-bottom {
+    background-color: $lightYellow;
+    padding: 3rem 0;
+  }
+
+  footer .footer-bottom a {
+    text-decoration: underline;
+  }
+
+  footer .footer-bottom * {
+    color: $logoGreen;
+  }
+
+  /* END Footer styling */
+
+
+
+
+  // Small screen sizes
+  @media (min-width: 576px) {
+
+    .navbar-collapse.show{
+      display: flex;
+    }
+  }
+
+  // Large screen sizes
+  @media (min-width: 992px) {
+
+    /***************** SIZING ******************/
+
+    .mb-lg-5 {
+      margin-bottom: 2rem !important;
+    }
+
+    .mb-lg-6 {
+      margin-bottom: 2.5rem !important;
+    }
+
+    /* End Sizing */
+
+  }
+}

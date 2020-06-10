@@ -15,8 +15,11 @@ class CreateNewsCategoriesTable extends Migration
     {
         Schema::create('news_categories', function (Blueprint $table) {
 			$table->id()->autoIncrement();
+			$table->string('name', 45);
+			$table->string('title', 255);
 			$table->text('short_description');
-			$table->string('image_name', 45);
+			$table->text('long_description');
+			$table->string('image', 255);
 			$table->timestamps();
         });
     }

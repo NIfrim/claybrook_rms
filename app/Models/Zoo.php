@@ -9,7 +9,20 @@ class Zoo extends Model
     protected $casts = [
 		'address' => 'array',
 		'maps' => 'array',
-		'contact_details' => 'array'
+		'contact_details' => 'array',
+		'opening_times' => 'array',
+		'images' => 'array',
+	];
+    
+    protected $fillable = [
+    	'company_number',
+		'name',
+		'address',
+		'contact_details',
+		'maps',
+		'opening_times',
+		'images',
+		'history',
 	];
     
     public function users() {

@@ -53,15 +53,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-				return Validator::make($data, [
-					'account_type' => ['required', 'string', 'max:45'],
-					'title' => ['required', 'string', 'max:5'],
-					'first_name' => ['required', 'string', 'max:255'],
-					'last_name' => ['required', 'string', 'max:255'],
-					'email' => ['required', 'string', 'email', 'max:255', 'unique:employees'],
-					'job_title' => ['required', 'string', 'max:45'],
-					'password' => ['required', 'string', 'min:8', 'confirmed'],
-				]);
+		return Validator::make($data, [
+			'account_type' => ['required', 'string', 'max:45'],
+			'title' => ['required', 'string', 'max:5'],
+			'first_name' => ['required', 'string', 'max:255'],
+			'last_name' => ['required', 'string', 'max:255'],
+			'email' => ['required', 'string', 'email', 'max:255', 'unique:employees'],
+			'job_title' => ['required', 'string', 'max:45'],
+			'password' => ['required', 'string', 'min:8', 'confirmed'],
+		]);
     }
 
     /**
@@ -72,18 +72,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-    		$zooId = $this->getZoo(env('APP_NAME'))->id;
-				return Employee::create([
-					'zoo_id' => $zooId,
-					'account_type_id' => $data('account_type'),
-					'title' => $data['title'],
-					'first_name' => $data['first_name'],
-					'last_name' => $data['last_name'],
-					'email' => $data['email'],
-					'job_title' => $data['job_title'],
-					'active' => 1,
-					'password' => Hash::make($data['password']),
-				]);
+		return Employee::create([
+			'zoo_id' => $this->getZoo(env('APP_NAME'))->id,
+			'account_type_id' => $data('account_type'),
+			'title' => $data['title'],
+			'first_name' => $data['first_name'],
+			'last_name' => $data['last_name'],
+			'email' => $data['email'],
+			'job_title' => $data['job_title'],
+			'active' => 1,
+			'password' => Hash::make($data['password']),
+		]);
     }
 		
 		/**

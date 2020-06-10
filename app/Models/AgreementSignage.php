@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class AgreementSignage extends Model
 {
+	protected $casts = [
+		'images' => 'array'
+	];
+	
+	protected $fillable = [
+		'animal_id',
+		'agreement_id',
+		'status',
+		'reason',
+		'images',
+	];
+	
     public function animals() {
     	return $this->hasMany('App\Models\Animal');
 	}

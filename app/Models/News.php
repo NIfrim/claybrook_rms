@@ -6,8 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
-    protected $casts = [
-    	'images' => 'array'
+	protected $fillable = [
+		'zoo_id',
+		'category_id',
+		'title',
+		'date_posted',
+		'date_expire',
+		'repeat',
+		'short_description',
+		'long_description',
+		'image',
 	];
     
     public function zoo() {

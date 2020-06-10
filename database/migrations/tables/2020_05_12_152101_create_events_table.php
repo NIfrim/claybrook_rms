@@ -20,10 +20,10 @@ class CreateEventsTable extends Migration
 			$table->string('title', 255);
 			$table->timestamp('start_date');
 			$table->timestamp('end_date');
-			$table->enum('repeat', ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY', 'NEVER']);
+			$table->enum('repeat', ['MONTHLY', 'YEARLY', 'NEVER']);
 			$table->text('short_description');
 			$table->text('long_description');
-			$table->json('images');
+			$table->text('image');
 			$table->timestamps();
         });
     }

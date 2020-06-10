@@ -53,12 +53,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
 				return Validator::make($data, [
-					'title' => ['required', 'string', 'title', 'max:5'],
-					'first_name' => ['required', 'string', 'name', 'max:255'],
-					'last_name' => ['required', 'string', 'name', 'max:255'],
+					'title' => ['required', 'string', 'max:5'],
+					'first_name' => ['required', 'string', 'max:255'],
+					'last_name' => ['required', 'string', 'max:255'],
 					'email' => ['required', 'string', 'email', 'max:255', 'unique:sponsors'],
-					'job_title' => ['required', 'string', 'max:45'],
-					'primary_contact_number' => ['required', 'string', 'phone', 'max:15', 'unique:sponsors'],
 					'password' => ['required', 'string', 'min:8', 'confirmed'],
 				]);
     }
@@ -71,17 +69,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-    		$zooId = $this->getZoo(env('APP_NAME'))->id;
-				return Sponsor::create([
-					'zoo_id' => $zooId,
-					'title' => $data['title'],
-					'first_name' => $data['first_name'],
-					'last_name' => $data['last_name'],
-					'email' => $data['email'],
-					'job_title' => $data['job_title'],
-					'primary_contact_number' => $data['primary_contact_number'],
-					'password' => Hash::make($data['password']),
-				]);
+    		$zooId = $this->getZoo('Claybrook Zoo')->id;
+			return Sponsor::create([
+				'zoo_id' => $zooId,
+				'title' => $data['title'],
+				'first_name' => $data['first_name'],
+				'last_name' => $data['last_name'],
+				'email' => $data['email'],
+				'password' => Hash::make($data['password']),
+			]);
     }
 		
 		/**

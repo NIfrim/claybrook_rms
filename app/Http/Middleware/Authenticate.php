@@ -17,20 +17,20 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
     		switch ($request->path()) {
-						case 'user':
-								$routeName = 'user.auth.show';
-								break;
-				
-						case 'sponsor':
-								$routeName = 'sponsor.auth.show';
-								break;
-			
-						case 'admin':
-							$routeName = 'admin.login';
-							break;
-								
-						default: $routeName = 'welcome';
-				}
+				case 'user':
+						$routeName = 'website.user.auth.show';
+						break;
+		
+				case 'sponsor':
+						$routeName = 'website.sponsor.auth.show';
+						break;
+	
+				case 'admin':
+					$routeName = 'admin.login';
+					break;
+					
+				default: $routeName = 'website.welcome';
+			}
     		
         if (! $request->expectsJson()) {
             return route($routeName);
