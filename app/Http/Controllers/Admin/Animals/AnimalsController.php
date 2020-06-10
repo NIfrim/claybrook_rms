@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin\Animals;
 use App\Http\Controllers\Controller;
 use App\Models\Animal;
 use App\Models\AnimalImage;
+use App\Models\AnimalMedicalHistory;
+use App\Models\AnimalWatchlistHistory;
+use App\Models\Location;
+use App\Models\SponsorshipBand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -50,8 +54,8 @@ class AnimalsController extends Controller
 	{
 		$model = $this->getModel($type);
 		$animalRecords = call_user_func($model.'::'.'with', ['location', 'educationalInfo', 'animalHabitat', 'sponsorshipBand', 'sponsorSignage'])->get();
-		$sponsorshipBands = \App\Models\SponsorshipBand::all();
-		$locations = \App\Models\Location::all();
+		$sponsorshipBands = SponsorshipBand::all();
+		$locations = Location::all();
 		
 		$data = [
 			'type' => $type === 'fishes' ? strtoupper('fish') : strtoupper(substr($type, 0, -1)),
@@ -63,7 +67,7 @@ class AnimalsController extends Controller
 		];
 		
 		if ($id !== 'new') {
-			$data['currentRow'] = call_user_func($model.'::'.'with', ['location', 'educationalInfo', 'animalHabitat', 'sponsorshipBand', 'sponsorSignage'])->find($id);
+			$data['currentRow'] = call_user_func($model.'::'.'with', ['location', 'educationalInfo', 'animalHabitat', 'sponsorshipBand', 'sponsorSignage', 'medicalHistory'])->find($id);
 		} else {
 			$data['generatedId'] = $this->generateId($type, $animalRecords);
 		}
@@ -111,19 +115,31 @@ class AnimalsController extends Controller
 	 * @param Request $request
 	 * @param string $type
 	 *
+	 * @param string|null $subtype
+	 *
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 */
-	public function delete(Request $request, string $type)
+	public function delete(Request $request, string $type, ?string $subtype = null)
 	{
 		// Convert to array to me able to use method to remove one or more rows
 		$ids = explode(',', $request->ids);
 		$successAlert = sizeof($ids) > 1 ? 'Multiple records deleted successfully' : 'One record deleted successfully';
 		
-		// Remove the records from the database using destroy()
-		call_user_func($this->getModel($type).'::'.'destroy', $ids);
-		
-		// Return the user to the table list
-		return redirect(route('admin.animals.list', ['type' => $type]))->with('success', $successAlert);
+		if ($subtype) {
+			// Remove the records from the database using destroy()
+			call_user_func($this->getModel($subtype).'::'.'destroy', $ids);
+			
+			// Return the user to the table list
+			return redirect(route('admin.animals.manage', ['type' => $type, 'id' => $request->animal_id]))->with('success', $successAlert);
+			
+		} else {
+			
+			// Remove the records from the database using destroy()
+			call_user_func($this->getModel($type).'::'.'destroy', $ids);
+			
+			// Return the user to the table list
+			return redirect(route('admin.animals.list', ['type' => $type]))->with('success', $successAlert);
+		}
 	}
 	
 	
@@ -139,10 +155,29 @@ class AnimalsController extends Controller
 	 */
 	public function submit(Request $request, string $type, string $formType) {
 		// Validate the form data
-		$this->validator($request->all())->validate();
+		if ($formType === 'newMedicalHistory' || $formType === 'editMedicalHistory') {
+		
+			$this->validator($request->all(), 'medicalHistory')->validate();
+			
+		} elseif ($formType === 'newWatchlistHistory' || $formType === 'editWatchlistHistory') {
+			
+			$this->validator($request->all(), 'watchlistHistory')->validate();
+			
+		} else {
+			
+			$this->validator($request->all())->validate();
+		}
 		
 		// Create new or update record
 		switch ($formType) {
+			case 'newMedicalHistory':
+				call_user_func($this->getModel('medicalHistory').'::'.'create', $request->all());
+				break;
+			
+			case 'newWatchlistHistory':
+				call_user_func($this->getModel('watchlistHistory').'::'.'create', $request->all());
+				break;
+			
 			case 'new':
 				// Save the images and add their filenames to the request
 				if ($request->hasFile('files')) {
@@ -156,6 +191,14 @@ class AnimalsController extends Controller
 					call_user_func($this->getModel($type).'::'.'create', $request->except('files'));
 				}
 				
+				break;
+			
+			case 'editMedicalHistory':
+				call_user_func($this->getModel('medicalHistory').'::'.'find', $request->id)->update($request->all());
+				break;
+			
+			case 'editWatchlistHistory':
+				call_user_func($this->getModel('watchlistHistory').'::'.'find', $request->id)->update($request->all());
 				break;
 				
 			case 'edit':
@@ -177,7 +220,15 @@ class AnimalsController extends Controller
 		}
 		
 		// Redirect user to section table
-		return redirect(route('admin.animals.list', ['type'=> $type]));
+		if ($formType === 'newMedicalHistory' || $formType === 'editMedicalHistory' || $formType === 'newWatchlistHistory' || $formType === 'editWatchlistHistory') {
+			
+			return redirect(route('admin.animals.manage', ['type'=> $type, 'id' => $request->animal_id]));
+			
+		} else {
+			
+			return redirect(route('admin.animals.list', ['type'=> $type]));
+			
+		}
 	}
 	
 	
@@ -343,11 +394,22 @@ class AnimalsController extends Controller
 	 */
 	protected function validator(array $data, ?string $type = null)
 	{
-		if ($type === 'animalImages') {
+		if ($type === 'medicalHistory') {
 			
 			$validationRules = [
-				'id' => ['required', 'string', 'max:45'],
-				'type' => ['required', 'string', 'max:45'],
+				'animal_id' => ['required', 'string', 'max:45'],
+				'datetime' => ['required', 'date'],
+				'incident' => ['required', 'string'],
+				'treatment' => ['required', 'string'],
+			];
+			
+		} elseif ($type === 'watchlistHistory') {
+			
+			$validationRules = [
+				'animal_id' => ['required', 'string', 'max:45'],
+				'start' => ['required', 'date'],
+				'end' => ['required', 'date'],
+				'reason' => ['required', 'string'],
 			];
 			
 		} else {
@@ -438,7 +500,21 @@ class AnimalsController extends Controller
 	 * @return String|null
 	 */
 	private function getModel(String $type) {
-		return 'App\Models\Animal';
+		switch ($type) {
+			case 'birds':
+			case 'fishes':
+			case 'mammals':
+			case 'reptiles':
+				return Animal::class;
+				
+			case 'medicalHistory':
+				return AnimalMedicalHistory::class;
+			
+			case 'watchlistHistory':
+				return AnimalWatchlistHistory::class;
+				
+			default: throw new \Error('Expected birds | fish | mammals | reptiles | medicalHistory | watchlistHistory. Instead got: '.$type);
+		}
 	}
 	
 	/**

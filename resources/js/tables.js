@@ -6,18 +6,20 @@ $(document).ready(function () {
 		}
 	});
 
-    /*Make rows selectable by clicking on them*/
-	table.select.style('multi');
+	if (table) {
+		/*Make rows selectable by clicking on them*/
+		table.select.style('multi');
 
-	// /* Clear selected rows when clicking clear selection button */
-	$('#clearSelection').click( function () {
-		table.rows('.selected').deselect();
-		clearFormInput();
-		$('.select-info').remove();
-	} );
+		// /* Clear selected rows when clicking clear selection button */
+		$('#clearSelection').click( function () {
+			table.rows('.selected').deselect();
+			clearFormInput();
+			$('.select-info').remove();
+		} );
 
-	/* Add selected rows ids to the remove selected form input */
-	$('tr').click( addSelectedToInput );
+		/* Add selected rows ids to the remove selected form input */
+		$('tr').click( addSelectedToInput );
+	}
 });
 
 function clearFormInput () {

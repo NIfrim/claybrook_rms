@@ -31,21 +31,6 @@
                 </ul>
             </li>
 
-            {{--Accounts--}}
-            {{--<li class="menu-item">--}}
-                {{--<a href="#accountsSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'accounts' ? 'true' : 'false'}}" class="d-flex flex-nowrap justify-content-between">--}}
-                    {{--<span class="menu-item-text">Accounts</span>--}}
-                    {{--<i class="material-icons menu-item-icon">keyboard_arrow_down</i></a>--}}
-                {{--<ul class="collapse list-unstyled {{$category === 'accounts' ? 'show' : ''}}" id="accountsSubmenu">--}}
-                    {{--<li class="menu-sub-item {{$subcategory === 'sponsors' ? 'active' : ''}}">--}}
-                        {{--<a href="{{route('admin.accounts.sponsors')}}"><span class="menu-sub-item-text">Sponsors</span></a>--}}
-                    {{--</li>--}}
-                    {{--<li class="menu-sub-item {{$subcategory === 'users' ? 'active' : ''}}">--}}
-                        {{--<a href="{{route('admin.accounts.users')}}"><span class="menu-sub-item-text">Users</span></a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
-            {{--</li>--}}
-
             {{--Events and News--}}
             <li class="menu-item">
                 <a href="#eventsAndNewsSubmenu" data-toggle="collapse" aria-expanded="{{$category === 'eventsAndNews' ? 'true' : 'false'}}" class="d-flex flex-nowrap justify-content-between">
@@ -144,7 +129,7 @@
     <ul class="d-flex flex-column justify-content-between align-items-baseline list-unstyled extra-items">
         {{--Zoo Details--}}
         <li class="extra-item">
-            <a href="#" data-toggle="collapse" aria-expanded="false" class="d-flex flex-nowrap">
+            <a href="{{route('admin.zoo.manage', ['type' => 'details', 'id' => 1])}}" class="d-flex flex-nowrap">
                 <i class="material-icons extra-item-icon">settings</i>
                 <span class="extra-item-text">Zoo Settings</span>
             </a>

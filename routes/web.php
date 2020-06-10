@@ -84,7 +84,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		 * 	@method POST
 		 *	@desc Route to remove animal records
 		 */
-		Route::post('/{type}/delete', 'AnimalsController@delete')->name('delete');
+		Route::post('/{type}/delete/{subtype?}', 'AnimalsController@delete')->name('delete');
 		
 		/** @route admin/animals/{type}/{formType} [birds|fish|mammals|reptiles]/[new|edit]
 		 * 	@method POST
@@ -279,6 +279,24 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		 *	@desc Route to submit changes when creating or editing
 		 */
 		Route::post('/{type}/{formType}', 'SponsorsController@submit')->name('submit');
+		
+	});
+	
+	/* Zoo settings */
+	Route::prefix('zoo')->name('zoo.')->namespace('Zoo')->group(function () {
+		
+		/** @route admin/zoo/{type}/{id?}
+		 * 	@method GET
+		 *	@desc Route to access the form for creating/editing
+		 */
+		Route::get('/{type}/{id?}', 'ZooController@showForm')->name('manage');
+		
+		
+		/** @route admin/zoo/{formType} [new|edit]
+		 * 	@method POST
+		 *	@desc Route to submit changes when creating or editing
+		 */
+		Route::post('/{formType}', 'ZooController@submit')->name('submit');
 		
 	});
 	

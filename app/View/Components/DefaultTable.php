@@ -47,7 +47,7 @@ class DefaultTable extends Component
 	 *
 	 * @return array
 	 */
-    protected function getRows(?array $filters) {
+    protected function getRows(?array $filters = null) {
     	
     	/* Get the rows for specific model */
 		if ($filters) {

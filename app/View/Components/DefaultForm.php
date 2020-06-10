@@ -11,6 +11,7 @@ class DefaultForm extends Component
 	public  $category; // The type of data within the form (animals, sponsors, ...)
 	public  $subcategory; // The type of data within the form for subtypes (animals -> mammals, ...)
 	public 	$title; // The form title
+	public $subcategory2; // Extra subcategory like medical history for animals
 	
 	/**
 	 * Create a new component instance.
@@ -19,14 +20,16 @@ class DefaultForm extends Component
 	 * @param object|null $data
 	 * @param string $category
 	 * @param string|null $subcategory
+	 * @param string|null $subcategory2
 	 * @param string $title
 	 */
-    public function __construct(String $formType, $data, string $category, ?string $subcategory, string $title)
+    public function __construct(String $formType, $data, string $category, ?string $subcategory, string $title, ?string $subcategory2 = null)
     {
         $this->formType = $formType;
         $this->data = $data ?? null;
         $this->category = $category;
         $this->subcategory = $subcategory ?? null;
+        $this->subcategory2 = $subcategory2;
         $this->title = $title;
     }
 

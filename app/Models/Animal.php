@@ -47,9 +47,9 @@ class Animal extends Model
 		'created_at',
 		'updated_at'
 	];
-	
-	public function images() {
-		$this->hasMany(AnimalImage::class, 'animal_id', 'id');
+
+	public function medicalHistory() {
+		return $this->hasMany(AnimalMedicalHistory::class);
 	}
 	
 	public function location() {

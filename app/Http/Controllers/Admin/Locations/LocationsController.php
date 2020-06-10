@@ -21,7 +21,6 @@ class LocationsController extends Controller
 	}
 	
 	/**
-	 * Show all the birds records.
 	 *
 	 * @param String $type [The type of location, e.g. aviary, aquarium...]
 	 * @param string|null $id

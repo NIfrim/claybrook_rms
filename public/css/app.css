@@ -10999,6 +10999,10 @@ a:hover {
   color: #5FC5B2;
 }
 
+.actionsColumn .toggle {
+  color: #5FC5B2 !important;
+}
+
 .icon-btn:hover {
   background-color: rgba(214, 214, 214, 0.3) !important;
   transition: background-color 500ms;
@@ -11007,6 +11011,10 @@ a:hover {
 /* END Buttons */
 
 /***************** FORMS ******************/
+
+#pillsContentWrapper {
+  height: calc(100% - 60px);
+}
 
 .forms-container {
   height: 100%;
@@ -11216,6 +11224,8 @@ body {
   height: 100% !important;
   /***************** OTHER STYLING ******************/
   /* END Other styling */
+  /***************** CAROUSEL STYLING ******************/
+  /* END Carousel styling */
   /***************** FORMS STYLING ******************/
   /* End Forms styling */
   /*****************WEBSITE NAVIGATION******************/
@@ -11272,6 +11282,18 @@ body {
   content: "<";
   font-size: 2rem;
   color: red;
+}
+
+#app .img-250 {
+  height: 250px;
+  overflow: hidden;
+}
+
+#app .img-fluid {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 #app .section-title {
@@ -11340,6 +11362,11 @@ body {
 #app .row-type-two .btn-lg:hover a,
 #app .row-type-two .btn-group-lg > .btn:hover a {
   color: #419572;
+}
+
+#app .carousel-item {
+  overflow: hidden;
+  height: 50vh;
 }
 
 #app #registerSponsorForm input,

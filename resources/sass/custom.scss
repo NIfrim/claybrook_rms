@@ -82,6 +82,10 @@ a:hover {
 
 /***************** FORMS ******************/
 
+#pillsContentWrapper {
+  height: calc(100% - 60px);
+}
+
 .forms-container {
   height: 100%;
 }
