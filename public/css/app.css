@@ -11222,6 +11222,8 @@ body {
 
 #app {
   height: 100% !important;
+  /***************** ANIMALS IMAGE GRID STYLING ******************/
+  /* End Animals Image Grid styling */
   /***************** OTHER STYLING ******************/
   /* END Other styling */
   /***************** CAROUSEL STYLING ******************/
@@ -11247,6 +11249,14 @@ body {
 #app h5,
 #app h6 {
   font-family: "Schoolbell", cursive;
+}
+
+#app .text-orange {
+  color: #fd7e14;
+}
+
+#app .text-teal {
+  color: #5FC5B2;
 }
 
 #app .web-title {
@@ -11282,6 +11292,21 @@ body {
   content: "<";
   font-size: 2rem;
   color: red;
+}
+
+#app #animalsGrid label {
+  height: 100px;
+}
+
+#app #animalsGrid .selected {
+  background-color: #C1D32F;
+}
+
+#app #animalsGrid .price {
+  position: relative;
+  bottom: 1.4rem;
+  right: 0;
+  background: rgba(119, 119, 119, 0.6);
 }
 
 #app .img-250 {

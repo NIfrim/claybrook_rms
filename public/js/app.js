@@ -86604,6 +86604,51 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./resources/js/animalsImageGrid.js":
+/*!******************************************!*\
+  !*** ./resources/js/animalsImageGrid.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$('#animalsGrid').ready(function () {
+  // Get the animal images grid
+  var images = $('#animalsGrid div');
+  images.click(function () {
+    var total = $('#totalCost'); // Toggle select
+
+    $('img', this).toggleClass('selected'); // Calculate and set total price
+
+    var totalPrice = getTotal();
+    total.text(totalPrice + ' £'); // Add input fields to be sent with the post request
+
+    if ($('img', this).hasClass('selected')) {
+      addHiddenInputs($('img', this).attr('id'));
+    } else {
+      removeHiddenInput($('img', this).attr('id'));
+    }
+  });
+});
+
+function getTotal() {
+  var price = $('.selected ~ .price').text();
+  return price.split(' £').reduce(function (prev, curr) {
+    return Number(prev) + Number(curr);
+  });
+}
+
+function addHiddenInputs(id) {
+  var inputsWrapper = $('#animalsHiddenInputs');
+  var animalIdInputTemplate = '<input type = "text" name="animal_id[]" value="' + id + '" id="' + id + '-input" required hidden>';
+  inputsWrapper.append(animalIdInputTemplate);
+}
+
+function removeHiddenInput(id) {
+  $('#' + id + '-input').remove();
+}
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -86646,6 +86691,10 @@ __webpack_require__(/*! ./sponsorAgreementForm */ "./resources/js/sponsorAgreeme
 __webpack_require__(/*! ./medicalHistoryTable */ "./resources/js/medicalHistoryTable.js");
 
 __webpack_require__(/*! ./watchlistHistoryTable */ "./resources/js/watchlistHistoryTable.js");
+
+__webpack_require__(/*! ./sponsorAgreementsTable */ "./resources/js/sponsorAgreementsTable.js");
+
+__webpack_require__(/*! ./animalsImageGrid */ "./resources/js/animalsImageGrid.js");
 
 /***/ }),
 
@@ -86819,7 +86868,16 @@ $.fn.dataTable.ext.buttons.addHistory = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {});
+$('#newAgreementForm').ready(function () {
+  var startDate = $('input[name="agreement_start"]', this);
+  var endDate = $('input[name="agreement_end"]', this);
+  startDate.change(function () {
+    // Set the end date to 12 months apart
+    var date = new Date(startDate.val());
+    date.setFullYear(date.getFullYear() + 1);
+    endDate.val(date.getFullYear() + "-" + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()));
+  });
+});
 
 function getCookie(cname) {
   var name = cname + "=";
@@ -86843,6 +86901,21 @@ function getCookie(cname) {
 
 /***/ }),
 
+/***/ "./resources/js/sponsorAgreementsTable.js":
+/*!************************************************!*\
+  !*** ./resources/js/sponsorAgreementsTable.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var table = $('#agreementsTable').DataTable({
+    select: false
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/tables.js":
 /*!********************************!*\
   !*** ./resources/js/tables.js ***!
@@ -86851,7 +86924,7 @@ function getCookie(cname) {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  var table = $('#table, #table2, #agreementsTable').DataTable({
+  var table = $('#table, #table2').DataTable({
     select: true,
     language: {
       emptyTable: "No data available in table"
