@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Zoo::class, function (Faker $faker) {
     return [
     	'id' => 1,
-        'name' => $faker->company,
+        'name' => 'Claybrook Zoo',
 		'address' => [
 			'building_number' => $faker->buildingNumber,
 			'road_name' => $faker->streetName,
