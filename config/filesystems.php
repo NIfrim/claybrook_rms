@@ -85,6 +85,8 @@ return [
 		public_path('images/news') => storage_path('app/public/news'),
 		public_path('images/events_categories') => storage_path('app/public/eventsCategory'),
 		public_path('images/news_categories') => storage_path('app/public/newsCategory'),
+		public_path('images/zoo') => storage_path('app/public/zoo'),
+		public_path('images/sponsors') => storage_path('app/public/sponsors'),
     ],
 
 ];

@@ -16,3 +16,5 @@ require('./cards');
 require('./sponsorAgreementForm');
 require('./medicalHistoryTable');
 require('./watchlistHistoryTable');
+require('./sponsorAgreementsTable');
+require('./animalsImageGrid');

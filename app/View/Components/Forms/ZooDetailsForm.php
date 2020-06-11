@@ -16,7 +16,7 @@ class ZooDetailsForm extends DefaultForm
         return view('components.forms.zoo-details-form', [
 			'data' => $this->data,
 			'formType' => $this->formType,
-			'route' => route('admin.zoo.submit', ['type' => $this->data['type'], 'formType' => $this->formType])
+			'route' => route('admin.zoo.submit', ['type' => 'details', 'formType' => $this->formType])
 		]);
     }
 }

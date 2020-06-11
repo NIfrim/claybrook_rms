@@ -10,6 +10,14 @@ body {
     font-family: $web-title;
   }
 
+  .text-orange {
+    color: $orange;
+  }
+
+  .text-teal {
+    color: $teal;
+  }
+
   .web-title {
     font-family: $web-title;
     padding: 0 !important;
@@ -47,6 +55,24 @@ body {
   }
 
 
+  /***************** ANIMALS IMAGE GRID STYLING ******************/
+
+  #animalsGrid label {
+    height: 100px;
+  }
+
+  #animalsGrid .selected {
+    background-color: $logoYellow;
+  }
+
+  #animalsGrid .price {
+    position: relative;
+    bottom: 1.4rem;
+    right: 0;
+    background: rgba($grey, 0.6);
+  }
+
+  /* End Animals Image Grid styling */
 
   /***************** OTHER STYLING ******************/
 

@@ -6,7 +6,7 @@
 		<h1 class="text-center m-2">{{$title}}</h1>
 	</div>
 	
-	{{-- Current agreements table row --}}
+	 {{--Current agreements table row--}}
 	<div class="row-type-two">
 		<div class="row-top">
 			<div class="container d-flex justify-content-start">
@@ -34,7 +34,7 @@
 		
 		<div class="row-middle">
 			<div class="container d-flex flex-wrap align-items-start justify-content-center">
-				<x-sponsor.agreement-form formType="new" :category="$category" :subcategory="$subcategory" title="Address details" :data="$data" />
+				<x-sponsor.agreement-form formType="new" :category="$category" :subcategory="$subcategory" title="Address details" :data="['sponsor' => $sponsor, 'animals' => $animals]" />
 			</div>
 		</div>
 	</div>

@@ -296,7 +296,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		 * 	@method POST
 		 *	@desc Route to submit changes when creating or editing
 		 */
-		Route::post('/{formType}', 'ZooController@submit')->name('submit');
+		Route::post('/{type}/{formType}', 'ZooController@submit')->name('submit');
 		
 	});
 	
@@ -471,6 +471,21 @@ Route::name('website.')->namespace('Website')->group(function () {
 		Route::get('/contact-details', 'ContactUsController@show')->name('contactDetails.show');
 		
 		/*----------------------------------------------------*/
+		
+		
+		/*
+		|--------------------------------------------------------------------------
+		| Map and Directions
+		|--------------------------------------------------------------------------
+		*/
+		
+		/** @route /experiences/map-and-directions
+		 * 	@method GET
+		 *	@desc Route to access the map and directions section
+		 */
+		Route::get('/map-and-directions', 'MapAndDirectionsController@show')->name('mapAndDirections.show');
+		
+		/*----------------------------------------------------*/
 	
 	});
 	
@@ -601,23 +616,25 @@ Route::prefix('sponsor')->name('sponsor.')->namespace('Sponsor')->group(function
 		Route::get('/', 'HomeController@agreements')->name('show');
 
 		
-		/** @route sponsor/agreement/{id}
+		/** @route sponsor/agreements/{id}
 		 * 	@method GET
 		 *	@desc Route to access the form for modifying an agreement
 		 */
 		Route::get('/{id}', 'HomeController@manage')->name('manage');
 		
-		/** @route sponsor/agreements
-		 * 	@method POST
-		 *	@desc Route to submit agreements changes
-		 */
-		Route::post('/', 'HomeController@submit')->name('submit');
 		
 		/** @route sponsor/agreements
 		 * 	@method POST
 		 *	@desc Route to submit agreements changes
 		 */
-		Route::post('/', 'HomeController@delete')->name('delete');
+		Route::post('/{type}/{formType}', 'HomeController@submit')->name('submit');
+		
+		
+		/** @route sponsor/agreements
+		 * 	@method POST
+		 *	@desc Route to submit agreements changes
+		 */
+		Route::post('/delete', 'HomeController@delete')->name('delete');
 		
 	});
 	
@@ -650,9 +667,6 @@ Route::prefix('sponsor')->name('sponsor.')->namespace('Sponsor')->group(function
 		Route::get('/logout', 'LoginController@logout')->name('logout');
 
 	});
-
-	/*Other sponsor Routes*/
-	Route::get('/', 'HomeController@index')->name('home');
 });
 //
 ///*----------------------------------------------------*/

@@ -28,7 +28,8 @@
             <x-website.navigation.navbar :category="$category" :subcategory="$subcategory" />
         </header>
         
-        <main>
+        <main class="d-flex flex-column flex-grow-1">
+            
             @yield('content')
     
             <footer>

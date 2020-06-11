@@ -1,8 +1,8 @@
-<table id="agreementsTable" class="table display nowrap table-striped table-bordered">
+<table id="agreementsTable" class="table table-responsive display nowrap table-striped">
     <thead>
     <tr>
         @foreach($columns as $column)
-            <th scope="col">{{$column['title']}}</th>
+            <th scope="col" class="text-nowrap">{{$column['title']}}</th>
         @endforeach
         
         <th scope="col" class="actionsColumn">Actions</th>
@@ -14,23 +14,17 @@
         @foreach($rows as $agreement)
             <tr>
                 @foreach($columns as $column)
-                    <td>{{$agreement[$column['name']]}}</td>
+                    <td class="text-nowrap">{{$agreement[$column['name']]}}</td>
                 @endforeach
                 
                 <td class="d-flex justify-content-between flex-nowrap actionsColumn" id="table-actions-wrapper">
-                    <a href = "{{route('sponsor.agreement.manage', ['type' => $subcategory ?? $category, 'id' => $agreement->id])}}">
-                        <i class="icon-btn create material-icons p-2" title="Edit">create</i>
+                    <a href = "#" data-toggle="link">
+                        <i class="icon-btn create material-icons p-2 text-teal" title="Edit">create</i>
                     </a>
-                    
-                    <form action = "{{route('sponsor.agreements.delete', ['type' => $subcategory ?? $category])}}" method="post">
-                        @csrf
-                        <input type = "text" name="ids" value="{{$agreement->id}}" hidden />
-                        
-                        <button type="submit" class="icon-btn p-0">
-                            <i class="remove material-icons p-2 deleteRow" title="Delete">delete</i>
-                        </button>
-                    
-                    </form>
+    
+                    <a href = "#" data-toggle="link">
+                        <i class="icon-btn create material-icons p-2 text-orange" title="Delete">delete</i>
+                    </a>
                 </td>
             </tr>
         @endforeach

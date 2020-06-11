@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Zoo;
 use App\Http\Controllers\Controller;
 use App\Models\Zoo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ZooController extends Controller
@@ -56,16 +57,67 @@ class ZooController extends Controller
 	 */
 	public function submit(Request $request, string $type, string $formType) {
 		// Validate the form data
-		$this->validator($request->all())->validate();
+		$this->validator($request->all(), $type)->validate();
 		
 		// Create new or update record
 		switch ($formType) {
 			case 'new':
-				call_user_func($this->getModel($type).'::create', $request->all());
+				if ($request->hasFile('map_image') && $type === 'details') {
+					
+					$image = $this->uploadOneImage($request, 'map_image');
+					
+					call_user_func($this->getModel($type).'::create', array_merge($request->except('map_image'), ['map_image' => $image]));
+					
+				} elseif ($request -> hasFile('images') && $type === 'details') {
+					
+					$images = $this->uploadImages($request, 'zoo_image');
+					
+					call_user_func($this->getModel($type).'::create', array_merge($request->except('images'), ['images' => $images]));
+					
+				} else {
+					
+					call_user_func($this->getModel($type).'::create', $request->all());
+				}
+				
+				
 				break;
 			
 			case 'edit':
-				call_user_func($this->getModel($type).'::find', $request->id)->update($request->all());
+				
+				if ($request->hasFile('map_image') && $type === 'details') {
+					
+					$image = $this->uploadOneImage($request, 'map_image');
+					
+					call_user_func($this->getModel($type).'::find', $request->id)->update(array_merge($request->except('map_image'), ['map_image' => $image]));
+					
+				} elseif ($request -> hasFile('images') && $type === 'details') {
+					
+					$images = $this->uploadImages($request, 'zoo_image');
+					
+					call_user_func($this->getModel($type).'::find', $request->id)->update(array_merge($request->except('images'), ['images' => $images]));
+					
+				} else {
+					
+					// Put address inputs into array of key value pairs
+					if ($type === 'address') {
+						
+						// Store the array with address inputs
+						$address = [];
+						
+						foreach ($request->except(['_token', 'submit-zoo-address', 'id']) as $name => $value) {
+							$address[$name] = $value;
+						}
+						
+						call_user_func($this->getModel($type).'::find', $request->id)->update(array_merge($request->only('_token', 'id'), ['address' => $address]));
+						
+					} else {
+						
+						call_user_func($this->getModel($type).'::find', $request->id)->update($request->all());
+
+					}
+				}
+				
+				
 				break;
 			
 			default: break;
@@ -77,24 +129,128 @@ class ZooController extends Controller
 	
 	
 	/**
+	 * Method to upload images
+	 *
+	 * @param Request $request
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	public function uploadOneImage(Request $request, string $type) {
+		
+		// First remove the images for the specified animal
+		$this->removeImages($request->id, $type);
+		
+		// Store and add to db
+		$image = $request->file($type);
+		
+		// Store the image file
+		$extension = $image->extension();
+		$fileName = $type.'-'.$request->id.'.'.$extension;
+		
+		$image->storeAs('public/zoo', $fileName);
+		
+		// Add to request as string to be added during creation
+		$imageFilename = $fileName;
+		
+		return $imageFilename;
+	}
+	
+	
+	/**
+	 * Method to upload images
+	 *
+	 * @param Request $request
+	 * @param string $type
+	 *
+	 * @return array
+	 */
+	public function uploadImages(Request $request, string $type) {
+		$imagesFilenames = [];
+		
+		// First remove the images for the specified animal
+		$this->removeImages($request->id, $type);
+		
+		// Store and add to db
+		$images = $request->file($type);
+		
+		foreach ($images as $index=>$image) {
+			// Store the image file
+			$extension = $image->extension();
+			$fileName = $type.'-'.$request->id.'-'.$index.'.'.$extension;
+			
+			$image->storeAs('public/zoo', $fileName);
+			
+			// Add to request as string to be added during creation
+			array_push($imagesFilenames, $fileName);
+		}
+		
+		return $imagesFilenames;
+	}
+	
+	
+	/**
+	 * Method to remove images
+	 *
+	 * @param string $id
+	 * @param string $type
+	 */
+	public function removeImages(string $id, string $type) {
+		
+		// Get the files to be deleted
+		$filesInDir = Storage::files('public/zoo');
+		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id, $type) {
+			$segments = explode('/', $elem);
+			$filenameString = end($segments);
+			$filenameSegments = explode('-', $filenameString);
+			
+			$thisType = $filenameSegments[0];
+			$thisId = $filenameSegments[1];
+			
+			return $thisId === $id && $thisType === $type;
+		});
+		
+		// Delete the files
+		Storage::delete($imagesToBeRemoved);
+	}
+	
+	
+	/**
 	 * Get a validator for an incoming form request.
 	 *
-	 * @param  array $data 		The data to be validated
+	 * @param  array $data The data to be validated
+	 *
+	 * @param string $type
 	 *
 	 * @return \Illuminate\Contracts\Validation\Validator
 	 */
-	protected function validator(array $data)
+	protected function validator(array $data, string $type)
 	{
-		$validationRules = [
-			'company_number' => ['required', 'numeric', 'max:9999999999'],
-			'name' => ['required', 'string', 'max:45'],
-			'address' => ['required', 'array'],
-			'contact_details' => ['required', 'array'],
-			'maps' => isset($data['maps']) ? ['array'] : [],
-			'opening_times' => ['required', 'array'],
-			'files' => isset($data['files']) ? ['array'] : [],
-			'history' => isset($data['history']) ? ['string'] : [],
-		];
+		switch ($type) {
+			
+			case 'details':
+				$validationRules = [
+					'company_number' => ['required', 'numeric', 'max:9999999999'],
+					'name' => ['required', 'string', 'max:45'],
+					'map_image' => isset($data['map_image']) ? ['string'] : [],
+					'images' => isset($data['images']) ? ['array'] : [],
+					'history' => isset($data['history']) ? ['string'] : [],
+				];
+				break;
+			
+			case 'address':
+				$validationRules = [
+					'city' => ['required', 'string', 'max:45'],
+					'county' => ['required', 'string', 'max:45'],
+					'postcode' => ['required', 'string', 'max:10'],
+					'road_name' => ['required', 'string', 'max:45'],
+					'building_number' => ['required', 'string', 'max:45'],
+				];
+				break;
+				
+			default: throw new \Error('For validation expected details | address. Instead got: '.$type);
+			
+		}
 		
 		return Validator::make($data, $validationRules);
 	}
@@ -119,9 +275,10 @@ class ZooController extends Controller
 	{
 		switch ($type) {
 			case 'details':
+			case 'address':
 				return Zoo::class;
 			
-			default: throw new \Error('Expected details. Instead got: '.$type);
+			default: throw new \Error('Expected details | address. Instead got: '.$type);
 		}
 	}
 }

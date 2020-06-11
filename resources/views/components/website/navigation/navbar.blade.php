@@ -88,6 +88,8 @@
 	</div>
 </nav>
 
+
+{{-- Subnavs wrapper --}}
 <div class="sub-menu-wrapper flex-shrink-1">
 	{{-- Our zoo submenu --}}
 	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled my-0 pb-lg-1 pb-sm-5" id="ourZooSubmenu">
@@ -170,7 +172,7 @@
 			</a>
 		</li>
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
-			<a href="">
+			<a href="{{route('website.moreInfo.mapAndDirections.show')}}">
 				<h4 class="menu-sub-item-text web-title">Map & Directions</h4>
 			</a>
 		</li>
