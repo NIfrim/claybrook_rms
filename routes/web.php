@@ -54,7 +54,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	});
 	
 	/* Animals routes */
-	Route::prefix('animals')->name('animals.')->namespace('Animals')->group(function () {
+	Route::middleware(\App\Http\Middleware\CheckPermissions::class)->prefix('animals')->name('animals.')->namespace('Animals')->group(function () {
 		
 		/** @route admin/animals/{type}{array_params}
 		 * 	@method GET
@@ -93,8 +93,37 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 		Route::post('/{type}/{formType}', 'AnimalsController@submit')->name('submit');
 	});
 	
+	/* Employees */
+	Route::middleware(\App\Http\Middleware\CheckPermissions::class)->prefix('employees')->name('employees.')->namespace('Employees')->group(function () {
+		
+		/** @route admin/employees/{type}  [accounts | accountTypes]
+		 * 	@method GET
+		 *	@desc Route to view all the employees accounts
+		 */
+		Route::get('/{type}', 'EmployeesController@list')->name('list');
+		
+		/** @route admin/employees/{type}/{id?}  [accounts | accountTypes]/id?
+		 * 	@method GET
+		 *	@desc Route to manage employees accounts and account types
+		 */
+		Route::get('/{type}/{id?}', 'EmployeesController@showForm')->name('manage');
+		
+		/** @route admin/employees/{type}
+		 * 	@method GET
+		 *	@desc Route to remove related employee records
+		 */
+		Route::post('/{type}', 'EmployeesController@delete')->name('delete');
+		
+		/** @route admin/employees/accounts/{formType}/{id?}
+		 * 	@method GET
+		 *	@desc Route to create or update an employee account
+		 */
+		Route::post('/{type}/{formType}', 'EmployeesController@submit')->name('submit');
+		
+	});
+	
 	/* Accounts section Routes */
-	Route::prefix('accounts')->name('accounts.')->namespace('Accounts')->group(function () {
+	Route::middleware(\App\Http\Middleware\CheckPermissions::class)->prefix('accounts')->name('accounts.')->namespace('Accounts')->group(function () {
 		
 		/* Sponsors sub-section routes */
 		Route::prefix('sponsors')->group(function () {
@@ -118,7 +147,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	});
 	
 	/* Events And News section routes */
-	Route::prefix('eventsAndNews')->name('eventsAndNews.')->namespace('EventsAndNews')->group(function () {
+	Route::middleware(\App\Http\Middleware\CheckPermissions::class)->prefix('eventsAndNews')->name('eventsAndNews.')->namespace('EventsAndNews')->group(function () {
 		
 		/** @route admin/events
 		 * 	@method GET
@@ -153,7 +182,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	
 	
 	/* Tickets and Passes section routes */
-	Route::prefix('ticketsAndPasses')->name('ticketsAndPasses.')->namespace('TicketsAndPasses')->group(function () {
+	Route::middleware(\App\Http\Middleware\CheckPermissions::class)->prefix('ticketsAndPasses')->name('ticketsAndPasses.')->namespace('TicketsAndPasses')->group(function () {
 		
 		/** @route admin/ticketsAndPasses/{type}
 		 * 	@method GET
@@ -182,7 +211,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	
 	
 	/* Locations section routes */
-	Route::prefix('locations')->name('locations.')->namespace('Locations')->group(function () {
+	Route::middleware(\App\Http\Middleware\CheckPermissions::class)->prefix('locations')->name('locations.')->namespace('Locations')->group(function () {
 		
 		/** @route admin/locations/{type}
 		 * 	@method GET
@@ -210,7 +239,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	});
 	
 	/* Reviews section routes */
-	Route::prefix('reviews')->name('reviews.')->namespace('Reviews')->group(function () {
+	Route::middleware(\App\Http\Middleware\CheckPermissions::class)->prefix('reviews')->name('reviews.')->namespace('Reviews')->group(function () {
 		
 		/** @route admin/reviews
 		 * 	@method GET
@@ -226,7 +255,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	});
 	
 	/* Attractions section routes */
-	Route::prefix('attractions')->name('attractions.')->namespace('Attractions')->group(function () {
+	Route::middleware(\App\Http\Middleware\CheckPermissions::class)->prefix('attractions')->name('attractions.')->namespace('Attractions')->group(function () {
 		
 		/** @route admin/attractions
 		 * 	@method GET
@@ -254,7 +283,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 	});
 	
 	/* Sponsor section routes */
-	Route::prefix('sponsors')->name('sponsors.')->namespace('Sponsors')->group(function () {
+	Route::middleware(\App\Http\Middleware\CheckPermissions::class)->prefix('sponsors')->name('sponsors.')->namespace('Sponsors')->group(function () {
 		
 		/** @route admin/sponsors/{type} {accounts|agreements|signage}
 		 * 	@method GET

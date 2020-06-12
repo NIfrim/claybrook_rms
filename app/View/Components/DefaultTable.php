@@ -59,8 +59,8 @@ class DefaultTable extends Component
 			$rows = call_user_func($this->getFunction(), $this->relations)->get();
 			
 		} else {
-			
-			$rows = call_user_func($this->getFunction())->get();
+
+			$rows = call_user_func($this->getFunction());
 		}
 
     	return $rows;

@@ -39,21 +39,29 @@ class LoginController extends Controller
     {
         $this->middleware('guest:admin')->except('logout');
     }
-    
+	
+	
+	
+	/**
+	 * Show the login form.
+	 *
+	 * @return \Illuminate\Contracts\Auth\StatefulGuard
+	 */
     public function showLoginForm()
-		{
-				return view('admin.auth.login', [
-					"loginRoute"=> 'admin.login',
-				]);
-		}
+	{
+		return view('admin.auth.login', [
+			"loginRoute"=> 'admin.login',
+		]);
+	}
+	
 		
-		/**
-		 * Get the guard to be used during authentication.
-		 *
-		 * @return \Illuminate\Contracts\Auth\StatefulGuard
-		 */
-		protected function guard()
-		{
-				return Auth::guard('admin');
-		}
+	/**
+	 * Get the guard to be used during authentication.
+	 *
+	 * @return \Illuminate\Contracts\Auth\StatefulGuard
+	 */
+	protected function guard()
+	{
+			return Auth::guard('admin');
+	}
 }

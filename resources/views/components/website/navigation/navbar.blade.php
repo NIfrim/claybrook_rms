@@ -92,7 +92,7 @@
 {{-- Subnavs wrapper --}}
 <div class="sub-menu-wrapper flex-shrink-1">
 	{{-- Our zoo submenu --}}
-	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled my-0 pb-lg-1 pb-sm-5" id="ourZooSubmenu">
+	<ul class="collapse sub-menu-list flex-sm-column flex-md-row container list-unstyled my-0 pb-lg-1 pb-sm-5" id="ourZooSubmenu">
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'birds' ? 'active' : ''}}">
 			<a href="{{route('website.ourZoo.animals.show', ['type' => 'birds'])}}">
 				<h4 class="menu-sub-item-text web-title">Birds</h4>

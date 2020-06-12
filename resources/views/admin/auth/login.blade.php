@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.rms')
 
-@section('content')
-    <div class="container">
-        <x-web-login-form :loginRoute="$loginRoute"/>
-    </div>
+@section('login')
+
+        <x-forms.admin-login-form :loginRoute="$loginRoute"/>
+
 @endsection

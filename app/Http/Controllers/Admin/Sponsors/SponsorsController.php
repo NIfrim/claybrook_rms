@@ -90,9 +90,24 @@ class SponsorsController extends Controller
 		$successAlert = sizeof($ids) > 1 ? 'Multiple records deleted successfully' : 'One record deleted successfully';
 		
 		// Remove the records from the database using destroy()
-		call_user_func($this->getModel($type).'::destroy', $ids);
-		
-		return redirect(route('admin.sponsors.list', ['type' => $type]))->with('success', $successAlert);
+		try {
+			
+			call_user_func($this->getModel($type).'::destroy', $ids);
+			return redirect(route('admin.sponsors.list', ['type' => $type]))->with('success', $successAlert);
+			
+		} catch(\Exception $exc) {
+			
+			switch ($exc->getCode()) {
+				case '23000':
+					$msg = 'Current record is in use by another record, unset there then try again.';
+					break;
+					
+				default: $msg = 'Error ocurred while trying to delete a record from the database.';
+			}
+			
+			return redirect(route('admin.sponsors.list', ['type' => $type]))->with('error', $msg);
+			
+		}
 	}
 	
 	

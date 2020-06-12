@@ -190,7 +190,7 @@ body {
   /*****************WEBSITE NAVIGATION******************/
 
   .web-nav {
-    background-color: $logoGreen;
+    background-color: $logoGreen !important;
     width: 100vw;
     z-index: 10;
     -webkit-box-shadow: 0 3px 3px 0 rgba(0,0,0,0.35);

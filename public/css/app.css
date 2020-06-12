@@ -10933,6 +10933,10 @@ a.text-dark:focus {
   }
 }
 
+#rms {
+  height: 100% !important;
+}
+
 body {
   height: 100vh;
   overflow: hidden;
@@ -10950,14 +10954,18 @@ a:hover {
   text-decoration: none;
 }
 
-#rms {
-  height: 100% !important;
-}
-
 #main {
   margin: 1em 0;
   height: 100%;
 }
+
+/***************** OTHER ******************/
+
+.full-height {
+  height: 100vh;
+}
+
+/* End other styling */
 
 /***************** NAVIGATION ******************/
 
@@ -11400,7 +11408,7 @@ body {
 }
 
 #app .web-nav {
-  background-color: #014E2E;
+  background-color: #014E2E !important;
   width: 100vw;
   z-index: 10;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.35);

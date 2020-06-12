@@ -11,17 +11,23 @@ class Employee extends Authenticatable
 	
 	protected $guard = 'admin';
 	
-	protected $casts = [
-		'permissions' => 'array'
-	];
-	
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
 	protected $fillable = [
-		'first_name', 'last_name', 'job_title', 'email', 'password'
+		'zoo_id',
+		'account_type_id',
+		'title',
+		'first_name',
+		'last_name',
+		'job_title',
+		'email',
+		'password',
+		'remember_token',
+		'created_at',
+		'updated_at',
 	];
 	
 	/**
@@ -34,10 +40,10 @@ class Employee extends Authenticatable
 	];
 	
 	public function zoo() {
-		return $this->belongsTo('App\Models\Zoo');
+		return $this->belongsTo(Zoo::class);
 	}
 	
 	public function accountType() {
-		return $this->belongsTo('App\Models\AccountType');
+		return $this->belongsTo(AccountType::class);
 	}
 }

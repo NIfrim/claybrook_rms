@@ -45,18 +45,20 @@
 			@else
 				<li class="nav-item dropdown">
 					<a id="navbarDropdown" class="nav-link dropdown-toggle top-bar-dropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-						<span class="top-bar-dropdown-text">{{ Auth::user()->first_name }}</span>
+						<span class="top-bar-dropdown-text">{{ auth()->user()->first_name }}</span>
 					</a>
 					
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="{{ route('user.logout') }}"
-							 onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-							{{ __('Logout') }}
-						</a>
+						{{--<a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="--}}
+						{{--event.preventDefault();--}}
+						{{--document.getElementById('logout-form').submit();--}}
+						{{--">--}}
+							{{--{{ __('Logout') }}--}}
+						{{--</a>--}}
 						
-						<form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+						<form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
 							@csrf
+							<button class="dropdown-item" type="submit">Logout</button>
 						</form>
 					</div>
 				</li>

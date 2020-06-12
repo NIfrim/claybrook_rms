@@ -10,6 +10,7 @@ use App\Models\AnimalWatchlistHistory;
 use App\Models\Location;
 use App\Models\SponsorshipBand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,6 +41,7 @@ class AnimalsController extends Controller
 			'model' => $this->getModel($type),
 			'relations' => ['location', 'educationalInfo', 'animalHabitat', 'sponsorshipBand', 'sponsorSignage'],
 		]);
+
 	}
 	
 	/**

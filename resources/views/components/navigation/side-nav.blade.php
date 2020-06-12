@@ -30,6 +30,13 @@
                     </li>
                 </ul>
             </li>
+    
+            {{--Employees--}}
+            <li class="menu-item {{$category === 'employees' ? 'active' : ''}}">
+                <a href="{{route('admin.employees.list', ['type' => 'accounts'])}}" class="d-flex flex-nowrap justify-content-between">
+                    <span class="menu-item-text">Employees</span>
+                </a>
+            </li>
 
             {{--Events and News--}}
             <li class="menu-item">
