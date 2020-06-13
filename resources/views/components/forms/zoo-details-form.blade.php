@@ -20,10 +20,10 @@
                     <div class="col-xl-10">
                         <input
                             id="companyNumber"
-                            type="number"
+                            type="text"
                             class="form-control @error('companyNumber') is-invalid @enderror"
                             name="company_number"
-                            maxlength="45"
+                            maxlength="11"
                             value="{{old('company_number') ?? $data->company_number ?? ''}}"
                             required
                             autofocus
