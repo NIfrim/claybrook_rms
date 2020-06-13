@@ -3,12 +3,14 @@
 /public/storage
 /storage/*.key
 /vendor
-.env
+!/vendor/composer
+!/vendor/laravel
+!/vendor/bin
+!/vendor/autoload.php
 .idea
 .env.backup
 .phpunit.result.cache
-Homestead.json
-Homestead.yaml
+!Homestead.json
 npm-debug.log
 yarn-error.log
 /public/css/app.css
