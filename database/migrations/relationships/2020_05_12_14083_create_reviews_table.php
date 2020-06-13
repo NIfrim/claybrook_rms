@@ -15,9 +15,9 @@ class CreateReviewsTable extends Migration
     {
         Schema::table('reviews', function (Blueprint $table) {
             // Constraints
-            $table->foreign('zoo_id', 'fk_reviews_zoos')->references('id')->on('zoos')->onDelete('cascade');
-			$table->foreign('sponsor_id', 'fk_reviews_sponsors')->references('id')->on('sponsors')->onDelete('cascade');
-			$table->foreign('user_id', 'fk_reviews_users')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('zoo_id', 'fk_reviews_zoos')->references('id')->on('zoos')->onDelete('cascade')->onUpdate('restrict');
+			$table->foreign('sponsor_id', 'fk_reviews_sponsors')->references('id')->on('sponsors')->onDelete('cascade')->onUpdate('restrict');
+			$table->foreign('user_id', 'fk_reviews_users')->references('id')->on('users')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

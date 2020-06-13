@@ -14,7 +14,7 @@ class CreateAnimalWatchlistHistoriesTable extends Migration
     public function up()
     {
         Schema::table('animal_watchlist_histories', function (Blueprint $table) {
-			$table->foreign('animal_id', 'fk_animalWatchlistHistory_animals')->references('id')->on('animals')->onDelete('cascade');
+			$table->foreign('animal_id', 'fk_animalWatchlistHistory_animals')->references('id')->on('animals')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

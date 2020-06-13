@@ -14,9 +14,10 @@ class CreateAccountTypesTable extends Migration
     public function up()
     {
         Schema::create('account_types', function (Blueprint $table) {
-            $table->string('id', 45)->unique()->primary();
+            $table->id('id')->autoIncrement();
+			$table->string('name');
+			$table->json('permissions');
             $table->timestamps();
-            $table->json('permissions');
         });
     }
 

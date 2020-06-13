@@ -16,11 +16,12 @@ class CreateEducationalInfosTable extends Migration
         Schema::create('educational_infos', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->text('food_and_foraging');
-			$table->unsignedDecimal('min_height', 4);
-			$table->unsignedDecimal('max_height', 4);
-			$table->unsignedDecimal('min_weight', 6);
-			$table->unsignedDecimal('max_weight', 6);
+			$table->unsignedDecimal('min_height', 4, 2);
+			$table->unsignedDecimal('max_height', 4, 2);
+			$table->unsignedDecimal('min_weight', 6, 2);
+			$table->unsignedDecimal('max_weight', 6, 2);
 			$table->unsignedInteger('population');
+			$table->unsignedTinyInteger('average_life_span');
 			$table->timestamps();
         });
     }

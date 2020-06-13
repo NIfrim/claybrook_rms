@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 			// Constraints
-			$table->foreign('zoo_id', 'fk_users_zoos')->references('id')->on('zoos')->onDelete('cascade');
+			$table->foreign('zoo_id', 'fk_users_zoos')->references('id')->on('zoos')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 
