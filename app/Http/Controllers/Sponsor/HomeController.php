@@ -42,7 +42,7 @@ class HomeController extends Controller
 			'category' => $subcategory,
 			'subcategory' => null,
 			'sponsor' => Auth::user(),
-			'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']])
+			'zoo' => $this->getData('zoos', [['id', '=', 1]])->first()
 		]);
     }
     
@@ -135,11 +135,6 @@ class HomeController extends Controller
 					// Create the agreement signage and link to each animal selected
 					foreach ($request->animal_id as $animal) {
 						$agreementSignage =  call_user_func($this->getModel('agreement_signages').'::create', array_merge(['animal_id' => $animal], ['agreement_id' => $agreement->id], ['images' => $images]));
-						
-//						call_user_func($this->getModel('animals').'::find', $agreementSignage->animal_id)->update([
-//							'agreement_signage_id' => $agreementSignage->id,
-//							'_token' => $request->_token
-//						]);
 						
 						$animal = call_user_func($this->getModel('animals').'::find', $agreementSignage->animal_id);
 						$animal->agreement_signage_id = $agreementSignage->id;

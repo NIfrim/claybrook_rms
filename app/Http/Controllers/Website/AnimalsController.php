@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Animal;
+use App\Models\Zoo;
 use Illuminate\Database\Eloquent\Model;
 
 class AnimalsController extends Controller
@@ -56,14 +57,14 @@ class AnimalsController extends Controller
 	 */
 	private function getData(string $table, ?array $filters = null) {
 		$relations = $this->getRelations($table);
-		
+
 		if ($filters) {
 			
-			$data = call_user_func($this->getModel().'::with', $relations)->where($filters)->get();
+			$data = call_user_func($this->getModel($table).'::with', $relations)->where($filters)->get();
 			
 		} else {
 			
-			$data = call_user_func($this->getModel().'::with', $relations)->get();
+			$data = call_user_func($this->getModel($table).'::with', $relations)->get();
 			
 		}
 		
@@ -75,8 +76,12 @@ class AnimalsController extends Controller
 	 *
 	 * @return String|null
 	 */
-	private function getModel() {
-		return Animal::class;
+	private function getModel(string $type) {
+		switch ($type) {
+			case 'zoos': return Zoo::class;
+			case 'animals': return Animal::class;
+			default: throw new \Error('Error encountered while getting the model: Expected "zoos" | "animals", instead got: '. $type);
+		}
 	}
 	
 	/** Returns the model used for getting the data

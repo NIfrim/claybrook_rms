@@ -49,7 +49,7 @@ class LoginController extends Controller
 			'subcategory' => null,
 			"loginRoute"=> 'sponsor.login',
 			'registerRoute' => 'sponsor.register',
-			'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']])
+			'zoo' => $this->getData('zoos', [['id', '=', 1]])->first()
 		]);
 	}
 	

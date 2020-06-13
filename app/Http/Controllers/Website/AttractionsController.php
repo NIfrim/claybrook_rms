@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attraction;
+use App\Models\Zoo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,7 @@ class AttractionsController extends Controller
 				'category' => $category,
 				'subcategory' => $subcategory,
 				'attraction' => $attraction,
-				'zoo' => $this->getZoo(),
+				'zoo' => $this->getData('zoos', [['id', '=', 1]])->first(),
 			]);
 		
 		} else {
@@ -41,7 +42,7 @@ class AttractionsController extends Controller
 				'attractionsCategories' => $this->getData('attractions'),
 				'category' => $category,
 				'subcategory' => $subcategory,
-				'zoo' => $this->getZoo(),
+				'zoo' => $this->getData('zoos', [['id', '=', 1]])->first(),
 			]);
 		}
 	}
@@ -65,11 +66,11 @@ class AttractionsController extends Controller
 		
 		if ($filters) {
 			
-			$data = call_user_func($this->getModel().'::with', $relations)->where($filters)->get();
+			$data = call_user_func($this->getModel($table).'::with', $relations)->where($filters)->get();
 			
 		} else {
 			
-			$data = call_user_func($this->getModel().'::with', $relations)->get()->groupBy('type');
+			$data = call_user_func($this->getModel($table).'::with', $relations)->get()->groupBy('type');
 			
 		}
 		
@@ -80,8 +81,12 @@ class AttractionsController extends Controller
 	 *
 	 * @return String|null
 	 */
-	private function getModel() {
-		return Attraction::class;
+	private function getModel(string $table) {
+		switch ($table) {
+			case 'attractions' : return Attraction::class;
+			case 'zoos' : return Zoo::class;
+			default: throw new \Error('Encountered error while getting the model: Expected "attractions" | "zoos", instead got: '.$table);
+		}
 	}
 	
 	/** Returns the model used for getting the data

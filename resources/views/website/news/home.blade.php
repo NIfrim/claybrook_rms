@@ -17,6 +17,11 @@
 			<x-website.row-type-two :type="$subcategory ?? $category" :title="$newsCategory->title" :otherData="$newsCategory" />
 		
 		@endforeach
+		
+	@else
+		
+		<x-website.row-type-two :type="$subcategory ?? $category" title="No news" :otherData="null" />
+		
 	@endif
 	
 	{{--<x-website.row-type-two :type="$subcategory ?? $category" title="Regular times" :cardsData="$newsCategories" />--}}

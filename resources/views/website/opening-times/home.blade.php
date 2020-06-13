@@ -9,7 +9,7 @@
 		</div>
 	</div>
 	
-	<x-website.row-type-two :type="$subcategory ?? $category" title="Current News" :otherData="$zoo" />
+	<x-website.row-type-two :type="$subcategory ?? $category" title="Opening Times" :otherData="$zoo" />
 	
 	<x-website.row-type-three title="Important!" message="Important announcements will go here..." />
 	

@@ -30,9 +30,11 @@ class HomeController extends Controller
 			'newsCategories' => $this->getData('news_categories'),
 			'category' => 'home',
 			'subcategory' => null,
-			'zoo' => $this->getData('zoos',[['name', '=', 'Claybrook Zoo']]),
+			'zoo' => $this->getData('zoos',[['id', '=', 1]])->first(),
 		]);
 	}
+	
+	
 	
 	/** Returns list of data using specified table
 	 *  Accepts filters as array ['attribute', 'comparator', 'value'];

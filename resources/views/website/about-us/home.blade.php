@@ -2,7 +2,7 @@
 
 @section('content')
 	{{--Carousel accepts array with image pathnames, if none passed it will show placeholders--}}
-	<x-website.carousel :category="$subcategory ?? $category" />
+	<x-website.carousel :category="$category" :subcategory="$subcategory" />
 	
 	<x-website.row-type-two :type="$subcategory ?? $category" title="Our history" :otherData="$zoo" />
 	
