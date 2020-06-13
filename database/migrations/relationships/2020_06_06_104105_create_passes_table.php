@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnimalDietsTable extends Migration
+class CreatePassesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateAnimalDietsTable extends Migration
      */
     public function up()
     {
-        Schema::create('animal_diets', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->string('animal_id', 45);
-			$table->text('description');
-			$table->text('notes');
-			$table->timestamps();
-        });
+		Schema::table('passes', function (Blueprint $table) {
+			$table->foreign('zoo_id', 'fk_passes_zoos')->references('id')->on('zoos')->onDelete('cascade')->onUpdate('restrict');
+		});
     }
 
     /**
@@ -29,6 +25,6 @@ class CreateAnimalDietsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('animal_diets');
+        Schema::dropIfExists('passes');
     }
 }

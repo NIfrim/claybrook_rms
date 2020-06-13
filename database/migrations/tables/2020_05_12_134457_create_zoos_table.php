@@ -15,13 +15,14 @@ class CreateZoosTable extends Migration
     {
         Schema::create('zoos', function (Blueprint $table) {
 			$table->id()->autoIncrement();
+			$table->string('company_number', 11)->nullable();
             $table->string('name', 45);
             $table->json('address');
 			$table->json('contact_details');
-			$table->json('maps')->nullable();
+			$table->text('map_image')->nullable();
 			$table->json('opening_times');
 			$table->json('images')->nullable();
-			$table->string('history')->nullable();
+			$table->text('history')->nullable();
 			$table->timestamps();
         });
     }

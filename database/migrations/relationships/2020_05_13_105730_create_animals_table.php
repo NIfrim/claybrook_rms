@@ -15,11 +15,11 @@ class CreateAnimalsTable extends Migration
     {
         Schema::table('animals', function (Blueprint $table) {
 			// Constraints
-			$table->foreign('location_id', 'fk_animals_locations')->references('id')->on('locations')->onDelete('cascade');
+			$table->foreign('location_id', 'fk_animals_locations')->references('id')->on('locations')->onDelete('cascade')->onUpdate('restrict');
 			$table->foreign('sponsorship_band_id', 'fk_animals_sponsorshipBands')->references('id')->on('sponsorship_bands')->onDelete('set null');
-			$table->foreign('habitat_id', 'fk_animals_animalHabitats')->references('id')->on('animal_habitats')->onDelete('set null');
-			$table->foreign('educational_info_id', 'fk_animals_educationalInfos')->references('id')->on('educational_infos')->onDelete('set null');
-			$table->foreign('agreement_signage_id', 'fk_animals_agreementSignages')->references('id')->on('agreement_signages')->onDelete('set null');
+			$table->foreign('habitat_id', 'fk_animals_animalHabitats')->references('id')->on('animal_habitats')->onDelete('set null')->onUpdate('restrict');
+			$table->foreign('educational_info_id', 'fk_animals_educationalInfos')->references('id')->on('educational_infos')->onDelete('set null')->onUpdate('restrict');
+			$table->foreign('agreement_signage_id', 'fk_animals_agreementSignages')->references('id')->on('agreement_signages')->onDelete('set null')->onUpdate('restrict');
         });
     }
 

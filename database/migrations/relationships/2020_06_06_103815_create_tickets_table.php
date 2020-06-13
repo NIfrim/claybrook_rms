@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnimalMedicalHistoriesTable extends Migration
+class CreateTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateAnimalMedicalHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::table('animal_medical_histories', function (Blueprint $table) {
-			$table->foreign('animal_id', 'fk_animalMedicalHistories_animals')->references('id')->on('animals')->onDelete('cascade')->onUpdate('restrict');
+        Schema::table('tickets', function (Blueprint $table) {
+			$table->foreign('zoo_id', 'fk_tickets_zoos')->references('id')->on('zoos')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 
@@ -25,6 +25,6 @@ class CreateAnimalMedicalHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('animal_medical_histories');
+        Schema::dropIfExists('tickets');
     }
 }

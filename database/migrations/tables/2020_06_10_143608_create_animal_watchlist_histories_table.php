@@ -14,11 +14,11 @@ class CreateAnimalWatchlistHistoriesTable extends Migration
     public function up()
     {
         Schema::create('animal_watchlist_histories', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('animal_id', 45);
             $table->date('start');
             $table->date('end');
-            $table->string('reason');
+            $table->text('reason');
             $table->timestamps();
         });
     }

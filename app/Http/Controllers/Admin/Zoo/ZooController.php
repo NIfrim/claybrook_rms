@@ -230,7 +230,7 @@ class ZooController extends Controller
 			
 			case 'details':
 				$validationRules = [
-					'company_number' => ['required', 'numeric', 'max:9999999999'],
+					'company_number' => ['required', 'string', 'max:11'],
 					'name' => ['required', 'string', 'max:45'],
 					'map_image' => isset($data['map_image']) ? ['string'] : [],
 					'images' => isset($data['images']) ? ['array'] : [],

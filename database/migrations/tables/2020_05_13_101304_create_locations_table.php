@@ -16,11 +16,11 @@ class CreateLocationsTable extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->string('id', 45)->primary()->unique();
             $table->unsignedBigInteger('zoo_id');
-			$table->string('name', 45);
-			$table->enum('type', ['COMPOUND', 'AVIARY', 'AQUARIUM', 'HOTHOUSE']);
+			$table->string('location_name', 45);
+			$table->enum('location_type', ['COMPOUND', 'AVIARY', 'AQUARIUM', 'HOTHOUSE']);
 			$table->char('vacant', 1);
-			$table->unsignedSmallInteger('surface_area');
-			$table->text('description');
+			$table->unsignedSmallInteger('surface_area')->nullable();
+			$table->text('location_description');
 			$table->timestamps();
         });
     }

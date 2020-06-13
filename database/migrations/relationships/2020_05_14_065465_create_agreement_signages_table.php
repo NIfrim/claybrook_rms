@@ -15,8 +15,8 @@ class CreateAgreementSignagesTable extends Migration
     {
         Schema::table('agreement_signages', function (Blueprint $table) {
 			// Constraints
-			$table->foreign('animal_id', 'fk_agreementSignages_animals')->references('id')->on('animals')->onDelete('cascade');
-			$table->foreign('agreement_id', 'fk_agreementSignages_sponsorAgreements')->references('id')->on('sponsor_agreements')->onDelete('cascade');
+			$table->foreign('animal_id', 'fk_agreementSignages_animals')->references('id')->on('animals')->onDelete('cascade')->onUpdate('restrict');
+			$table->foreign('agreement_id', 'fk_agreementSignages_sponsorAgreements')->references('id')->on('sponsor_agreements')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

@@ -15,7 +15,7 @@ class CreatePaymentDetailsTable extends Migration
     {
         Schema::table('payment_details', function (Blueprint $table) {
 			// Constraints
-			$table->foreign('sponsor_id', 'fk_paymentDetails_sponsors')->references('id')->on('sponsors')->onDelete('cascade');
+			$table->foreign('sponsor_id', 'fk_paymentDetails_sponsors')->references('id')->on('sponsors')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

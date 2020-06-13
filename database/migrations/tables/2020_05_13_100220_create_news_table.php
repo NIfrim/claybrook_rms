@@ -23,7 +23,7 @@ class CreateNewsTable extends Migration
 			$table->enum('repeat', ['MONTHLY', 'YEARLY', 'NEVER']);
 			$table->text('short_description');
 			$table->text('long_description');
-			$table->text('image');
+			$table->text('image')->nullable();
 			$table->timestamps();
         });
     }
