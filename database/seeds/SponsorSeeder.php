@@ -12,6 +12,6 @@ class SponsorSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sponsor::class, 20)->create();
+        factory(Sponsor::class, 1)->create();
     }
 }

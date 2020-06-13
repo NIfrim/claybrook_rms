@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AccountType;
 use Illuminate\Database\Seeder;
 
 class AccountTypeSeeder extends Seeder
@@ -11,6 +12,6 @@ class AccountTypeSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\AccountType::class, 1)->create();
+        factory(AccountType::class, 1)->create();
     }
 }
