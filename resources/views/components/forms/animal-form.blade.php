@@ -7,7 +7,7 @@
         <div class="card-body">
             @csrf
             {{--Add the type of animal based on the subcategory--}}
-            <input type = "text" name="type" value="{{$data['currentRow']['type'] ?? $data['type']}}" hidden>
+            <input type = "text" name="type" id="animalType" value="{{$data['currentRow']['type'] ?? $data['type']}}" hidden>
             
             <div class="container-responsive">
                 
@@ -449,7 +449,10 @@
                 <div class="form-group row">
                     <label for="lifeSpan" class="col-xl-2 col-form-label">{{ __('Life Span') }}</label>
         
-                    <div class="col-xl-10">
+                    <div class="col-xl-10 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Years</span>
+                        </div>
                         <input
                             id="lifeSpan"
                             type="number"
