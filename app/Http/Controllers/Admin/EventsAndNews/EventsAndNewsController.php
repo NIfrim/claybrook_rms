@@ -127,7 +127,7 @@ class EventsAndNewsController extends Controller
 			$extension = $image->extension();
 			$fileName = str_replace(' ', '_', $request->title).'-'.$request->id.'.'.$extension;
 			
-			$image->storeAs('public/'.$type, $fileName);
+			Storage::disk('public_images')->putFileAs($type, $image, $fileName);
 			
 			// Add to request as string to be added during creation
 			$imageFilename = $fileName;
@@ -146,7 +146,8 @@ class EventsAndNewsController extends Controller
 	public function removeImages(string $id, string $type) {
 		
 		// Get the files to be deleted
-		$filesInDir = Storage::files('public/'.$type);
+		$filesInDir = Storage::disk('public_images')->files($type);
+		
 		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id) {
 			$segments = explode('/', $elem);
 			$filename = end($segments);
