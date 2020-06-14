@@ -1,7 +1,8 @@
 $(document).ready(function () {
 	const toggler = $('#reproductionType');
+	const animalType = $('#animalType').val();
 
-	if (toggler) {
+	if (toggler && animalType === 'REPTILE') {
 		// Set initial hidden inputs
 		toggleHiddenInputs(toggler.val());
 
