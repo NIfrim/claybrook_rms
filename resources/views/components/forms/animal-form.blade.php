@@ -444,6 +444,28 @@
                         </div>
                     </div>
                 @endif
+    
+                {{--Life span--}}
+                <div class="form-group row">
+                    <label for="lifeSpan" class="col-xl-2 col-form-label">{{ __('Life Span') }}</label>
+        
+                    <div class="col-xl-10">
+                        <input
+                            id="lifeSpan"
+                            type="number"
+                            step="1"
+                            max="999"
+                            class="form-control @error('lifeSpan') is-invalid @enderror"
+                            name="life_span"
+                            value="{{ old('life_span') ?? $data['currentRow']['life_span'] ?? '' }}"
+                            autofocus
+                        />
+            
+                        @error('lifeSpan')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
                 
                 {{--Given name--}}
                 <div class="form-group row">
