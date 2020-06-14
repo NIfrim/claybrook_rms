@@ -1,6 +1,6 @@
 {{--SIDE NAV--}}
 <nav class="d-flex flex-column justify-content-between navbar-nav side-nav">
-    <div class="d-flex flex-column justify-content-around">
+    <div class="d-flex flex-column justify-content-around nav-top-wrapper">
         {{--LOGO--}}
         <div class="logo navbar-brand d-flex justify-content-center align-items-center ">
             <a href = {{route('admin.home')}}>
