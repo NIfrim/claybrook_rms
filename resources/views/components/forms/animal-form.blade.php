@@ -646,7 +646,7 @@
                             @foreach($data['currentRow']->images as $image)
       
                                 <div class="col-md-3 col-sm-4">
-                                    <img src = "{{'/images/animals/'.$image}}" class="img-fluid img-thumbnail" alt = "Animal Image">
+                                    <img src = "{{asset('images/animals/'.$image)}}" class="img-fluid img-thumbnail" alt = "Animal Image">
                                 </div>
                                 
                             @endforeach
