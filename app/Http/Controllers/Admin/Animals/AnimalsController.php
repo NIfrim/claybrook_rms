@@ -156,6 +156,7 @@ class AnimalsController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 */
 	public function submit(Request $request, string $type, string $formType) {
+		
 		// Validate the form data
 		if ($formType === 'newMedicalHistory' || $formType === 'editMedicalHistory') {
 		
@@ -166,9 +167,10 @@ class AnimalsController extends Controller
 			$this->validator($request->all(), 'watchlistHistory')->validate();
 			
 		} else {
-			
+
 			$this->validator($request->all())->validate();
 		}
+		
 		
 		// Create new or update record
 		switch ($formType) {
@@ -425,6 +427,7 @@ class AnimalsController extends Controller
 				'name' => ['required', 'string', 'max:45'],
 				'date_joined' => ['required', 'date'],
 				'dob' => ['required', 'date'],
+				'life_span' => ['required', 'numeric'],
 				'gender' => ['required', 'string', 'in:FEMALE,MALE'],
 				'height_joined' => ['required', 'numeric'],
 				'weight_joined' => ['required', 'numeric'],
