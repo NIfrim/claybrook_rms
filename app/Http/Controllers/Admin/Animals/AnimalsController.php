@@ -299,7 +299,7 @@ class AnimalsController extends Controller
 				$extension = $image->extension();
 				$fileName = $type.'-'.$request->id.'-'.$index.'.'.$extension;
 				
-				$image->storeAs('public/animals', $fileName);
+				Storage::disk('public_images')->putFileAs('animals', $image, $fileName);
 				
 				// Add to request as string to be added during creation
 				array_push($imagesFilenames, $fileName);
@@ -316,7 +316,8 @@ class AnimalsController extends Controller
 	public function removeImages(string $id) {
 		
 		// Get the files to be deleted
-		$filesInDir = Storage::files('public/animals');
+		$filesInDir = Storage::disk('public_images')->files('animals');
+
 		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id) {
 			$segments = explode('/', $elem);
 			$filename = end($segments);
