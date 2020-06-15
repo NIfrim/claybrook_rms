@@ -1,10 +1,10 @@
-$(document).ready(function () {
+$('#app').ready(function () {
 	const table = $('#watchlistHistoryTable').DataTable({
 		select: false,
 		searching: false,
 		dom: 'Bfrtip',
 		buttons: [
-			'addHistory'
+			'addWatchlistHistory'
 		]
 	});
 
@@ -41,7 +41,7 @@ $(document).ready(function () {
 });
 
 
-$.fn.dataTable.ext.buttons.addHistory = {
+$.fn.dataTable.ext.buttons.addWatchlistHistory = {
 	text: 'Add History',
 	className: 'mr-2 rounded-lg',
 	action: function ( e, dt, node, config ) {
