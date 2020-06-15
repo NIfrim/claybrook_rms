@@ -1,4 +1,4 @@
-<form action = "{{route('admin.animals.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post" enctype="multipart/form-data">
+<form id="animalForm" action = "{{route('admin.animals.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post" enctype="multipart/form-data">
     <div class="card" id="animalFormCard">
         <div class="card-header">
             <h4>{{$title}}</h4>
