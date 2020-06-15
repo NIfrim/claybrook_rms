@@ -19,7 +19,7 @@ All commands done using power shell:
 9. minimize terminal (will reuse later) and open project with favourite IDE and run ```npm install```
 10. Go back to the terminal which is connected to vagrant and run the following commands:
 
-	1. ```php artisan migrate --path="database/migrations/table"``` from your favourite IDE
+	1. ```php artisan migrate --path="database/migrations/tables"``` from your favourite IDE
 	2. ```php artisan migrate --path="database/migrations/relationships"```
 	3. ```php artisan db:seed```
 	
