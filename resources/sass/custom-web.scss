@@ -76,6 +76,18 @@ body {
 
   /***************** OTHER STYLING ******************/
 
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .dataTables_filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
   .img-250 {
     height: 250px;
     overflow: hidden;
