@@ -188,6 +188,9 @@ body {
 
 
   /*****************WEBSITE NAVIGATION******************/
+  header {
+    max-height: 100%;
+  }
 
   .web-nav {
     background-color: $logoGreen !important;
@@ -209,10 +212,43 @@ body {
     -webkit-background-size: 100px;
     background-size: 100px;
     background-repeat: repeat-x;
+    overflow-y: auto;
+  }
+
+  /* width */
+  .sub-menu-wrapper::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  .sub-menu-wrapper::-webkit-scrollbar-track {
+    background: rgba($logoYellow, 0.7);
+  }
+
+  /* Handle */
+  .sub-menu-wrapper::-webkit-scrollbar-thumb {
+    background: rgb($brightGreen, 0.7);
+  }
+
+  /* Handle on hover */
+  .sub-menu-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .sub-menu-wrapper ul {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 0;
+  }
+
+  .sub-menu-wrapper .collapse:not(.show) {
+    display: none !important;
   }
 
   .sub-menu-wrapper > ul li {
-    //margin: 0 0.5rem 2.5rem 0.5rem !important;
+    margin: 0 1rem 2rem 0.5rem !important;
     white-space: nowrap;
   }
 
