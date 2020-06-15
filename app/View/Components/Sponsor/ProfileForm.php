@@ -16,7 +16,7 @@ class ProfileForm extends DefaultForm
 		return view('components.sponsor.profile-form', [
 				'data' => $this->data,
 				'formType' => $this->formType,
-				'route' => route('sponsor.profile.submit', ['type' => 'sponsors', 'formType' => $this->formType])
+				'route' => route('sponsor.profile.submit', ['type' => 'details', 'formType' => $this->formType])
 			]
 		);
 	}
