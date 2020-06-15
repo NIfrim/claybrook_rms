@@ -16,7 +16,7 @@ class AddressForm extends DefaultForm
 		return view('components.sponsor.address-form', [
 				'data' => $this->data,
 				'formType' => $this->formType,
-				'route' => route('sponsor.profile.submit', ['type' => 'sponsors', 'formType' => $this->formType])
+				'route' => route('sponsor.profile.submit', ['type' => 'address', 'formType' => $this->formType])
 			]
 		);
 	}
