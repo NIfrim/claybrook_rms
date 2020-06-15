@@ -104,30 +104,43 @@ class EventsAndNewsController extends Controller
 	}
 	
 	
-	
 	/**
 	 * Method to upload images
 	 *
 	 * @param Request $request
 	 * @param string $type
+	 * @param $id
+	 *
 	 * @return string
 	 */
-	public function uploadImages(Request $request, string $type) {
+	public function uploadImages(Request $request, string $type, $id) {
 		$imageFilename = '';
-		
+
 		if ($request->hasFile('file')) {
 			
 			// First remove the images for the specified animal
-			$this->removeImages($request->id, $type);
+			$this->removeImages($id, $type);
 			
 			// Store and add to db
 			$image = $request->file('file');
 			
 			// Store the image file
 			$extension = $image->extension();
-			$fileName = str_replace(' ', '_', $request->title).'-'.$request->id.'.'.$extension;
-			
-			Storage::disk('public_images')->putFileAs($type, $image, $fileName);
+			$fileName = str_replace(' ', '_', $request->title).'-'.$id.'.'.$extension;
+
+			if ($type === 'eventsCategory') {
+				
+				Storage::disk('public_images')->putFileAs('events_categories', $image, $fileName);
+				
+			} else if($type === 'newsCategory') {
+				
+				Storage::disk('public_images')->putFileAs('news_categories', $image, $fileName);
+				
+			} else {
+				
+				Storage::disk('public_images')->putFileAs($type, $image, $fileName);
+				
+			}
 			
 			// Add to request as string to be added during creation
 			$imageFilename = $fileName;
@@ -140,13 +153,25 @@ class EventsAndNewsController extends Controller
 	/**
 	 * Method to remove images
 	 *
-	 * @param string $id
+	 * @param $id
 	 * @param string $type
 	 */
-	public function removeImages(string $id, string $type) {
+	public function removeImages($id, string $type) {
 		
 		// Get the files to be deleted
-		$filesInDir = Storage::disk('public_images')->files($type);
+		if ($type === 'eventsCategory') {
+			
+			$filesInDir = Storage::disk('public_images')->files('events_categories');
+			
+		} else if ($type === 'newsCategory') {
+			
+			$filesInDir = Storage::disk('public_images')->files('news_categories');
+			
+		} else {
+			
+			$filesInDir = Storage::disk('public_images')->files($type);
+			
+		}
 		
 		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id) {
 			$segments = explode('/', $elem);
@@ -208,19 +233,23 @@ class EventsAndNewsController extends Controller
 	public function submit(Request $request, string $type, string $formType) {
 		// Validate the form data
 		$this->validator($request->all(), $type)->validate();
-		
+
 		// Create new or update record
 		switch ($formType) {
 			case 'newCategory':
 				// Save the images and add their filenames to the request
 				if ($request->hasFile('file')) {
-					$image = $this->uploadImages($request, $type);
 					
-					call_user_func('App\Models\\'.ucfirst($type).'Category::create', array_merge($request->except('file'), ['image' => $image]));
+					$category = call_user_func('App\Models\\'.ucfirst($type).'Category::create', $request->except('file'));
+					
+					$image = $this->uploadImages($request, $type, $category->id);
+					$category->image = $image;
+					
+					$category->save();
 					
 				} else {
 					
-					call_user_func('App\Models\\'.ucfirst($type).'Category::create', $request->except('file'));
+					call_user_func('App\Models\\'.ucfirst($type).'Category::create', $request->all());
 				}
 				
 				break;
@@ -229,13 +258,16 @@ class EventsAndNewsController extends Controller
 				// Save the images and add their filenames to the request
 				if ($request->hasFile('file')) {
 					
-					$image = $this->uploadImages($request, $type);
+					$record = call_user_func($this->getModel($type).'::create', $request->except('file'));
 					
-					call_user_func($this->getModel($type).'::create', array_merge($request->except('file'), ['image' => $image]));
+					$image = $this->uploadImages($request, $type, $record->id);
+					$record->image = $image;
+					
+					$record->save();
 				
 				} else {
 					
-					call_user_func($this->getModel($type).'::create', $request->except('file'));
+					call_user_func($this->getModel($type).'::create', $request->all());
 				}
 				
 				break;
@@ -244,13 +276,13 @@ class EventsAndNewsController extends Controller
 				// Save the images and add their filenames to the request
 				if ($request->hasFile('file')) {
 					
-					$image = $this->uploadImages($request, $type);
+					$image = $this->uploadImages($request, $type, $request->id);
 					
 					call_user_func($this->getModel($type).'::find', $request->id)->update(array_merge($request->except('file'), ['image' => $image]));
 					
 				} else {
 					
-					call_user_func($this->getModel($type).'::find', $request->id)->update($request->except('file'));
+					call_user_func($this->getModel($type).'::find', $request->id)->update($request->all());
 				}
 				
 				break;
