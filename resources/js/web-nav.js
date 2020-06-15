@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$('#app').ready(function() {
 	$('#app .nav-buttons-wrapper .nav-link').click(function () {
 		const allNavLinks = $('.nav-buttons-wrapper .nav-link');
 		const allSubmenus = $('.sub-menu-list');
