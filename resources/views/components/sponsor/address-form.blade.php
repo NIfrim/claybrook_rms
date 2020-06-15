@@ -1,4 +1,4 @@
-<form method="POST" action="{{route('sponsor.profile.submit')}}" id="registerSponsorForm">
+<form method="POST" action="{{$route}}" id="registerSponsorForm">
     @csrf
     
     <input type = "number" value="{{$data->id}}" name="id" hidden readonly required>
