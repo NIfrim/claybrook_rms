@@ -557,19 +557,12 @@
                     <label for="location" class="col-xl-2 col-form-label">{{ __('Location in zoo') }}</label>
                     
                     <div class="col-xl-10">
-                        <input id="location"
-                               list="locationsList"
-                               type="text"
-                               class="form-control @error('location') is-invalid @enderror"
-                               name="location_id"
-                               value="{{ old('location_id') ?? $data['currentRow']['location_id'] ?? '' }}"
-                               autofocus />
-    
-                        <datalist id="locationsList">
+                        <select name = "location_id" id = "location" class="form-control @error('location') is-invalid @enderror" required autofocus>
+                            <option value = "" {{old('location_id') !== '' | isset($data['currentRow']) && isset($data['currentRow']['location_id']) ? '' : 'selected'}}>Select</option>
                             @foreach($data['locations'] as $location)
-                                <option value = "{{$location->id}}">{{ucfirst(strtolower($location->location_name))}}</option>
+                                <option value = "{{$location->id}}" {{old('location_id') === $location->id | isset($data['currentRow']) && isset($data['currentRow']['location_id']) && $data['currentRow']['location_id'] === $location->id ? 'selected' : ''}}>{{ucfirst(strtolower($location->location_name))}}</option>
                             @endforeach
-                        </datalist>
+                        </select>
                         
                         @error('location')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -582,19 +575,12 @@
                     <label for="sponsorshipBand" class="col-xl-2 col-form-label">{{ __('Sponsorship Band') }}</label>
                     
                     <div class="col-xl-10">
-                        <input id="sponsorshipBandId"
-                               list="sponsorshipBandsList"
-                               type="text"
-                               class="form-control @error('sponsorshipBandId') is-invalid @enderror"
-                               name="sponsorship_band_id"
-                               value="{{ old('sponsorship_band_id') ?? $data['currentRow']['sponsorship_band_id'] ?? '' }}"
-                               autofocus />
-    
-                        <datalist id="sponsorshipBandsList">
+                        <select name = "sponsorship_band_id" id = "location" class="form-control @error('location') is-invalid @enderror" required autofocus>
+                            <option value = "" {{old('sponsorship_band_id') !== '' | isset($data['currentRow']) && isset($data['currentRow']['sponsorship_band_id']) ? '' : 'selected'}}>Select</option>
                             @foreach($data['sponsorshipBands'] as $sponsorshipBand)
-                                <option value = "{{$sponsorshipBand->id}}">{{ucfirst(strtolower($sponsorshipBand->price)) . '£'}}</option>
+                                <option value = "{{$sponsorshipBand->id}}" {{old('sponsorship_band_id') === $sponsorshipBand->id | isset($data['currentRow']) && isset($data['currentRow']['sponsorship_band_id']) && $data['currentRow']['sponsorship_band_id'] === $sponsorshipBand->id ? 'selected' : ''}}>{{ucfirst(strtolower($sponsorshipBand->band))}}</option>
                             @endforeach
-                        </datalist>
+                        </select>
                         
                         @error('sponsorshipBand')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
