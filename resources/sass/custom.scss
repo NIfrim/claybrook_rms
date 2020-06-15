@@ -29,6 +29,12 @@
     height: 100vh;
   }
 
+  .alert-wrapper {
+    position: fixed;
+    width: 100vw;
+    bottom: 2rem;
+  }
+
   /* End other styling */
 
   /***************** NAVIGATION ******************/
@@ -135,6 +141,12 @@
   }
 
   #agreementsTable_filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .dataTables_filter {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
