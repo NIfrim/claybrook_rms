@@ -1,5 +1,5 @@
 <form action = "{{route('admin.locations.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post">
-    <div class="card" id="animalFormCard">
+    <div class="card" id="locationFormCard">
         <div class="card-header">
             <h4>{{$title}}</h4>
         </div>
@@ -111,7 +111,7 @@
                         <textarea name = "location_description"
                                   id = "locationDescription"
                                   class="form-control @error('locationDescription') is-invalid @enderror"
-                                  autofocus >{{old('location_description') ?? $data['currentRow']['location_description'] ?? ''}}</textarea>
+                                  autofocus required spellcheck="true">{{old('location_description') ?? $data['currentRow']['location_description'] ?? ''}}</textarea>
                         
                         @error('locationDescription')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
