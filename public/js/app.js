@@ -86599,7 +86599,7 @@ module.exports = function(module) {
 $(document).ready(function () {
   window.setTimeout(function () {
     $(".alert").alert('close');
-  }, 5000);
+  }, 4000);
 });
 
 /***/ }),
@@ -86768,18 +86768,21 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {
+$('#animalForm').ready(function () {
   var toggler = $('#reproductionType');
+  var animalType = $('#animalType').val();
 
-  if (toggler) {
+  if (animalType === 'REPTILE') {
     // Set initial hidden inputs
     toggleHiddenInputs(toggler.val()); // Function used to hide specific inputs
 
-    toggler.change(function () {
-      // Get the value of the selector used to toggle other inputs visibility
-      var togglerVal = $(this).val();
-      toggleHiddenInputs(togglerVal);
-    });
+    if (toggler) {
+      toggler.change(function () {
+        // Get the value of the selector used to toggle other inputs visibility
+        var togglerVal = $(this).val();
+        toggleHiddenInputs(togglerVal);
+      });
+    }
   }
 });
 
@@ -86814,12 +86817,12 @@ function toggleHiddenInputs(togglerVal) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {
+$('#app').ready(function () {
   var table = $('#medicalHistoryTable').DataTable({
     select: false,
     searching: false,
     dom: 'Bfrtip',
-    buttons: ['addHistory']
+    buttons: ['addMedicalHistory']
   });
   var editBtn = $('#editMedicalHistory');
   var medicalHistoryForm = $('#medicalHistoryForm');
@@ -86844,7 +86847,7 @@ $(document).ready(function () {
     $('#medicalHistoryModal').modal('toggle');
   });
 });
-$.fn.dataTable.ext.buttons.addHistory = {
+$.fn.dataTable.ext.buttons.addMedicalHistory = {
   text: 'Add History',
   className: 'mr-2 rounded-lg',
   action: function action(e, dt, node, config) {
@@ -86878,26 +86881,6 @@ $('#newAgreementForm').ready(function () {
     endDate.val(date.getFullYear() + "-" + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()));
   });
 });
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-
-    while (c.charAt(0) === ' ') {
-      c = c.substring(1);
-    }
-
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-
-  return "";
-}
 
 /***/ }),
 
@@ -86988,12 +86971,12 @@ function findInString(string, needle) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {
+$('#app').ready(function () {
   var table = $('#watchlistHistoryTable').DataTable({
     select: false,
     searching: false,
     dom: 'Bfrtip',
-    buttons: ['addHistory']
+    buttons: ['addWatchlistHistory']
   });
   var editBtn = $('#editWatchlistHistory');
   var watchlistHistoryForm = $('#watchlistHistoryForm');
@@ -87018,7 +87001,7 @@ $(document).ready(function () {
     $('#watchlistHistoryModal').modal('toggle');
   });
 });
-$.fn.dataTable.ext.buttons.addHistory = {
+$.fn.dataTable.ext.buttons.addWatchlistHistory = {
   text: 'Add History',
   className: 'mr-2 rounded-lg',
   action: function action(e, dt, node, config) {
@@ -87042,7 +87025,7 @@ $.fn.dataTable.ext.buttons.addHistory = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {
+$('#app').ready(function () {
   $('#app .nav-buttons-wrapper .nav-link').click(function () {
     var allNavLinks = $('.nav-buttons-wrapper .nav-link');
     var allSubmenus = $('.sub-menu-list'); // Collapse all nav links
@@ -87105,8 +87088,8 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\apache2\htdocs\claybrook_rms\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\apache2\htdocs\claybrook_rms\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\ifrim\Desktop\test\claybrook_rms\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\ifrim\Desktop\test\claybrook_rms\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
