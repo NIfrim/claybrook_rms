@@ -16,15 +16,12 @@ All commands done using power shell:
 6. ```vagrant ssh```
 7. ```cd code```
 8. ```composer update```
-9. minimize terminal (will reuse later) and open project with favourite IDE and run ```npm install```
-10. Go back to the terminal which is connected to vagrant and run the following commands:
-
-	1. ```php artisan migrate --path="database/migrations/tables"``` from your favourite IDE
-	2. ```php artisan migrate --path="database/migrations/relationships"```
-	3. ```php artisan db:seed```
+9. ```php artisan migrate --path="database/migrations/tables"```
+10. ```php artisan migrate --path="database/migrations/relationships"```
+11. ```php artisan db:seed```
+12. minimize terminal and open project with favourite IDE and run ```npm install```
 	
-To connect to db using workbench use 192.168.10.10 [user => homestead, password => secret].
+To connect to db using workbench use 192.168.10.10 which is the ip in ```Homestead.yaml``` [user => homestead, password => secret].
 
-Finally open browser and go to homestead.test
-
-RMS at homestead.test/admin (user: adam@claybrook.com, password: password)
+RMS at http://homestead.test/admin (user: adam@claybrook.com, password: password)
+Website at http://homestead.test
