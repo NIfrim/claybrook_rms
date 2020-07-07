@@ -2,7 +2,7 @@
 
 This project is Laravel based and has been done as part of CSY3013 - Software Engineering course for the University of Northampton.
 
-This project has laravel homestead as a dependency, so it can be run on any machine using a virtual machine.
+This project has laravel homestead as a dependency, so it can be run on any machine using a virtual machine. It requires you to have Vagrant and VirtualBox installed on your machine.
 
 # Instructions for running this project
 
