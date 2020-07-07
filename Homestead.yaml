@@ -22,5 +22,5 @@ features:
         ohmyzsh: false
     -
         webdriver: false
-name: claybrook-rms
-hostname: claybrook-rms
+name: claybrook
+hostname: homestead.test

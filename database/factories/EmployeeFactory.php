@@ -13,11 +13,11 @@ $factory->define(Employee::class, function (Faker $faker) {
 	return [
 		'zoo_id' => 1,
 		'account_type_id' => $accountId->id,
-		'email' => 'adam@claybrook.com',
+		'email' => 'admin@claybrook.com',
 		'password' => Hash::make('password'),
-		'title' => 'Prof.',
-		'first_name' => 'Adam',
-		'last_name' => 'Vincent',
-		'job_title' => 'Web Developer'
+		'title' => 'Mr.',
+		'first_name' => 'Georgia',
+		'last_name' => 'Rodgers',
+		'job_title' => 'System Administrator'
 	];
 });
