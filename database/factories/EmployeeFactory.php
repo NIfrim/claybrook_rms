@@ -14,7 +14,7 @@ $factory->define(Employee::class, function (Faker $faker) {
 		'zoo_id' => 1,
 		'account_type_id' => $accountId->id,
 		'email' => 'admin@claybrook.com',
-		'password' => Hash::make('password'),
+		'password' => Hash::make('letmein'),
 		'title' => 'Mr.',
 		'first_name' => 'Georgia',
 		'last_name' => 'Rodgers',
