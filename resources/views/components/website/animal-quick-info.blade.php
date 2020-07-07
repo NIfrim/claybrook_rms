@@ -11,12 +11,12 @@
 	
 	<li class="list-item d-flex">
 		<h4 class="p-1">Height:</h4>
-		<h4 class="p-1"><small class="text-secondary">{{$data->height ?? ' - '}} m</small></h4>
+		<h4 class="p-1"><small class="text-secondary">{{$data->height_current ?? ' - '}} m</small></h4>
 	</li>
 	
 	<li class="list-item d-flex">
 		<h4 class="p-1">Weight:</h4>
-		<h4 class="p-1"><small class="text-secondary">{{$data->weight ?? ' - '}} kg</small></h4>
+		<h4 class="p-1"><small class="text-secondary">{{$data->weight_current ?? ' - '}} kg</small></h4>
 	</li>
 	
 	<li class="list-item d-flex">

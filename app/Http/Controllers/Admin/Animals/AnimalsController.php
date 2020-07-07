@@ -116,7 +116,6 @@ class AnimalsController extends Controller
 	 *
 	 * @param Request $request
 	 * @param string $type
-	 *
 	 * @param string|null $subtype
 	 *
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -434,8 +433,10 @@ class AnimalsController extends Controller
 				'life_span' => ['required', 'numeric'],
 				'gender' => ['required', 'string', 'in:FEMALE,MALE'],
 				'height_joined' => ['required', 'numeric'],
+				'height_current' => ['required', 'numeric'],
 				'weight_joined' => ['required', 'numeric'],
-				'files' => isset($data['files']) ? ['array'] : [],
+				'weight_current' => ['required', 'numeric'],
+				'files' => isset($data['files']) ? ['array'] : []
 			];
 			
 			switch ($data['type']) {

@@ -43,7 +43,8 @@
                                name="dob"
                                value="{{ old('dob') ?? $data['currentRow']['dob'] ?? '' }}"
                                required
-                               autofocus />
+                               autofocus
+                        />
             
                         @error('dob')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -63,7 +64,6 @@
                             name="date_joined"
                             value="{{ old('date_joined') ?? $data['currentRow']['date_joined'] ?? ''}}"
                             required
-                            autofocus
                         />
                         
                         @error('dateJoined')
@@ -85,7 +85,7 @@
                             name="species"
                             value="{{ old('species') ?? $data['currentRow']['species'] ?? ''}}"
                             required
-                            autofocus
+                            autocapitalize="on"
                         />
                         
                         <datalist id="speciesList">
@@ -113,7 +113,6 @@
                             name="classification"
                             value="{{ old('classification') ?? $data['currentRow']['classification'] ?? ''}}"
                             required
-                            autofocus
                         />
                         
                         <datalist id="classificationsList">
@@ -135,7 +134,7 @@
                         <label for="canFly" class="col-xl-2 col-form-label">{{ __('Can Fly') }}</label>
                         
                         <div class="col-xl-10">
-                            <select name = "can_fly" id = "canFly" class="form-control @error('canFly') is-invalid @enderror" required autofocus>
+                            <select name = "can_fly" id = "canFly" class="form-control @error('canFly') is-invalid @enderror" required>
                                 <option value = "" {{old('can_fly') === 'Y' | old('can_fly') === 'N' | isset($data['currentRow']) && isset($data['currentRow']['can_fly']) ? '' : 'selected'}}>Select</option>
                                 <option value = "Y" {{old('can_fly') === 'Y' | isset($data['currentRow']) && isset($data['currentRow']['can_fly']) && $data['currentRow']['can_fly'] === 'Y' ? 'selected' : ''}}>Yes</option>
                                 <option value = "N" {{old('can_fly') === 'N' | isset($data['currentRow']) && isset($data['currentRow']['can_fly']) && $data['currentRow']['can_fly'] === 'N' ? 'selected' : ''}}>No</option>
@@ -160,7 +159,6 @@
                                 name="nest_construction"
                                 value="{{ old('nest_construction') ?? $data['currentRow']['nest_construction'] ?? '' }}"
                                 required
-                                autofocus
                             />
     
                             <datalist id="nestConstructionList">
@@ -188,7 +186,6 @@
                                 name="clutch_size"
                                 value="{{ old('clutch_size') ?? $data['currentRow']['clutch_size'] ?? '' }}"
                                 required
-                                autofocus
                             />
                             
                             @error('clutchSize')
@@ -214,7 +211,6 @@
                                 name="wingspan"
                                 value="{{ old('wingspan') ?? $data['currentRow']['wingspan'] ?? '' }}"
                                 required
-                                autofocus
                             />
                             
                             @error('wingspan')
@@ -236,7 +232,6 @@
                                 class="form-control @error('plumage') is-invalid @enderror"
                                 name="plumage"
                                 value="{{ old('plumage') ?? $data['currentRow']['plumage'] ?? '' }}"
-                                autofocus
                             />
     
                             <datalist id="plumageList">
@@ -267,7 +262,6 @@
                                 class="form-control @error('avgBodyTemp') is-invalid @enderror"
                                 name="average_body_temperature"
                                 value="{{ old('average_body_temperature') ?? $data['currentRow']['average_body_temperature'] ?? '' }}"
-                                autofocus
                             />
                 
                             @error('avgBodyTemp')
@@ -289,7 +283,6 @@
                                 class="form-control @error('waterType') is-invalid @enderror"
                                 name="water_type"
                                 value="{{ old('water_type') ?? $data['currentRow']['water_type'] ?? '' }}"
-                                autofocus
                             />
                 
                             <datalist id="waterTypeList">
@@ -317,7 +310,6 @@
                                 class="form-control @error('colour') is-invalid @enderror"
                                 name="colour"
                                 value="{{ old('colour') ?? $data['currentRow']['colour'] ?? '' }}"
-                                autofocus
                             />
                 
                             <datalist id="colourList">
@@ -350,7 +342,6 @@
                                 name="gestational_period"
                                 value="{{ old('gestational_period') ?? $data['currentRow']['gestational_period'] ?? '' }}"
                                 required
-                                autofocus
                             />
                 
                             @error('gestationalPeriod')
@@ -373,7 +364,6 @@
                                 name="offspring_number"
                                 value="{{ old('offspring_number') ?? $data['currentRow']['offspring_number'] ?? '' }}"
                                 required
-                                autofocus
                             />
                 
                             @error('offspringNumber')
@@ -413,7 +403,6 @@
                                 class="form-control @error('clutchSize') is-invalid @enderror"
                                 name="clutch_size"
                                 value="{{ old('clutch_size') ?? $data['currentRow']['clutch_size'] ?? '' }}"
-                                autofocus
                             />
                 
                             @error('clutchSize')
@@ -435,7 +424,6 @@
                                 class="form-control @error('offspringNumber') is-invalid @enderror"
                                 name="offspring_number"
                                 value="{{ old('offspring_number') ?? $data['currentRow']['offspring_number'] ?? '' }}"
-                                autofocus
                             />
                 
                             @error('offspringNumber')
@@ -461,7 +449,6 @@
                             class="form-control @error('lifeSpan') is-invalid @enderror"
                             name="life_span"
                             value="{{ old('life_span') ?? $data['currentRow']['life_span'] ?? '' }}"
-                            autofocus
                         />
             
                         @error('lifeSpan')
@@ -480,7 +467,7 @@
                                class="form-control @error('name') is-invalid @enderror"
                                name="name"
                                value="{{ old('name') ?? $data['currentRow']['name'] ?? '' }}"
-                               autofocus />
+                        />
                         
                         @error('name')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -493,13 +480,13 @@
                     <label for="gender" class="col-xl-2 col-form-label">{{ __('Gender') }}</label>
                     
                     <div class="col-xl-10">
-                        <select name = "gender" id = "gender" class="form-control @error('gender') is-invalid @enderror">
+                        <select name = "gender" id = "gender" class="form-control @error('gender') is-invalid @enderror" required>
                             <option value = "" {{old('gender') === 'MALE' | old('gender') === 'FEMALE' | isset($data['currentRow']) && isset($data['currentRow']['gender'])  ? '' : 'selected'}}>Select Gender</option>
                             <option value = "MALE" {{old('gender') === 'MALE' | isset($data['currentRow']) && isset($data['currentRow']['gender']) && $data['currentRow']['gender'] === 'MALE' ? 'selected' : ''}}>Male</option>
                             <option value = "FEMALE" {{old('gender') === 'FEMALE' | isset($data['currentRow']) && isset($data['currentRow']['gender']) && $data['currentRow']['gender'] === 'FEMALE' ? 'selected' : ''}}>Female</option>
                         </select>
                         
-                        @error('dob')
+                        @error('gender')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
@@ -507,22 +494,45 @@
                 
                 {{--Height joined--}}
                 <div class="form-group row">
-                    <label for="height" class="col-xl-2 col-form-label">{{ __('Height when joined') }}</label>
+                    <label for="heightJoined" class="col-xl-2 col-form-label">{{ __('Height when joined') }}</label>
                     
                     <div class="col-xl-10 input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">m</span>
                         </div>
-                        <input id="height"
+                        <input id="heightJoined"
                                type="number"
                                step="0.01"
                                max="9999.99"
-                               class="form-control @error('height') is-invalid @enderror"
+                               class="form-control @error('heightJoined') is-invalid @enderror"
                                name="height_joined"
                                value="{{ old('height_joined') ?? $data['currentRow']['height_joined'] ?? '' }}"
-                               autofocus />
+                        />
                         
-                        @error('height')
+                        @error('heightJoined')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+    
+                {{--Height currentt--}}
+                <div class="form-group row">
+                    <label for="heightCurrent" class="col-xl-2 col-form-label">{{ __('Height current') }}</label>
+        
+                    <div class="col-xl-10 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">m</span>
+                        </div>
+                        <input id="heightCurrent"
+                               type="number"
+                               step="0.01"
+                               max="9999.99"
+                               class="form-control @error('heightCurrent') is-invalid @enderror"
+                               name="height_current"
+                               value="{{ old('height_current') ?? $data['currentRow']['height_current'] ?? '' }}"
+                        />
+            
+                        @error('heightCurrent')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
@@ -530,23 +540,47 @@
                 
                 {{--Weight joined--}}
                 <div class="form-group row">
-                    <label for="weight" class="col-xl-2 col-form-label">{{ __('Weight when joined') }}</label>
+                    <label for="weightJoined" class="col-xl-2 col-form-label">{{ __('Weight when joined') }}</label>
                     
                     <div class="col-xl-10 input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">kg</span>
                         </div>
                         <input
-                            id="weight"
+                            id="weightJoined"
                             type="number"
                             step="0.01"
                             max="9999.99"
-                            class="form-control @error('weight') is-invalid @enderror"
+                            class="form-control @error('weightJoined') is-invalid @enderror"
                             name="weight_joined"
                             value="{{ old('weight_joined') ?? $data['currentRow']['weight_joined'] ?? '' }}"
-                            autofocus />
+                        />
                         
-                        @error('weight')
+                        @error('weightJoined')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+    
+                {{--Weight current--}}
+                <div class="form-group row">
+                    <label for="weightCurrent" class="col-xl-2 col-form-label">{{ __('Weight current') }}</label>
+        
+                    <div class="col-xl-10 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                        <input
+                            id="weightCurrent"
+                            type="number"
+                            step="0.01"
+                            max="9999.99"
+                            class="form-control @error('weightCurrent') is-invalid @enderror"
+                            name="weight_current"
+                            value="{{ old('weight_current') ?? $data['currentRow']['weight_current'] ?? '' }}"
+                        />
+            
+                        @error('weightCurrent')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
@@ -557,7 +591,7 @@
                     <label for="location" class="col-xl-2 col-form-label">{{ __('Location in zoo') }}</label>
                     
                     <div class="col-xl-10">
-                        <select name = "location_id" id = "location" class="form-control @error('location') is-invalid @enderror" required autofocus>
+                        <select name = "location_id" id = "location" class="form-control @error('location') is-invalid @enderror" required>
                             <option value = "" {{old('location_id') !== '' | isset($data['currentRow']) && isset($data['currentRow']['location_id']) ? '' : 'selected'}}>Select</option>
                             @foreach($data['locations'] as $location)
                                 <option value = "{{$location->id}}" {{old('location_id') === $location->id | isset($data['currentRow']) && isset($data['currentRow']['location_id']) && $data['currentRow']['location_id'] === $location->id ? 'selected' : ''}}>{{ucfirst(strtolower($location->location_name))}}</option>
@@ -575,7 +609,7 @@
                     <label for="sponsorshipBand" class="col-xl-2 col-form-label">{{ __('Sponsorship Band') }}</label>
                     
                     <div class="col-xl-10">
-                        <select name = "sponsorship_band_id" id = "location" class="form-control @error('location') is-invalid @enderror" required autofocus>
+                        <select name = "sponsorship_band_id" id = "location" class="form-control @error('location') is-invalid @enderror" required>
                             <option value = "" {{old('sponsorship_band_id') !== '' | isset($data['currentRow']) && isset($data['currentRow']['sponsorship_band_id']) ? '' : 'selected'}}>Select</option>
                             @foreach($data['sponsorshipBands'] as $sponsorshipBand)
                                 <option value = "{{$sponsorshipBand->id}}" {{old('sponsorship_band_id') === $sponsorshipBand->id | isset($data['currentRow']) && isset($data['currentRow']['sponsorship_band_id']) && $data['currentRow']['sponsorship_band_id'] === $sponsorshipBand->id ? 'selected' : ''}}>{{ucfirst(strtolower($sponsorshipBand->band))}}</option>
@@ -595,10 +629,24 @@
                     <div class="col-xl-10">
                         <textarea name = "diet"
                                   id = "diet"
-                                  class="form-control @error('diet') is-invalid @enderror"
-                                  autofocus>{{ old('diet') ?? $data['currentRow']['diet'] ?? '' }}</textarea>
+                                  class="form-control @error('diet') is-invalid @enderror">{{ old('diet') ?? $data['currentRow']['diet'] ?? '' }}</textarea>
             
                         @error('diet')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+    
+                {{--Did you know message--}}
+                <div class="form-group row">
+                    <label for="didYouKnow" class="col-xl-2 col-form-label">{{ __('Did you know') }}</label>
+        
+                    <div class="col-xl-10">
+                        <textarea name = "did_you_know"
+                                  id = "didYouKnow"
+                                  class="form-control @error('didYouKnow') is-invalid @enderror">{{ old('did_you_know') ?? $data['currentRow']['did_you_know'] ?? '' }}</textarea>
+            
+                        @error('didYouKnow')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>

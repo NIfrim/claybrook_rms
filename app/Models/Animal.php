@@ -30,7 +30,9 @@ class Animal extends Model
 		'dob',
 		'gender',
 		'height_joined',
+		'height_current',
 		'weight_joined',
+		'weight_current',
 		'nest_construction',
 		'clutch_size',
 		'wingspan',
@@ -46,6 +48,7 @@ class Animal extends Model
 		'colour',
 		'reproduction_type',
 		'diet',
+		'did_you_know',
 		'images',
 		'created_at',
 		'updated_at'

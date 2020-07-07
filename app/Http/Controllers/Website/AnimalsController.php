@@ -40,7 +40,7 @@ class AnimalsController extends Controller
 				'title' => $this->getTitle($type),
 				'category' => 'our-zoo',
 				'subcategory' => $type,
-				'animals' => $this->getData('animals', [['type', '=', $this->getType($type)]]),
+				'animals' => $this->getData('animals', [['type', '=', $this->getType($type)], ['on_website', '=', 'Y']]),
 				'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']])->first(),
 			]);
 			
