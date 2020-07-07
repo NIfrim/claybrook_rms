@@ -38,12 +38,12 @@
 				
 				<div class="modal fade" id="medicalHistoryModal" role="dialog" aria-hidden="true">
 								
-								<x-forms.animal-medical-history-form
-										:data="$data"
-										formType="new"
-										:category="$category"
-										:subcategory="$subcategory"
-										title="{{implode(' - ', array_filter([ucfirst($category), ucfirst($subcategory), 'Manage']))}}"/>
+					<x-forms.animal-medical-history-form
+							:data="$data"
+							formType="new"
+							:category="$category"
+							:subcategory="$subcategory"
+							title="{{implode(' - ', array_filter([ucfirst($category), ucfirst($subcategory), 'Manage']))}}"/>
 					
 				</div>
 				

@@ -1,4 +1,4 @@
-@if(sizeof($data) > 0)
+@if($data && sizeof($data) > 0)
 	
 	@foreach($data as $card)
 		

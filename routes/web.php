@@ -630,7 +630,7 @@ Route::prefix('sponsor')->name('sponsor.')->namespace('Sponsor')->group(function
 		 * 	@method POST
 		 *	@desc Route to submit profile changes
 		 */
-		Route::post('/', 'HomeController@submit')->name('submit');
+		Route::post('/{type}/{formType}', 'HomeController@submit')->name('submit');
 		
 	});
 	

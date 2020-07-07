@@ -1,6 +1,6 @@
 #rms {
+
   height: 100% !important;
-}
 
   body {
     height: 100vh;
@@ -29,6 +29,12 @@
     height: 100vh;
   }
 
+  .alert-wrapper {
+    position: fixed;
+    width: 100vw;
+    bottom: 2rem;
+  }
+
   /* End other styling */
 
   /***************** NAVIGATION ******************/
@@ -38,6 +44,10 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
+  }
+
+  .nav-top-wrapper {
+    min-height: 100px;
   }
 
   /* END Web navigation */
@@ -136,6 +146,12 @@
     justify-content: flex-end;
   }
 
+  .dataTables_filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
   .pagination {
     display: flex;
     flex-direction: row;
@@ -210,6 +226,27 @@
 
   .menu-items-wrapper {
     margin-left: 1.5em;
+    overflow-y: auto;
+  }
+
+  /* width */
+  .menu-items-wrapper::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  .menu-items-wrapper::-webkit-scrollbar-track {
+    background: rgba($lightLogoGreen, 0.4);
+  }
+
+  /* Handle */
+  .menu-items-wrapper::-webkit-scrollbar-thumb {
+    background: rgb($lightGreen, 0.4);
+  }
+
+  /* Handle on hover */
+  .menu-items-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 
   .menu-items-wrapper .active .menu-item-text,
@@ -288,5 +325,7 @@
   .extra-item:hover .extra-item-icon {
     color: $logoYellow;
   }
+
+}
 
   /*END SIDENAV*/

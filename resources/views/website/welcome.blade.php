@@ -12,9 +12,15 @@
             {{-- Only if there are news inside the category --}}
             @if(sizeof($eventCategory->events) > 0)
                 <x-website.row-type-one :type="$subcategory ?? $category" :title="$eventCategory->title" :cardsData="$eventCategory->events ?? null" />
+
+            @else
+                <x-website.row-type-one :type="$subcategory ?? $category" title="Events" :cardsData="null" />
             @endif
     
         @endforeach
+
+    @else
+        <x-website.row-type-one :type="$subcategory ?? $category" title="Events" :cardsData="null" />
 
     @endif
 
@@ -27,9 +33,15 @@
             {{-- Only if there are news inside the category --}}
             @if(sizeof($newsCategory->news) > 0)
                 <x-website.row-type-one :type="$subcategory ?? $category" :title="$newsCategory->title" :cardsData="$newsCategory->news ?? null" />
+
+            @else
+                <x-website.row-type-one :type="$subcategory ?? $category" title="News" :cardsData="null" />
             @endif
             
         @endforeach
+
+    @else
+        <x-website.row-type-one :type="$subcategory ?? $category" title="News" :cardsData="null" />
         
     @endif
 

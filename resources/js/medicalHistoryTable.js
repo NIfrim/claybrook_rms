@@ -1,10 +1,10 @@
-$(document).ready(function () {
+$('#app').ready(function () {
 	const table = $('#medicalHistoryTable').DataTable({
 		select: false,
 		searching: false,
 		dom: 'Bfrtip',
 		buttons: [
-			'addHistory'
+			'addMedicalHistory'
 		]
 	});
 
@@ -41,7 +41,7 @@ $(document).ready(function () {
 });
 
 
-$.fn.dataTable.ext.buttons.addHistory = {
+$.fn.dataTable.ext.buttons.addMedicalHistory = {
 	text: 'Add History',
 	className: 'mr-2 rounded-lg',
 	action: function ( e, dt, node, config ) {

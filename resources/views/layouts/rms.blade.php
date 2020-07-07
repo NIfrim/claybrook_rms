@@ -38,27 +38,29 @@
 		<div class="flex-grow-1 d-flex flex-column">
 			{{--TOP NAV--}}
 			<x-navigation.top-nav :category="$category" :subcategory="$subcategory" :subcategory2="$subcategory2 ?? null" :formType="$formType ?? null" />
-			<main id="main" class="container-fluid overflow-auto">
+			<main id="main" class="container overflow-auto">
 				@yield('content')
-				
-				@if(session('success'))
-					<div class="alert alert-success alert-dismissible fade show" role="alert">
-						<strong>{{session('success')}}</strong>
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-				
-				@elseif(session('error'))
-					<div class="alert alert-danger alert-dismissible fade show" role="alert">
-						<strong>{{session('error')}}</strong>
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-				@endif
 			</main>
 		</div>
+		
+		@if(session('success'))
+			<div class="alert-wrapper d-flex justify-content-center fade show" role="alert">
+				<div class="alert d-flex justify-content-center alert-success alert-dismissible">
+					<strong class="m-2">{{session('success')}}</strong>
+					<button type="button" class="close m-2" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		
+		@elseif(session('error'))
+			<div class="alert d-flex justify-content-center alert-danger alert-dismissible fade show" role="alert">
+				<strong>{{session('error')}}</strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		@endif
 	@endauth
 </div>
 </body>

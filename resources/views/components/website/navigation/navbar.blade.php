@@ -92,38 +92,38 @@
 {{-- Subnavs wrapper --}}
 <div class="sub-menu-wrapper flex-shrink-1">
 	{{-- Our zoo submenu --}}
-	<ul class="collapse sub-menu-list flex-sm-column flex-md-row container list-unstyled my-0 pb-lg-1 pb-sm-5" id="ourZooSubmenu">
-		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'birds' ? 'active' : ''}}">
+	<ul class="collapse sub-menu-list flex-sm-column flex-md-row container list-unstyled pb-lg-0 pb-md-0 pt-lg-1 pt-md-1 pb-sm-2 pt-sm-3" id="ourZooSubmenu">
+		<li class="menu-sub-item mb-lg-4 my-sm-1 {{$subcategory === 'birds' ? 'active' : ''}}">
 			<a href="{{route('website.ourZoo.animals.show', ['type' => 'birds'])}}">
 				<h4 class="menu-sub-item-text web-title">Birds</h4>
 			</a>
 		</li>
-		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'fish' ? 'active' : ''}}">
+		<li class="menu-sub-item mb-lg-4 my-sm-1 {{$subcategory === 'fish' ? 'active' : ''}}">
 			<a href="{{route('website.ourZoo.animals.show', ['type' => 'fish'])}}">
 				<h4 class="menu-sub-item-text web-title">Fish</h4>
 			</a>
 		</li>
-		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'mammals' ? 'active' : ''}}">
+		<li class="menu-sub-item mb-lg-4 my-sm-1 {{$subcategory === 'mammals' ? 'active' : ''}}">
 			<a href="{{route('website.ourZoo.animals.show', ['type' => 'mammals'])}}">
 				<h4 class="menu-sub-item-text web-title">Mammals</h4>
 			</a>
 		</li>
-		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'reptiles' ? 'active' : ''}}">
+		<li class="menu-sub-item mb-lg-4 my-sm-1 {{$subcategory === 'reptiles' ? 'active' : ''}}">
 			<a href="{{route('website.ourZoo.animals.show', ['type' => 'reptiles'])}}">
 				<h4 class="menu-sub-item-text web-title">Reptiles</h4>
 			</a>
 		</li>
-		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'attractions' ? 'active' : ''}}">
+		<li class="menu-sub-item mb-lg-4 my-sm-1 {{$subcategory === 'attractions' ? 'active' : ''}}">
 			<a href="{{route('website.ourZoo.attractions.show')}}">
 				<h4 class="menu-sub-item-text web-title">Attractions</h4>
 			</a>
 		</li>
-		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'opening-times' ? 'active' : ''}}">
+		<li class="menu-sub-item mb-lg-4 my-sm-1 {{$subcategory === 'opening-times' ? 'active' : ''}}">
 			<a href="{{route('website.ourZoo.openingTimes.show')}}">
 				<h4 class="menu-sub-item-text web-title">Opening Times</h4>
 			</a>
 		</li>
-		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
+		<li class="menu-sub-item mb-lg-4 my-sm-1 {{$subcategory === 'map-and-directions' ? 'active' : ''}}">
 			<a href="{{route('website.ourZoo.mapAndDirections.show')}}">
 				<h4 class="menu-sub-item-text web-title">Map & Directions</h4>
 			</a>
@@ -131,7 +131,7 @@
 	</ul>
 	
 	{{-- Experiences submenu --}}
-	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled pb-lg-1 pb-sm-5" id="experiencesSubmenu">
+	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled pb-lg-0 pb-md-0 pt-lg-1 pt-md-1 pb-sm-2 pt-sm-3" id="experiencesSubmenu">
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'games' ? 'active' : ''}}">
 			<a href="#">
 				<h4 class="menu-sub-item-text web-title">Games</h4>
@@ -155,7 +155,7 @@
 	</ul>
 	
 	{{-- More info submenu --}}
-	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled pb-lg-1 pb-sm-5 list-unstyled" id="moreInfoSubmenu">
+	<ul class="collapse sub-menu-list flex-sm-column flex-lg-row container list-unstyled pb-lg-0 pb-md-0 pt-lg-1 pt-md-1 pb-sm-2 pt-sm-3" id="moreInfoSubmenu">
 		<li class="menu-sub-item mb-lg-5 my-sm-1 {{$subcategory === 'about-us' ? 'active' : ''}}">
 			<a href="{{route('website.moreInfo.aboutUs.show')}}">
 				<h4 class="menu-sub-item-text web-title">About Us</h4>

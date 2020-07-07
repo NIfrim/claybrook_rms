@@ -1,4 +1,4 @@
-<form action = "{{route('admin.animals.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post" enctype="multipart/form-data">
+<form id="animalForm" action = "{{route('admin.animals.submit', ['type' => $subcategory, 'formType' => $formType])}}" method="post" enctype="multipart/form-data">
     <div class="card" id="animalFormCard">
         <div class="card-header">
             <h4>{{$title}}</h4>
@@ -7,7 +7,7 @@
         <div class="card-body">
             @csrf
             {{--Add the type of animal based on the subcategory--}}
-            <input type = "text" name="type" value="{{$data['currentRow']['type'] ?? $data['type']}}" hidden>
+            <input type = "text" name="type" id="animalType" value="{{$data['currentRow']['type'] ?? $data['type']}}" hidden>
             
             <div class="container-responsive">
                 
@@ -444,6 +444,31 @@
                         </div>
                     </div>
                 @endif
+    
+                {{--Life span--}}
+                <div class="form-group row">
+                    <label for="lifeSpan" class="col-xl-2 col-form-label">{{ __('Life Span') }}</label>
+        
+                    <div class="col-xl-10 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Years</span>
+                        </div>
+                        <input
+                            id="lifeSpan"
+                            type="number"
+                            step="1"
+                            max="999"
+                            class="form-control @error('lifeSpan') is-invalid @enderror"
+                            name="life_span"
+                            value="{{ old('life_span') ?? $data['currentRow']['life_span'] ?? '' }}"
+                            autofocus
+                        />
+            
+                        @error('lifeSpan')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
                 
                 {{--Given name--}}
                 <div class="form-group row">
@@ -532,19 +557,12 @@
                     <label for="location" class="col-xl-2 col-form-label">{{ __('Location in zoo') }}</label>
                     
                     <div class="col-xl-10">
-                        <input id="location"
-                               list="locationsList"
-                               type="text"
-                               class="form-control @error('location') is-invalid @enderror"
-                               name="location_id"
-                               value="{{ old('location_id') ?? $data['currentRow']['location_id'] ?? '' }}"
-                               autofocus />
-    
-                        <datalist id="locationsList">
+                        <select name = "location_id" id = "location" class="form-control @error('location') is-invalid @enderror" required autofocus>
+                            <option value = "" {{old('location_id') !== '' | isset($data['currentRow']) && isset($data['currentRow']['location_id']) ? '' : 'selected'}}>Select</option>
                             @foreach($data['locations'] as $location)
-                                <option value = "{{$location->id}}">{{ucfirst(strtolower($location->location_name))}}</option>
+                                <option value = "{{$location->id}}" {{old('location_id') === $location->id | isset($data['currentRow']) && isset($data['currentRow']['location_id']) && $data['currentRow']['location_id'] === $location->id ? 'selected' : ''}}>{{ucfirst(strtolower($location->location_name))}}</option>
                             @endforeach
-                        </datalist>
+                        </select>
                         
                         @error('location')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -557,19 +575,12 @@
                     <label for="sponsorshipBand" class="col-xl-2 col-form-label">{{ __('Sponsorship Band') }}</label>
                     
                     <div class="col-xl-10">
-                        <input id="sponsorshipBandId"
-                               list="sponsorshipBandsList"
-                               type="text"
-                               class="form-control @error('sponsorshipBandId') is-invalid @enderror"
-                               name="sponsorship_band_id"
-                               value="{{ old('sponsorship_band_id') ?? $data['currentRow']['sponsorship_band_id'] ?? '' }}"
-                               autofocus />
-    
-                        <datalist id="sponsorshipBandsList">
+                        <select name = "sponsorship_band_id" id = "location" class="form-control @error('location') is-invalid @enderror" required autofocus>
+                            <option value = "" {{old('sponsorship_band_id') !== '' | isset($data['currentRow']) && isset($data['currentRow']['sponsorship_band_id']) ? '' : 'selected'}}>Select</option>
                             @foreach($data['sponsorshipBands'] as $sponsorshipBand)
-                                <option value = "{{$sponsorshipBand->id}}">{{ucfirst(strtolower($sponsorshipBand->price)) . '£'}}</option>
+                                <option value = "{{$sponsorshipBand->id}}" {{old('sponsorship_band_id') === $sponsorshipBand->id | isset($data['currentRow']) && isset($data['currentRow']['sponsorship_band_id']) && $data['currentRow']['sponsorship_band_id'] === $sponsorshipBand->id ? 'selected' : ''}}>{{ucfirst(strtolower($sponsorshipBand->band))}}</option>
                             @endforeach
-                        </datalist>
+                        </select>
                         
                         @error('sponsorshipBand')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -621,7 +632,7 @@
                             @foreach($data['currentRow']->images as $image)
       
                                 <div class="col-md-3 col-sm-4">
-                                    <img src = "{{'/images/animals/'.$image}}" class="img-fluid img-thumbnail" alt = "Animal Image">
+                                    <img src = "{{asset('images/animals/'.$image)}}" class="img-fluid img-thumbnail" alt = "Animal Image">
                                 </div>
                                 
                             @endforeach

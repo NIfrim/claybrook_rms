@@ -74,19 +74,22 @@
     
     {{--Signage--}}
     <div class="form-group row">
-        <label for="images" class="col-md-12 col-form-label">{{ __('Advertisement Signage') }}</label>
+        <label for="images" class="col-xl-2 col-form-label">{{ __('Signage Images') }}</label>
         
-        <div class="col-md-12">
-            <input
-                id="images"
-                type="file"
-                class="form-control @error('images') is-invalid @enderror"
-                name="images[]"
-                autofocus
-                multiple
-            />
+        <div class="col-xl-10">
+            <div class="custom-file input-group">
+                <input type="file"
+                       class="custom-file-input @error('images') is-invalid @enderror"
+                       id="images"
+                       name="images[]"
+                       accept=".jpeg, .jpg, .png"
+                       autofocus
+                       multiple
+                />
+                <label class="custom-file-label" for="customFile">Choose Image/s</label>
+            </div>
             
-            @error('endDate')
+            @error('images')
             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
             @enderror
         </div>
@@ -95,11 +98,19 @@
     
     {{-- Animals sponsored clickable grid --}}
     <div class="d-flex flex-wrap overflow-auto col-md-12 border border-light p-2" id="animalsGrid">
-        <h3 class="col-md-12 text-secondary">{{ __('Select animals') }}</h3>
+        @if(sizeof($data['animals']) > 0)
+            
+            <h3 class="col-md-12 text-secondary">{{ __('Select animals') }}</h3>
+            
+        @else
+            
+            <h3 class="col-md-12 text-secondary">{{ __('No unsponsored animals') }}</h3>
+            
+        @endif
         
         @foreach($data['animals'] as $animal)
             <div class="d-flex flex-column justify-content-center align-items-center col-md-4 m-2">
-                <img src = "{{'/images/animals/'.$animal->images[0]}}" class="img-thumbnail img-fluid" id="{{$animal->id}}" alt = "Animal Image">
+                <img src = "{{$animal->images ? asset('/images/animals/'.$animal->images[0]) : 'https://via.placeholder.com/250x250'}}" class="img-thumbnail img-fluid" id="{{$animal->id}}" alt = "Animal Image">
     
                 <p class="price align-self-stretch text-center text-secondary mb-0">{{$animal->sponsorshipBand->price}} £</p>
             </div>

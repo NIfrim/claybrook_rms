@@ -41,8 +41,8 @@ class CreateAnimalsTable extends Migration
 			$table->string('colour', 45)->nullable();
 			$table->enum('reproduction_type', ['LIVE_BEARER', 'EGG_LAYER'])->nullable();
 			$table->text('diet')->nullable();
-			$table->char('on_website', 1);
-			$table->char('in_spotlight', 1);
+			$table->char('on_website', 1)->default('N');
+			$table->char('in_spotlight', 1)->default('N');
 			$table->text('did_you_know')->nullable();
 			$table->unsignedTinyInteger('life_span');
 			$table->json('images')->nullable();

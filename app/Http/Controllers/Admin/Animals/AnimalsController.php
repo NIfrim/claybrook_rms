@@ -156,6 +156,7 @@ class AnimalsController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 */
 	public function submit(Request $request, string $type, string $formType) {
+		
 		// Validate the form data
 		if ($formType === 'newMedicalHistory' || $formType === 'editMedicalHistory') {
 		
@@ -166,9 +167,10 @@ class AnimalsController extends Controller
 			$this->validator($request->all(), 'watchlistHistory')->validate();
 			
 		} else {
-			
+
 			$this->validator($request->all())->validate();
 		}
+		
 		
 		// Create new or update record
 		switch ($formType) {
@@ -184,13 +186,15 @@ class AnimalsController extends Controller
 				// Save the images and add their filenames to the request
 				if ($request->hasFile('files')) {
 					
-					$images = $this->uploadImages($request, $type);
+					$animal = call_user_func($this->getModel($type).'::'.'create', $request->except('files'));
 					
-					call_user_func($this->getModel($type).'::'.'create', array_merge($request->except('files'), ['images' => $images]));
+					$uploadedImages = $this->uploadImages($request, $type, $animal->id);
+					$animal->images = $uploadedImages;
+					$animal->save();
 					
 				} else {
 					
-					call_user_func($this->getModel($type).'::'.'create', $request->except('files'));
+					call_user_func($this->getModel($type).'::'.'create', $request->all());
 				}
 				
 				break;
@@ -207,13 +211,13 @@ class AnimalsController extends Controller
 				// Save the images and add their filenames to the request
 				if ($request->hasFile('files')) {
 					
-					$images = $this->uploadImages($request, $type);
+					$images = $this->uploadImages($request, $type, $request->id);
 					
 					call_user_func($this->getModel($type).'::'.'find', $request->id)->update(array_merge($request->except('files'), ['images' => $images]));
 				
 				} else {
 					
-					call_user_func($this->getModel($type).'::'.'find', $request->id)->update($request->except('files'));
+					call_user_func($this->getModel($type).'::'.'find', $request->id)->update($request->all());
 				}
 				
 				break;
@@ -224,11 +228,11 @@ class AnimalsController extends Controller
 		// Redirect user to section table
 		if ($formType === 'newMedicalHistory' || $formType === 'editMedicalHistory' || $formType === 'newWatchlistHistory' || $formType === 'editWatchlistHistory') {
 			
-			return redirect(route('admin.animals.manage', ['type'=> $type, 'id' => $request->animal_id]));
+			return redirect(route('admin.animals.manage', ['type'=> $type, 'id' => $request->animal_id]))->with('success', 'Animal History record updated.');
 			
 		} else {
 			
-			return redirect(route('admin.animals.list', ['type'=> $type]));
+			return redirect(route('admin.animals.list', ['type'=> $type]))->with('success', 'Animal records updated.');
 			
 		}
 	}
@@ -269,9 +273,8 @@ class AnimalsController extends Controller
 		}
 		
 		// Redirect user to section table
-		return redirect(route('admin.animals.list', ['type'=> $type]));
+		return redirect(route('admin.animals.list', ['type'=> $type]))->with('success', 'Animal visibility toggled');
 	}
-	
 	
 	
 	/**
@@ -279,15 +282,17 @@ class AnimalsController extends Controller
 	 *
 	 * @param Request $request
 	 * @param string $type
+	 * @param $id
+	 *
 	 * @return array
 	 */
-	public function uploadImages(Request $request, string $type) {
+	public function uploadImages(Request $request, string $type, $id) {
 		$imagesFilenames = [];
 		
 		if ($request->hasFile('files')) {
 			
 			// First remove the images for the specified animal
-			$this->removeImages($request->id);
+			$this->removeImages($id);
 			
 			// Store and add to db
 			$images = $request->file('files');
@@ -295,9 +300,9 @@ class AnimalsController extends Controller
 			foreach ($images as $index=>$image) {
 				// Store the image file
 				$extension = $image->extension();
-				$fileName = $type.'-'.$request->id.'-'.$index.'.'.$extension;
+				$fileName = $type.'-'.$id.'-'.$index.'.'.$extension;
 				
-				$image->storeAs('public/animals', $fileName);
+				Storage::disk('public_images')->putFileAs('animals', $image, $fileName);
 				
 				// Add to request as string to be added during creation
 				array_push($imagesFilenames, $fileName);
@@ -314,7 +319,8 @@ class AnimalsController extends Controller
 	public function removeImages(string $id) {
 		
 		// Get the files to be deleted
-		$filesInDir = Storage::files('public/animals');
+		$filesInDir = Storage::disk('public_images')->files('animals');
+
 		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id) {
 			$segments = explode('/', $elem);
 			$filename = end($segments);
@@ -425,6 +431,7 @@ class AnimalsController extends Controller
 				'name' => ['required', 'string', 'max:45'],
 				'date_joined' => ['required', 'date'],
 				'dob' => ['required', 'date'],
+				'life_span' => ['required', 'numeric'],
 				'gender' => ['required', 'string', 'in:FEMALE,MALE'],
 				'height_joined' => ['required', 'numeric'],
 				'weight_joined' => ['required', 'numeric'],

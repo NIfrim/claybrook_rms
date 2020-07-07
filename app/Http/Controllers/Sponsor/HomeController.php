@@ -89,7 +89,7 @@ class HomeController extends Controller
 			'sponsor' => $sponsorWithRelations,
 			'relations' => $this->getRelations('sponsors'),
 			'animals' => $animals,
-			'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']]),
+			'zoo' => $this->getData('zoos', [['id', '=', 1]])->first(),
 		]);
 	}
 	
@@ -105,7 +105,6 @@ class HomeController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 */
 	public function submit(Request $request, string $type, ?string $formType = null) {
-		
 		
 		// Get the form type from the name of the submit button
 		if (!$formType) {
@@ -131,10 +130,12 @@ class HomeController extends Controller
 					
 					// Create sponsor agreement
 					$agreement = call_user_func($this->getModel($type).'::create', $request->all());
-			
+
 					// Create the agreement signage and link to each animal selected
 					foreach ($request->animal_id as $animal) {
 						$agreementSignage =  call_user_func($this->getModel('agreement_signages').'::create', array_merge(['animal_id' => $animal], ['agreement_id' => $agreement->id], ['images' => $images]));
+						
+						
 						
 						$animal = call_user_func($this->getModel('animals').'::find', $agreementSignage->animal_id);
 						$animal->agreement_signage_id = $agreementSignage->id;
@@ -143,23 +144,32 @@ class HomeController extends Controller
 					
 				} else {
 					
-					dd('No images');
-					
 					call_user_func($this->getModel($type).'::'.'create', $request->all());
 				}
 				
 				break;
 				
-			case 'update-address':
-			case 'update-sponsor':
-				call_user_func($this->getModel('sponsors').'::find', $request->id)->update($request->all());
+			case 'edit':
+				if ($type === 'address' || $type === 'details') {
+					
+					call_user_func($this->getModel('sponsors').'::find', $request->id)->update($request->all());
+					
+				}
 				break;
 
 			default: break;
 		}
 		
 		// Redirect user to section table
-		return redirect(route('sponsor.profile.show'))->with('success', 'Record successfully updated!');
+		if ($type === 'sponsor_agreements') {
+			
+			return redirect(route('sponsor.agreements.show'))->with('success', 'Agreement added with PENDING status!');
+			
+		} else {
+			
+			return redirect(route('sponsor.profile.show'))->with('success', 'Record successfully updated!');
+			
+		}
 	}
 	
 	
@@ -198,8 +208,8 @@ class HomeController extends Controller
 			// Store the image file
 			$extension = $image->extension();
 			$fileName = $type.'-'.$request->sponsor_id.'-'.$index.'.'.$extension;
-			
-			$image->storeAs('public/sponsors', $fileName);
+
+			Storage::disk('public_images')->putFileAs('sponsors', $image, $fileName);
 			
 			// Add to request as string to be added during creation
 			array_push($imagesFilenames, $fileName);
@@ -217,7 +227,8 @@ class HomeController extends Controller
 	public function removeImages(string $id) {
 		
 		// Get the files to be deleted
-		$filesInDir = Storage::files('public/sponsors');
+		$filesInDir = $filesInDir = Storage::disk('public_images')->files('sponsors');
+		
 		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id) {
 			$segments = explode('/', $elem);
 			$filename = end($segments);
@@ -343,7 +354,7 @@ class HomeController extends Controller
 	protected function validator(array $data, string $type)
 	{
 		switch ($type) {
-			case 'update-sponsor':
+			case 'profile':
 				$rules = [
 					'id' => ['required'],
 					'title' => ['required', 'string', 'max:5'],
@@ -356,7 +367,7 @@ class HomeController extends Controller
 				];
 				break;
 				
-			case 'update-address':
+			case 'address':
 				$rules = [
 					'id' => ['required'],
 					'building' => ['required', 'string', 'max:45'],

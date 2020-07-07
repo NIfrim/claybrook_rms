@@ -40,7 +40,7 @@ class AttractionsController extends Controller
 	/**
 	 * Show form for managing attraction.
 	 *
-	 * @param string|null $id
+	 * @param string|new $id
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
@@ -176,7 +176,7 @@ class AttractionsController extends Controller
 				$rideName = str_replace(' ', '_', $request->name);
 				$fileName = $rideName.'-'.$request->id.'-'.$index.'.'.$extension;
 				
-				$image->storeAs('public/attractions', $fileName);
+				Storage::disk('public_images')->putFileAs('attractions', $image, $fileName);
 				
 				// Add to request as string to be added during creation
 				array_push($imagesFilenames, $fileName);
@@ -195,7 +195,7 @@ class AttractionsController extends Controller
 	public function removeImages(string $id) {
 		
 		// Get the files to be deleted
-		$filesInDir = Storage::files('public/attractions');
+		$filesInDir = Storage::disk('public_images')->files('attractions');
 		
 		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id) {
 			$segments = explode('/', $elem);

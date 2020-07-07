@@ -104,7 +104,7 @@
                             <input type = "date"
                                    id="datePosted"
                                    name="date_posted"
-                                   value="{{old('date_posted') ?? $data['currentRow']['date_posted'] ?? ''}}"
+                                   value="{{old('date_posted') ?? $data['currentRow']['date_posted'] ?? date('Y-m-d')}}"
                                    class="form-control @error('datePosted') is-invalid @enderror"
                                    required
                                    autofocus>
@@ -117,7 +117,7 @@
         
                     {{--Date ends--}}
                     <div class="form-group row">
-                        <label for="dateExpire" class="col-xl-2 col-form-label">{{ __('Date ends') }}</label>
+                        <label for="dateExpire" class="col-xl-2 col-form-label">{{ __('Date Expire') }}</label>
             
                         <div class="col-xl-10">
                             <input type = "date"
