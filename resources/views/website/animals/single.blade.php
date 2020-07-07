@@ -7,7 +7,7 @@
 	<x-website.row-type-two :type="$subcategory ?? $category" :title="'I am '.$animal->name" :otherData="$animal" single="true"  />
 	
 	{{-- Did you know row --}}
-	<x-website.row-type-three title="Did you know?" :message="$animal->long_description" />
+	<x-website.row-type-three title="Did you know?" :message="$animal->did_you_know" />
 	
 @endsection
 

@@ -56,7 +56,7 @@ class SponsorRegisterController extends Controller
 			'first_name' => ['required', 'string', 'max:255'],
 			'last_name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:sponsors'],
-			'password' => ['required', 'string', 'min:8'],
+			'password' => ['required', 'string', 'min:8', 'confirmed'],
 		]);
 	}
 	
