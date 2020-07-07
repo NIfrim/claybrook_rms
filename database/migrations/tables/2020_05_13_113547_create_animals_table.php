@@ -27,8 +27,10 @@ class CreateAnimalsTable extends Migration
 			$table->date('date_joined');
 			$table->date('dob');
 			$table->enum('gender', ['MALE', 'FEMALE']);
-			$table->unsignedDecimal('height_joined', 4, 2);
+			$table->unsignedDecimal('height_joined', 6, 2);
 			$table->unsignedDecimal('weight_joined', 6, 2);
+			$table->unsignedDecimal('height_current', 6, 2);
+			$table->unsignedDecimal('weight_current', 6, 2);
             $table->string('nest_construction', 45)->nullable();
 			$table->unsignedTinyInteger('clutch_size')->nullable();
 			$table->unsignedSmallInteger('wingspan')->nullable();
