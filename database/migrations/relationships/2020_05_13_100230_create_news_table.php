@@ -15,8 +15,8 @@ class CreateNewsTable extends Migration
     {
         Schema::table('news', function (Blueprint $table) {
 			// Constraints
-			$table->foreign('zoo_id', 'fk_news_zoos')->references('id')->on('zoos')->onDelete('cascade');
-			$table->foreign('category_id', 'fk_news_newsCategories')->references('id')->on('news_categories')->onDelete('cascade');
+			$table->foreign('zoo_id', 'fk_news_zoos')->references('id')->on('zoos')->onDelete('cascade')->onUpdate('restrict');
+			$table->foreign('category_id', 'fk_news_newsCategories')->references('id')->on('news_categories')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

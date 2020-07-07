@@ -16,12 +16,12 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
 			$table->id()->autoIncrement();
 			$table->unsignedBigInteger('zoo_id');
-			$table->string('account_type_id', 45)->nullable();
+			$table->unsignedBigInteger('account_type_id')->nullable();
 			$table->string('title', 5);
 			$table->string('first_name', 45);
 			$table->string('last_name', 45);
 			$table->string('job_title', 45);
-			$table->string('email')->unique();
+			$table->string('email', 255)->unique();
 			$table->string('password');
 			$table->boolean('active')->default(false);
 			$table->rememberToken();

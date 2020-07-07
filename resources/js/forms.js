@@ -1,17 +1,20 @@
-$(document).ready(function () {
+$('#animalForm').ready(function () {
 	const toggler = $('#reproductionType');
+	const animalType = $('#animalType').val();
 
-	if (toggler) {
+	if (animalType === 'REPTILE') {
 		// Set initial hidden inputs
 		toggleHiddenInputs(toggler.val());
 
 		// Function used to hide specific inputs
-		toggler.change(function () {
-			// Get the value of the selector used to toggle other inputs visibility
-			let togglerVal = $(this).val();
+		if (toggler) {
+			toggler.change(function () {
+				// Get the value of the selector used to toggle other inputs visibility
+				let togglerVal = $(this).val();
 
-			toggleHiddenInputs(togglerVal);
-		})
+				toggleHiddenInputs(togglerVal);
+			})
+		}
 	}
 });
 

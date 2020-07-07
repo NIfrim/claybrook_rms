@@ -52,8 +52,8 @@
 				@endif
 			
 			@elseif($type === 'opening-times')
-			
-				<x-website.opening-times :data="$otherData" />
+				
+					<x-website.opening-times :data="$otherData" />
 			
 			@elseif($type === 'map-and-directions')
 				
@@ -118,13 +118,19 @@
 				
 				@if($title === 'Sponsorship Details')
 					
-					<x-website.sponsorship-details :title="$title" :data="$otherData" />
+					<div class="d-flex flex-column col-12 align-items-center">
+						<div class="col-md-8 col-sm-12">
+							<x-website.sponsorship-details :title="$title" :data="$otherData" />
+						</div>
+					</div>
 					
 				@elseif($title === 'Register as a sponsor')
 				
-					<div class="d-flex flex-column">
-						<h4 class="p-2 text-secondary">If all is good, use the form below to register as a sponsor:</h4>
-						<x-website.sponsor-registration-form :title="$title" />
+					<div class="d-flex flex-column col-12 align-items-center">
+						<div class="col-md-8 col-sm-12">
+							<h4 class="p-2 text-secondary">If all is good, use the form below to register as a sponsor:</h4>
+							<x-website.sponsor-registration-form :title="$title" />
+						</div>
 					</div>
 				
 				@endif

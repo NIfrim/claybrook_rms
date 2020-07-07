@@ -14,11 +14,11 @@ class CreateAnimalMedicalHistoriesTable extends Migration
     public function up()
     {
         Schema::create('animal_medical_histories', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('animal_id', 45);
-            $table->datetime('date');
-            $table->string('incident');
-			$table->string('treatment');
+            $table->datetime('datetime');
+            $table->text('incident');
+			$table->text('treatment');
             $table->timestamps();
         });
     }

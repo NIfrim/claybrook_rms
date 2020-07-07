@@ -32,7 +32,7 @@
 				<li class="mx-2"><a href = "#">Modern Slavery Act</a></li>
 			</ul>
 
-			<p>{{$zoo['name'] ?? $zoo[0]['name']}}, {{$zoo['address']['building_number'] ?? $zoo[0]['address']['building_number']}} {{$zoo['address']['road_name'] ?? $zoo[0]['address']['road_name']}}, {{$zoo['address']['city'] ?? $zoo[0]['address']['city']}}, {{$zoo['address']['county'] ?? $zoo[0]['address']['county']}}, {{$zoo['address']['postcode'] ?? $zoo[0]['address']['postcode']}}</p>
+			<p>{{$zoo->name}}, {{$zoo->address['building_number'] ?? $zoo->address['building_number']}} {{$zoo->address['road_name'] ?? $zoo->address['road_name']}}, {{$zoo->address['city'] ?? $zoo->address['city']}}, {{$zoo->address['county'] ?? $zoo->address['county']}}, {{$zoo->address['postcode'] ?? $zoo->address['postcode']}}</p>
 			
 			<p>Registered Company No.{{$zoo['company_number'] ?? $zoo[0]['company_number']}}</p>
 		</div>

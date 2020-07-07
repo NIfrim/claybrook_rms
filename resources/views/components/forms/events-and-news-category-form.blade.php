@@ -83,7 +83,7 @@
 					@if(isset($data['currentRow']->image))
 						<div class="row col-md-10 offset-xl-2 p-3">
 							<div class="col-md-3 col-sm-4">
-								<img src = "{{'/images/'.$data['currentRow']->getTable().'/'.$data['currentRow']->image}}" class="img-fluid img-thumbnail" alt = "Events or News category image">
+								<img src = "{{asset('images/'.$data['currentRow']->getTable().'/'.$data['currentRow']->image)}}" class="img-fluid img-thumbnail" alt = "Events or News category image">
 							</div>
 						</div>
 					@endif

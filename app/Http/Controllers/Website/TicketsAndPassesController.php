@@ -31,7 +31,7 @@ class TicketsAndPassesController extends Controller
 			'subcategory' => $subcategory,
 			'tickets' => $this->getData('tickets'),
 			'passes' => $this->getData('passes'),
-			'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']]),
+			'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']])->first(),
 		]);
 	}
 	

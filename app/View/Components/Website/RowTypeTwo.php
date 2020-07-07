@@ -15,7 +15,7 @@ class RowTypeTwo extends Component
 	 * @param string $title
 	 * @param object|null $otherData
 	 * @param object $cardsData
-	 * @param bool|null $single
+	 * @param bool $single
 	 * @param string|null $action
 	 */
 	public function __construct(string $type, string $title, ?object $otherData = null, ?object $cardsData = null, ?bool $single = false, ?string $action = null)

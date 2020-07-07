@@ -15,8 +15,8 @@ class CreateEmployeesTable extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
 			// Constraints
-			$table->foreign('account_type_id', 'fk_employees_accountTypes')->references('id')->on('account_types')->onDelete('set null');
-			$table->foreign('zoo_id', 'fk_employees_zoos')->references('id')->on('zoos')->onDelete('cascade');
+			$table->foreign('account_type_id', 'fk_employees_accountTypes')->references('id')->on('account_types')->onDelete('restrict')->onUpdate('cascade');
+			$table->foreign('zoo_id', 'fk_employees_zoos')->references('id')->on('zoos')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

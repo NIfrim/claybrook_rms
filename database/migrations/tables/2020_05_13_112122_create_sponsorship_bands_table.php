@@ -14,7 +14,8 @@ class CreateSponsorshipBandsTable extends Migration
     public function up()
     {
         Schema::create('sponsorship_bands', function (Blueprint $table) {
-            $table->char('id', 1)->unique()->primary();
+            $table->id('id')->autoIncrement();
+            $table->char('band', 1);
             $table->unsignedSmallInteger('price');
 			$table->unsignedTinyInteger('duration')->default(12);
 			$table->timestamps();

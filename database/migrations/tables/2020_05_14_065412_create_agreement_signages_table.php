@@ -15,12 +15,12 @@ class CreateAgreementSignagesTable extends Migration
     {
         Schema::create('agreement_signages', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->timestamps();
 			$table->string('animal_id', 45);
 			$table->unsignedBigInteger('agreement_id');
-			$table->enum('status', ['APPROVED', 'DENIED', 'PENDING']);
-			$table->text('reason');
-			$table->string('image_file_name', 45);
+			$table->enum('status', ['APPROVED', 'DENIED', 'PENDING'])->nullable()->default('PENDING');
+			$table->text('reason')->nullable();
+			$table->json('images')->nullable();
+			$table->timestamps();
         });
     }
 

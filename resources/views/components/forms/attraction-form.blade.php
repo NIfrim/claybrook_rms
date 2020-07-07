@@ -138,6 +138,7 @@
                                   id = "shortDescription"
                                   class="form-control @error('shortDescription') is-invalid @enderror"
                                   maxlength="255"
+                                  required
                                   autofocus>{{ old('short_description') ?? $data['currentRow']['short_description'] ?? '' }}</textarea>
                         
                         @error('shortDescription')

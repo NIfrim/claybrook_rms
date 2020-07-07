@@ -14,7 +14,7 @@ class CreateAttractionsTable extends Migration
     public function up()
     {
         Schema::table('attractions', function (Blueprint $table) {
-			$table->foreign('zoo_id', 'fk_animals_zoos')->references('id')->on('zoos')->onDelete('cascade');
+			$table->foreign('zoo_id', 'fk_animals_zoos')->references('id')->on('zoos')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

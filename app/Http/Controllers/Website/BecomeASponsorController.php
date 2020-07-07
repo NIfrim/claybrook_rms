@@ -29,7 +29,7 @@ class BecomeASponsorController extends Controller
 			'category' => $category,
 			'subcategory' => $subcategory,
 			'sponsorshipBands' => $this->getData('sponsorship_bands'),
-			'zoo' => $this->getData('zoos', [['name', '=', 'Claybrook Zoo']]),
+			'zoo' => $this->getData('zoos', [['id', '=', 1]])->first(),
 		]);
 	}
 	

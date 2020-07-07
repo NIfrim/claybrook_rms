@@ -148,7 +148,7 @@ class ZooController extends Controller
 		$extension = $image->extension();
 		$fileName = $type.'-'.$request->id.'.'.$extension;
 		
-		$image->storeAs('public/zoo', $fileName);
+		Storage::disk('public_images')->putFileAs('zoo', $image, $fileName);
 		
 		// Add to request as string to be added during creation
 		$imageFilename = $fileName;
@@ -179,7 +179,7 @@ class ZooController extends Controller
 			$extension = $image->extension();
 			$fileName = $type.'-'.$request->id.'-'.$index.'.'.$extension;
 			
-			$image->storeAs('public/zoo', $fileName);
+			Storage::disk('public_images')->putFileAs('zoo', $image, $fileName);
 			
 			// Add to request as string to be added during creation
 			array_push($imagesFilenames, $fileName);
@@ -198,7 +198,8 @@ class ZooController extends Controller
 	public function removeImages(string $id, string $type) {
 		
 		// Get the files to be deleted
-		$filesInDir = Storage::files('public/zoo');
+		$filesInDir = Storage::disk('public_images')->files('zoo');
+		
 		$imagesToBeRemoved = array_filter($filesInDir, function ($elem) use ($id, $type) {
 			$segments = explode('/', $elem);
 			$filenameString = end($segments);
@@ -230,7 +231,7 @@ class ZooController extends Controller
 			
 			case 'details':
 				$validationRules = [
-					'company_number' => ['required', 'numeric', 'max:9999999999'],
+					'company_number' => ['required', 'string', 'max:11'],
 					'name' => ['required', 'string', 'max:45'],
 					'map_image' => isset($data['map_image']) ? ['string'] : [],
 					'images' => isset($data['images']) ? ['array'] : [],

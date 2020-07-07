@@ -2,19 +2,21 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\AccountType;
+use App\Models\AccountType;
 use Faker\Generator as Faker;
 
 $factory->define(AccountType::class, function (Faker $faker) {
     return [
-        'id' => 'Admin',
+        'name' => 'Admin',
 		'permissions' => [
-			'animals' => ['READ', 'WRITE'],
-			'locations' => ['READ', 'WRITE'],
-			'accounts' => ['READ', 'WRITE'],
-			'eventsAndNews' => ['READ', 'WRITE'],
-			'sponsors' => ['READ', 'WRITE'],
-			'reviews' => ['READ', 'WRITE']
+			"animals" => ["READ", "WRITE"],
+			"reviews" => ["READ", "WRITE"],
+			"sponsors" => ["READ", "WRITE"],
+			"employees" => ["READ", "WRITE"],
+			"locations" => ["READ", "WRITE"],
+			"attractions" => ["READ", "WRITE"],
+			"eventsAndNews" => ["READ", "WRITE"],
+			"ticketsAndPasses" => ["READ", "WRITE"]
 		]
     ];
 });

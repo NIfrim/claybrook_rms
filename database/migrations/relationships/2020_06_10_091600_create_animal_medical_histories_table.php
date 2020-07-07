@@ -14,7 +14,7 @@ class CreateAnimalMedicalHistoriesTable extends Migration
     public function up()
     {
         Schema::table('animal_medical_histories', function (Blueprint $table) {
-			$table->foreign('animal_id', 'fk_animalMedicalHistories_animals')->references('id')->on('animals')->onDelete('cascade');
+			$table->foreign('animal_id', 'fk_animalMedicalHistories_animals')->references('id')->on('animals')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

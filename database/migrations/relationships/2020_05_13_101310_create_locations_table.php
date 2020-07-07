@@ -15,7 +15,7 @@ class CreateLocationsTable extends Migration
     {
         Schema::table('locations', function (Blueprint $table) {
 			// Constraints
-			$table->foreign('zoo_id', 'fk_locations_zoos')->references('id')->on('zoos')->onDelete('cascade');
+			$table->foreign('zoo_id', 'fk_locations_zoos')->references('id')->on('zoos')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

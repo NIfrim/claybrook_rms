@@ -17,10 +17,11 @@ class CreateSponsorAgreementsTable extends Migration
             $table->id()->autoIncrement();
             $table->unsignedBigInteger('sponsor_id');
 			$table->date('date');
-			$table->dateTime('agreement_start');
-			$table->dateTime('agreement_end');
-			$table->tinyInteger('signage_area');
-			$table->enum('payment_status', ['PENDING', 'PAID', 'OVERDUE', 'DECLINED']);
+			$table->date('agreement_start');
+			$table->date('agreement_end');
+			$table->unsignedDecimal('signage_area', 5, 2)->nullable()->default(12.50);
+			$table->enum('payment_status', ['PENDING', 'PAID', 'OVERDUE', 'DECLINED'])->nullable()->default('PENDING');
+			$table->json('documents')->nullable();
 			$table->timestamps();
         });
     }

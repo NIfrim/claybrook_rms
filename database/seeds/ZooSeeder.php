@@ -1,7 +1,7 @@
 <?php
-	
-	use App\Zoo;
-	use Illuminate\Database\Seeder;
+
+use App\Models\Zoo;
+use Illuminate\Database\Seeder;
 
 class ZooSeeder extends Seeder
 {

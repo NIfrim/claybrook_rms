@@ -15,7 +15,7 @@ class CreateSponsorsTable extends Migration
     {
         Schema::table('sponsors', function (Blueprint $table) {
 			// Constraints
-			$table->foreign('zoo_id', 'fk_sponsors_zoos')->references('id')->on('zoos')->onDelete('cascade');
+			$table->foreign('zoo_id', 'fk_sponsors_zoos')->references('id')->on('zoos')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 
