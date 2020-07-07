@@ -10,7 +10,7 @@ All commands done using power shell:
 
 1. cd into the cloned project root directory
 2. ```git checkout evaluation```
-3. open ```Homestead.yaml``` and replace ```'C:\Users\ifrim\Desktop\test\claybrook_rms'``` to match the path of the cloned project
+3. open ```Homestead.yaml``` and replace ```'C:\Users\ifrim\Desktop\test\claybrook_rms'``` to match the path of where you the cloned project
 4. add the ip from the top of ```Homestead.yaml``` file to your windows host file (in ```C://Windows/system32/drivers/etc```) at the bottom, it will ask for admin permissions to save. Should look like this when added: ```192.168.10.10 homestead.test```
 5. ```vagrant up```
 6. ```vagrant ssh```
