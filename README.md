@@ -1,6 +1,6 @@
 # Claybrook Zoo RMS & Website with Account management for Sponsors
 
-This project is Laravel based and has been done as part of CSY3013 - Software Engineering course for the University of Northampton.
+This project is Laravel based and has been done as part of CSY3013 - Software Engineering course for the University of Northampton. Our client was a Zoo which required a Records Management System and a Website.
 
 This project has laravel homestead as a dependency, so it can be run on any machine using a virtual machine. It requires you to have Vagrant, VirtualBox, and nodejs installed on your machine.
 
