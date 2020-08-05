@@ -24,3 +24,10 @@ To connect to db using workbench use 192.168.10.10 which is the ip in ```Homeste
 
 RMS at http://192.168.10.10/admin (user: admin@claybrook.com, password: letmein)
 Website at http://192.168.10.10
+
+## UI samples Backend & Website
+Backend is used by the Zoo to manage animals and other relevant records:
+![Backend UI sample](backend.png)
+
+The website is used by the visitors and sponsors:
+![Website UI sample](website.png)
